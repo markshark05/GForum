@@ -4,9 +4,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using GForum.Models.ManageViewModels;
+using GForum.Web.Models.Manage;
 
-namespace GForum.Controllers
+namespace GForum.Web.Controllers
 {
     [Authorize]
     public class ManageController : Controller
@@ -14,19 +14,57 @@ namespace GForum.Controllers
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
 
-        private IAuthenticationManager AuthenticationManager
+        public ManageController()
         {
-            get
+        }
+
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            this.UserManager = userManager;
+            this.SignInManager = signInManager;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && this.userManager != null)
             {
-                return this.HttpContext.GetOwinContext().Authentication;
+                this.userManager.Dispose();
+                this.userManager = null;
             }
+
+            base.Dispose(disposing);
+        }
+
+        public enum ManageMessageId
+        {
+            AddPhoneSuccess,
+            ChangePasswordSuccess,
+            SetTwoFactorSuccess,
+            SetPasswordSuccess,
+            RemoveLoginSuccess,
+            RemovePhoneSuccess,
+            Error
+        }
+
+        private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
+
+        public ApplicationSignInManager SignInManager
+        {
+            get => this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            private set => this.signInManager = value;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get => this.userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            private set => this.userManager = value;
         }
 
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
-                this.ModelState.AddModelError("", error);
+                this.ModelState.AddModelError(string.Empty, error);
             }
         }
 
@@ -40,41 +78,6 @@ namespace GForum.Controllers
             return false;
         }
 
-        public ManageController()
-        {
-        }
-
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            this.UserManager = userManager;
-            this.SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            {
-                this.signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return this.userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                this.userManager = value;
-            }
-        }
-
-        //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
@@ -91,22 +94,18 @@ namespace GForum.Controllers
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
-                PhoneNumber = await this.UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await this.UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await this.UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await this.AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
         }
 
-        //
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        //
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -128,28 +127,6 @@ namespace GForum.Controllers
             }
             AddErrors(result);
             return View(model);
-        }
-
-        public enum ManageMessageId
-        {
-            AddPhoneSuccess,
-            ChangePasswordSuccess,
-            SetTwoFactorSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-            RemovePhoneSuccess,
-            Error
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && this.userManager != null)
-            {
-                this.userManager.Dispose();
-                this.userManager = null;
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

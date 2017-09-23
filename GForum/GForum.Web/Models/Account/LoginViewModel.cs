@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GForum.Models.AccountViewModels
+namespace GForum.Web.Models.Account
 {
     public class LoginViewModel
     {

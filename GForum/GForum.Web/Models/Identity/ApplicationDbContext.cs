@@ -1,7 +1,6 @@
-﻿using System.Data.Entity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace GForum.Models.IdentityModels
+namespace GForum.Web.Models.Identity
 {
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

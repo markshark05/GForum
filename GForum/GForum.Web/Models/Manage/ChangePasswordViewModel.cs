@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GForum.Models.ManageViewModels
+namespace GForum.Web.Models.Manage
 {
     public class ChangePasswordViewModel
     {

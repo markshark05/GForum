@@ -1,14 +1,11 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(GForum.Startup))]
-namespace GForum
+[assembly: OwinStartup(typeof(GForum.Web.Startup))]
+namespace GForum.Web
 {
     public partial class Startup
     {
-        public void Configuration(IAppBuilder app)
-        {
-            ConfigureAuth(app);
-        }
+        public void Configuration(IAppBuilder app) => this.ConfigureAuth(app);
     }
 }
