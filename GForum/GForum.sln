@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GForum.Web", "GForum.Web\GF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GForum.Web.Tests", "GForum.Web.Tests\GForum.Web.Tests.csproj", "{E24767D5-672C-4B65-B413-E783245CB1ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GForum.Data", "GForum.Data\GForum.Data.csproj", "{BFBB8190-FF1E-4551-B0D8-B4D1B5782CCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GForum.Data.Models", "GForum.Data.Models\GForum.Data.Models.csproj", "{87E3EF97-EA81-4DAC-8B1D-C0CA7AD6A49F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{E24767D5-672C-4B65-B413-E783245CB1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E24767D5-672C-4B65-B413-E783245CB1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E24767D5-672C-4B65-B413-E783245CB1ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFBB8190-FF1E-4551-B0D8-B4D1B5782CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFBB8190-FF1E-4551-B0D8-B4D1B5782CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFBB8190-FF1E-4551-B0D8-B4D1B5782CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFBB8190-FF1E-4551-B0D8-B4D1B5782CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87E3EF97-EA81-4DAC-8B1D-C0CA7AD6A49F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87E3EF97-EA81-4DAC-8B1D-C0CA7AD6A49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87E3EF97-EA81-4DAC-8B1D-C0CA7AD6A49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87E3EF97-EA81-4DAC-8B1D-C0CA7AD6A49F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

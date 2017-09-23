@@ -184,9 +184,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\IdentityConfig\ApplicationSignInManager.cs" />
+    <Compile Include="App_Start\IdentityConfig\ApplicationUserManager.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -197,8 +198,6 @@
     </Compile>
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
-    <Compile Include="Models\Identity\ApplicationDbContext.cs" />
-    <Compile Include="Models\Identity\ApplicationUser.cs" />
     <Compile Include="Models\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="Models\Manage\IndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,6 +262,16 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GForum.Data.Models\GForum.Data.Models.csproj">
+      <Project>{87E3EF97-EA81-4DAC-8B1D-C0CA7AD6A49F}</Project>
+      <Name>GForum.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GForum.Data\GForum.Data.csproj">
+      <Project>{BFBB8190-FF1E-4551-B0D8-B4D1B5782CCE}</Project>
+      <Name>GForum.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

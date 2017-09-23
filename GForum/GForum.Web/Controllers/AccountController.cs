@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GForum.Web.Models.Account;
-using GForum.Web.Models.Identity;
+using GForum.Data.Models;
 
 namespace GForum.Web.Controllers
 {
