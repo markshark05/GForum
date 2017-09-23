@@ -99,9 +99,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GForum\GForum.csproj">
+    <ProjectReference Include="..\GForum.Web\GForum.Web.csproj">
       <Project>{F11A6E47-5E89-4790-A8EA-8EB9866A8FDA}</Project>
-      <Name>GForum</Name>
+      <Name>GForum.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

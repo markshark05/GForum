@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GForum", "GForum\GForum.csproj", "{F11A6E47-5E89-4790-A8EA-8EB9866A8FDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GForum.Web", "GForum.Web\GForum.Web.csproj", "{F11A6E47-5E89-4790-A8EA-8EB9866A8FDA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GForum.Web.Tests", "GForum.Web.Tests\GForum.Web.Tests.csproj", "{E24767D5-672C-4B65-B413-E783245CB1ED}"
 EndProject
