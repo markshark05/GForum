@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GForum.Web.Models.Manage;
+using GForum.Web.IdentityConfig;
 
 namespace GForum.Web.Controllers
 {
@@ -94,8 +95,6 @@ namespace GForum.Web.Controllers
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
-                Logins = await this.UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await this.AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
         }

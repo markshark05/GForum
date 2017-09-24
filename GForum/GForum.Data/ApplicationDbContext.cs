@@ -1,4 +1,5 @@
-﻿using GForum.Data.Models;
+﻿using System.Data.Entity;
+using GForum.Data.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GForum.Data
@@ -8,6 +9,8 @@ namespace GForum.Data
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
+            Database.SetInitializer(new DbInitializer());
+            this.Database.Initialize(true);
         }
     }
 }
