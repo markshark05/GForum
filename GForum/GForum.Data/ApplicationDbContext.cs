@@ -12,5 +12,9 @@ namespace GForum.Data
             Database.SetInitializer(new DbInitializer());
             this.Database.Initialize(true);
         }
+
+        public virtual IDbSet<Post> Posts { get; set; }
+
+        public virtual IDbSet<Category> Categories { get; set; }
     }
 }

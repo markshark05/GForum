@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using GForum.Data.Models;
 using Microsoft.AspNet.Identity;
@@ -33,6 +34,14 @@ namespace GForum.Data
                 manager.Create(user, "password");
 
                 manager.AddToRole(user.Id, "Admin");
+            }
+
+            if (!context.Categories.Any(c => c.Title == "General"))
+            {
+                var category = new Category { Title = "General" };
+
+                context.Categories.Add(category);
+                context.SaveChanges();
             }
 
             base.Seed(context);
