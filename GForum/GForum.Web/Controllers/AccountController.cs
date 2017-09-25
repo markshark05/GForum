@@ -7,37 +7,35 @@ using Microsoft.Owin.Security;
 using GForum.Web.Models.Account;
 using GForum.Data.Models;
 using GForum.Web.IdentityConfig;
+using System.Web.Routing;
 
 namespace GForum.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
+        private ApplicationSignInManager signInManager;
+        private IAuthenticationManager authenticationManager;
 
-        public AccountController()
+        protected override void Initialize(RequestContext requestContext)
         {
+            this.userManager = requestContext.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            this.signInManager = requestContext.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            this.authenticationManager = requestContext.HttpContext.GetOwinContext().Authentication;
+
+            base.Initialize(requestContext);
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        protected override void Dispose(bool disposing)
         {
-            this.UserManager = userManager;
-            this.SignInManager = signInManager;
-        }
+            if (disposing)
+            {
+                this.userManager?.Dispose();
+                this.signInManager?.Dispose();
+            }
 
-        private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
-
-        public ApplicationUserManager UserManager
-        {
-            get => this.userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            private set => this.userManager = value;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get => this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            private set => this.signInManager = value;
+            base.Dispose(disposing);
         }
 
         private void AddErrors(IdentityResult result)
@@ -76,7 +74,7 @@ namespace GForum.Web.Controllers
                 return View(model);
             }
 
-            var result = await this.SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: true);
+            var result = await this.signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -108,10 +106,10 @@ namespace GForum.Web.Controllers
             if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
-                var result = await this.UserManager.CreateAsync(user, model.Password);
+                var result = await this.userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await this.SignInManager.SignInAsync(user, isPersistent: true, rememberBrowser: false);
+                    await this.signInManager.SignInAsync(user, isPersistent: true, rememberBrowser: false);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -127,7 +125,7 @@ namespace GForum.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            this.authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
     }

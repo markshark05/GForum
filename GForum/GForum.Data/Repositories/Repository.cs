@@ -4,67 +4,56 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Queries.Persistence.Repositories
+namespace GForum.Data.Repositories
 {
     public class Repository<TEntity>
         where TEntity : class
     {
-        protected readonly DbContext context;
+        private readonly DbSet<TEntity> entities;
 
         public Repository(DbContext context)
         {
-            this.context = context;
+            this.entities = context.Set<TEntity>();
         }
 
         public TEntity Get(int id)
         {
-            return this.context.Set<TEntity>().Find(id);
+            return this.entities.Find(id);
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            // Note that here I've repeated Context.Set<TEntity>() in every method and this is causing
-            // too much noise. I could get a reference to the DbSet returned from this method in the 
-            // constructor and store it in a private field like _entities. This way, the implementation
-            // of our methods would be cleaner:
-            // 
-            // _entities.ToList();
-            // _entities.Where();
-            // _entities.SingleOrDefault();
-            // 
-            // I didn't change it because I wanted the code to look like the videos. But feel free to change
-            // this on your own.
-            return this.context.Set<TEntity>().ToList();
+            return this.entities.ToList();
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return this.context.Set<TEntity>().Where(predicate);
+            return this.entities.Where(predicate);
         }
 
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            return this.context.Set<TEntity>().SingleOrDefault(predicate);
+            return this.entities.SingleOrDefault(predicate);
         }
 
         public void Add(TEntity entity)
         {
-            this.context.Set<TEntity>().Add(entity);
+            this.entities.Add(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
         {
-            this.context.Set<TEntity>().AddRange(entities);
+            this.entities.AddRange(entities);
         }
 
         public void Remove(TEntity entity)
         {
-            this.context.Set<TEntity>().Remove(entity);
+            this.entities.Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
-            this.context.Set<TEntity>().RemoveRange(entities);
+            this.entities.RemoveRange(entities);
         }
     }
 }

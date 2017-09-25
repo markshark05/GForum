@@ -38,7 +38,7 @@ namespace GForum.Data
 
             if (!context.Categories.Any(c => c.Title == "General"))
             {
-                var category = new Category { Title = "General" };
+                var category = new Category { Title = "General", DateCreated = DateTime.Now };
 
                 context.Categories.Add(category);
                 context.SaveChanges();

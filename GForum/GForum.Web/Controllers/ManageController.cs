@@ -6,31 +6,32 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GForum.Web.Models.Manage;
 using GForum.Web.IdentityConfig;
+using System.Web.Routing;
 
 namespace GForum.Web.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
+        private ApplicationSignInManager signInManager;
+        private IAuthenticationManager authenticationManager;
 
-        public ManageController()
+        protected override void Initialize(RequestContext requestContext)
         {
-        }
+            this.userManager = requestContext.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            this.signInManager = requestContext.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            this.authenticationManager = requestContext.HttpContext.GetOwinContext().Authentication;
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            this.UserManager = userManager;
-            this.SignInManager = signInManager;
+            base.Initialize(requestContext);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && this.userManager != null)
+            if (disposing)
             {
-                this.userManager.Dispose();
-                this.userManager = null;
+                this.userManager?.Dispose();
+                this.signInManager?.Dispose();
             }
 
             base.Dispose(disposing);
@@ -38,27 +39,8 @@ namespace GForum.Web.Controllers
 
         public enum ManageMessageId
         {
-            AddPhoneSuccess,
             ChangePasswordSuccess,
-            SetTwoFactorSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-            RemovePhoneSuccess,
             Error
-        }
-
-        private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
-
-        public ApplicationSignInManager SignInManager
-        {
-            get => this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            private set => this.signInManager = value;
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get => this.userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            private set => this.userManager = value;
         }
 
         private void AddErrors(IdentityResult result)
@@ -71,7 +53,7 @@ namespace GForum.Web.Controllers
 
         private bool HasPassword()
         {
-            var user = this.UserManager.FindById(this.User.Identity.GetUserId());
+            var user = this.userManager.FindById(this.User.Identity.GetUserId());
             if (user != null)
             {
                 return user.PasswordHash != null;
@@ -84,11 +66,7 @@ namespace GForum.Web.Controllers
         {
             this.ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : string.Empty;
 
             var userId = this.User.Identity.GetUserId();
@@ -114,13 +92,13 @@ namespace GForum.Web.Controllers
             {
                 return View(model);
             }
-            var result = await this.UserManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = await this.userManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+                var user = await this.userManager.FindByIdAsync(this.User.Identity.GetUserId());
                 if (user != null)
                 {
-                    await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await this.signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
