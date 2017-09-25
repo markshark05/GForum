@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.user-navabar-avatar {
+    width: 40px;
+    margin: 5px auto;
+    border-radius: 50%;
+}

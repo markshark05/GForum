@@ -25,8 +25,7 @@ namespace GForum.Data
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser
                 {
-                    UserName = "admin@gforum.com",
-                    Email = "admin@gforum.com",
+                    UserName = "admin",
                     EmailConfirmed = true,
                 };
 
