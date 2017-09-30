@@ -64,5 +64,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GForum.Common\GForum.Common.csproj">
+      <Project>{E7914C4F-111D-4236-8379-09ACB0FCA834}</Project>
+      <Name>GForum.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

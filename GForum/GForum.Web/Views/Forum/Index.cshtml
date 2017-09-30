@@ -8,23 +8,13 @@
         <h2 class="text-center">Categories</h2>
         @foreach (var category in Model.Categories)
         {
-            <div class="category row">
-                <div class="col-xs-12 col-sm-8">
-                    <div class="title">
-                        <a href="@category.Id">@category.Title</a>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="row">
-                        <span class="col-xs-3">@("post".ToQuantity(category.PostsCount))</span>
-                        <span class="col-xs-9">
-                            <span>Created by</span>
-                            <strong>
-                                <a href="@category.Author.Id">@category.Author.UserName</a>
-                            </strong>
-                            <span>@((DateTime.Now - category.CreatedOn).Humanize()) ago.</span>
-                        </span>
-                    </div>
+            <div class="category">
+                <a class="title" href="@category.Id">@category.Title</a>
+                <div class="text-muted">
+                    <span>Created by <a href="@category.Author.Id">@category.Author.UserName</a></span>
+                    <span>@category.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)</span>
+                    <span>&ndash;</span>
+                    <span class="post-count">@("post".ToQuantity(category.PostsCount))</span>
                 </div>
             </div>
         }

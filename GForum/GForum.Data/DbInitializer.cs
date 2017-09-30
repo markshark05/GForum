@@ -16,23 +16,23 @@ namespace GForum.Data
             var userManager = new UserManager<ApplicationUser>(userStore);
 
             // Seed roles
-            var role = new IdentityRole { Name = Globals.AdminRoleName };
-            roleManager.Create(role);
+            var adminRole = new IdentityRole { Name = Globals.AdminRoleName };
+            roleManager.Create(adminRole);
 
             // Seed users
-            var user = new ApplicationUser
+            var admin = new ApplicationUser
             {
                 UserName = Globals.DefaultAdminUsername,
                 EmailConfirmed = true,
             };
-            userManager.Create(user, Globals.DefaultAdminPassword);
-            userManager.AddToRole(user.Id, Globals.AdminRoleName);
+            userManager.Create(admin, Globals.DefaultAdminPassword);
+            userManager.AddToRole(admin.Id, Globals.AdminRoleName);
 
             // Seed catgeories
             var category = new Category
             {
                 Title = Globals.DefaultCategoryTitle,
-                Author = user,
+                Author = admin,
             };
             context.Categories.Add(category);
 
@@ -44,7 +44,7 @@ namespace GForum.Data
                     $@"An admin account has been created with username - ""{Globals.DefaultAdminUsername}"" and " +
                     $@"password - ""{Globals.DefaultAdminPassword}"". Please change the passowrd ASAP!",
                 Category = category,
-                Author = user,
+                Author = admin,
             };
             category.Posts.Add(post);
 
