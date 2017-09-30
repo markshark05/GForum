@@ -5,7 +5,7 @@ namespace GForum.Web.App_Start
 {
     using System;
     using System.Web;
-
+    using GForum.Data;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -61,6 +61,7 @@ namespace GForum.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-        }        
+            kernel.Bind<ApplicationDbContext>().ToSelf();
+        }
     }
 }

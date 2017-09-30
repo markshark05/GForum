@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
+using GForum.Data.Models.Contracts;
 
 namespace GForum.Data.Repositories
 {
     public class Repository<TEntity>
-        where TEntity : class
+        where TEntity : class, IEntity
     {
         private readonly DbSet<TEntity> entities;
 
@@ -16,24 +16,9 @@ namespace GForum.Data.Repositories
             this.entities = context.Set<TEntity>();
         }
 
-        public TEntity Get(int id)
+        public IQueryable<TEntity> GetAll()
         {
-            return this.entities.Find(id);
-        }
-
-        public IEnumerable<TEntity> GetAll()
-        {
-            return this.entities.ToList();
-        }
-
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
-        {
-            return this.entities.Where(predicate);
-        }
-
-        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
-        {
-            return this.entities.SingleOrDefault(predicate);
+            return this.entities.Where(e => !e.IsDeleted);
         }
 
         public void Add(TEntity entity)
@@ -48,12 +33,17 @@ namespace GForum.Data.Repositories
 
         public void Remove(TEntity entity)
         {
-            this.entities.Remove(entity);
+            entity.IsDeleted = true;
+            entity.DeletedOn = DateTime.Now;
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
-            this.entities.RemoveRange(entities);
+            foreach (var entity in entities)
+            {
+                entity.IsDeleted = true;
+                entity.DeletedOn = DateTime.Now;
+            }
         }
     }
 }

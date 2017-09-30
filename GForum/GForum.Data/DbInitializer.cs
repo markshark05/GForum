@@ -1,6 +1,5 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
+using GForum.Common;
 using GForum.Data.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -11,39 +10,46 @@ namespace GForum.Data
     {
         protected override void Seed(ApplicationDbContext context)
         {
-            if (!context.Roles.Any(r => r.Name == "Admin"))
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            // Seed roles
+            var role = new IdentityRole { Name = Globals.AdminRoleName };
+            roleManager.Create(role);
+
+            // Seed users
+            var user = new ApplicationUser
             {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "Admin" };
+                UserName = Globals.DefaultAdminUsername,
+                EmailConfirmed = true,
+            };
+            userManager.Create(user, Globals.DefaultAdminPassword);
+            userManager.AddToRole(user.Id, Globals.AdminRoleName);
 
-                manager.Create(role);
-            }
-
-            if (!context.Users.Any(u => u.UserName == "admin"))
+            // Seed catgeories
+            var category = new Category
             {
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser
-                {
-                    UserName = "admin",
-                    EmailConfirmed = true,
-                };
+                Title = Globals.DefaultCategoryTitle,
+                Author = user,
+            };
+            context.Categories.Add(category);
 
-                // Change this when deploying!!
-                manager.Create(user, "password");
-
-                manager.AddToRole(user.Id, "Admin");
-            }
-
-            if (!context.Categories.Any(c => c.Title == "General"))
+            // Seed posts
+            var post = new Post
             {
-                var category = new Category { Title = "General", DateCreated = DateTime.Now };
+                Title = "README",
+                Content =
+                    $@"An admin account has been created with username - ""{Globals.DefaultAdminUsername}"" and " +
+                    $@"password - ""{Globals.DefaultAdminPassword}"". Please change the passowrd ASAP!",
+                Category = category,
+                Author = user,
+            };
+            category.Posts.Add(post);
 
-                context.Categories.Add(category);
-                context.SaveChanges();
-            }
-
+            // Complete
+            context.SaveChanges();
             base.Seed(context);
         }
     }

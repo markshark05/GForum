@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Humanizer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Humanizer.Core.2.2.0\lib\netstandard1.0\Humanizer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -204,6 +207,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -211,6 +215,7 @@
     </Compile>
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
+    <Compile Include="Models\Forum\IndexViewModel.cs" />
     <Compile Include="Models\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="Models\Manage\IndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -259,6 +264,8 @@
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Forum\Category.cshtml" />
+    <Content Include="Views\Forum\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -277,6 +284,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GForum.Common\GForum.Common.csproj">
+      <Project>{E7914C4F-111D-4236-8379-09ACB0FCA834}</Project>
+      <Name>GForum.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GForum.Data.Models\GForum.Data.Models.csproj">
       <Project>{87E3EF97-EA81-4DAC-8B1D-C0CA7AD6A49F}</Project>
       <Name>GForum.Data.Models</Name>
@@ -284,6 +295,10 @@
     <ProjectReference Include="..\GForum.Data\GForum.Data.csproj">
       <Project>{BFBB8190-FF1E-4551-B0D8-B4D1B5782CCE}</Project>
       <Name>GForum.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GForum.Services\GForum.Services.csproj">
+      <Project>{51385AF6-58EF-44BD-B72E-3B00B0B6747E}</Project>
+      <Name>GForum.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

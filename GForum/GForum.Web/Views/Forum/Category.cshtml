@@ -1,0 +1,16 @@
+﻿@model GForum.Data.Models.Category
+@{
+    ViewBag.Title = "Category";
+}
+
+<h2>@Model.Title</h2>
+
+<ul>
+    @foreach (var post in Model.Posts)
+    {
+        <li>
+            <p><strong>@post.Title</strong></p>
+            <p>@post.Content</p>
+        </li>
+    }
+</ul>

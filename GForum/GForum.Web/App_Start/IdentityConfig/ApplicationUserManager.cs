@@ -1,4 +1,5 @@
 ﻿using System;
+using GForum.Common;
 using GForum.Data;
 using GForum.Data.Models;
 using Microsoft.AspNet.Identity;
@@ -28,7 +29,7 @@ namespace GForum.Web.IdentityConfig
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 5,
+                RequiredLength = Globals.RequiredPasswordLength,
                 RequireNonLetterOrDigit = false,
                 RequireDigit = false,
                 RequireLowercase = false,
