@@ -30,6 +30,8 @@ namespace GForum.Data.Models
 
         public virtual ICollection<Post> Posts { get; set; }
 
+        public virtual ICollection<Category> Categories { get; set; }
+
         public string GetAvatar(int sizePx = 80)
         {
             using (var md5 = MD5.Create())

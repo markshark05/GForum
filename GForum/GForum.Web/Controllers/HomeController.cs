@@ -15,12 +15,5 @@ namespace GForum.Web.Controllers
 
             return View();
         }
-
-        public ActionResult Contact()
-        {
-            this.ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

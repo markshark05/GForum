@@ -16,13 +16,13 @@ namespace GForum.Services
 
         public IQueryable<Category> GetAll()
         {
-            return this.data.Categories.GetAll();
+            return this.data.Categories.Query();
         }
 
         public Category GetById(Guid id)
         {
             return this.data.Categories
-                .GetAll()
+                .Query()
                 .FirstOrDefault(x => x.Id == id);
         }
     }

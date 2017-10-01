@@ -16,7 +16,7 @@ namespace GForum.Data.Repositories
             this.entities = context.Set<TEntity>();
         }
 
-        public IQueryable<TEntity> GetAll()
+        public IQueryable<TEntity> Query()
         {
             return this.entities.Where(e => !e.IsDeleted);
         }

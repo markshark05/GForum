@@ -11,7 +11,8 @@
             <div class="category">
                 <a class="title" href="@category.Id">@category.Title</a>
                 <div class="text-muted">
-                    <span>Created by <a href="@category.Author.Id">@category.Author.UserName</a></span>
+                    <span>Created by</span>
+                    @Html.ActionLink(category.Author.UserName, "Index", "Users", new { username = category.Author.UserName }, null)
                     <span>@category.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)</span>
                     <span>&ndash;</span>
                     <span class="post-count">@("post".ToQuantity(category.PostsCount))</span>

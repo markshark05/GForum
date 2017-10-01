@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNet.Identity
+@model GForum.Data.Models.ApplicationUser
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="pull-left">
+            <img class="profile-picture" src="@Model.GetAvatar(200)" />
+        </div>
+        <div class="profile-details pull-left">
+            <h3><strong>@Model.UserName</strong>'s profile</h3>
+            <h4>@("post".ToQuantity(Model.Posts.Count))</h4>
+            <h4>@("category".ToQuantity(Model.Categories.Count))</h4>
+            @if (User.Identity.GetUserId() == Model.Id)
+            {
+                @Html.ActionLink("Manage account", "Index", "Manage", null,
+                    new { @class = "btn btn-block btn-default" }
+                )
+            }
+        </div>
+    </div>
+</div>
