@@ -9,9 +9,8 @@ namespace GForum.Web.Models.Account
         [Display(Name = "Username")]
         public string Username { get; set; }
 
-        [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email (optional)")]
         public string Email { get; set; }
 
         [Required]

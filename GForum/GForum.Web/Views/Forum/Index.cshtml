@@ -1,11 +1,11 @@
 ﻿@model GForum.Web.Models.Forum.ForumIndexViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Categories";
 }
 
 <div class="row">
     <div class="col-xs-12">
-        <h2 class="text-center">Categories</h2>
+        <h2 class="text-center">@ViewBag.Title</h2>
         @foreach (var category in Model.Categories)
         {
             <div class="category">

@@ -5,21 +5,20 @@
 
 @if (Request.IsAuthenticated)
 {
+    var userEmail = HttpContext.Current.Request.GetOwinContext()
+        .GetUserManager<ApplicationUserManager>()
+        .FindById(User.Identity.GetUserId()).Email;
+
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-        <img class="user-navabar-avatar" src="@Html.Raw(
-            HttpContext.Current.Request.GetOwinContext()
-                .GetUserManager<ApplicationUserManager>()
-                .FindById(User.Identity.GetUserId())
-                .GetAvatar(35)
-        )" />
+        @Html.GravatarImage(userEmail, size: 35, cssClass: "user-navabar-avatar")
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @Html.ActionLink(
-                    $"Hello {User.Identity.GetUserName()}!",
-                    "Index", "Users", new { username = User.Identity.GetUserName() }, null
-               )
+            $"Hello {User.Identity.GetUserName()}!",
+            "Index", "Users", new { username = User.Identity.GetUserName() }, null
+        )
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
