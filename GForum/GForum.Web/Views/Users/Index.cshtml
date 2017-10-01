@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@model GForum.Data.Models.ApplicationUser
+@model GForum.Web.Models.Users.IndexViewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -7,12 +7,13 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="pull-left">
-            <img class="profile-picture" src="@Model.GetAvatar(200)" />
+            <img class="profile-picture" src="" />
         </div>
         <div class="profile-details pull-left">
             <h3><strong>@Model.UserName</strong>'s profile</h3>
-            <h4>@("post".ToQuantity(Model.Posts.Count))</h4>
-            <h4>@("category".ToQuantity(Model.Categories.Count))</h4>
+            <h4>@Model.Email</h4>
+            <h4>@("post".ToQuantity(Model.PostsCount))</h4>
+            <h4>@("category".ToQuantity(Model.CategoriesCount))</h4>
             @if (User.Identity.GetUserId() == Model.Id)
             {
                 @Html.ActionLink("Manage account", "Index", "Manage", null,

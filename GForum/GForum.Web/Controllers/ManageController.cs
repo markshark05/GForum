@@ -40,7 +40,8 @@ namespace GForum.Web.Controllers
         public enum ManageMessageId
         {
             ChangePasswordSuccess,
-            Error
+            ChnageEmailSuccess,
+            Error,
         }
 
         private void AddErrors(IdentityResult result)
@@ -51,30 +52,16 @@ namespace GForum.Web.Controllers
             }
         }
 
-        private bool HasPassword()
-        {
-            var user = this.userManager.FindById(this.User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-            return false;
-        }
-
         // GET: /Manage/Index
         public ActionResult Index(ManageMessageId? message)
         {
             this.ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.ChnageEmailSuccess ? "Your email has been changed."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : string.Empty;
 
-            var userId = this.User.Identity.GetUserId();
-            var model = new IndexViewModel
-            {
-                HasPassword = HasPassword(),
-            };
-            return View(model);
+            return View();
         }
 
         // GET: /Manage/ChangePassword
@@ -101,6 +88,35 @@ namespace GForum.Web.Controllers
                     await this.signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+            }
+            AddErrors(result);
+            return View(model);
+        }
+
+        // GET: /Manage/ChangeEmail
+        public ActionResult ChangeEmail()
+        {
+            var model = new ChangeEmailViewModel
+            {
+                CurrentEmail = this.userManager.GetEmail(this.User.Identity.GetUserId())
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeEmail(ChangeEmailViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await this.userManager.SetEmailAsync(this.User.Identity.GetUserId(), model.NewEmail);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChnageEmailSuccess });
             }
             AddErrors(result);
             return View(model);

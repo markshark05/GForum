@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
-using System.Web.Security;
 using GForum.Data;
+using GForum.Web.Models.Users;
 
 namespace GForum.Web.Controllers
 {
@@ -18,7 +19,17 @@ namespace GForum.Web.Controllers
         public ActionResult Index(string username)
         {
             var user = this.data.Users.Query()
-                .FirstOrDefault(x => x.UserName == username);
+                .Where(x => x.UserName == username)
+                .Select(x => new IndexViewModel
+                {
+                    Id = x.Id,
+                    UserName = x.UserName,
+                    Email = x.Email,
+                    CategoriesCount = x.Categories.Count,
+                    PostsCount = x.Posts.Count,
+                    CreatedOn = x.CreatedOn ?? default(DateTime),
+                })
+                .FirstOrDefault();
 
             return View(user);
         }

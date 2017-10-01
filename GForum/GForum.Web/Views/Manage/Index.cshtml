@@ -1,25 +1,18 @@
-﻿@model GForum.Web.Models.Manage.IndexViewModel
-@{
-    ViewBag.Title = "Manage";
+﻿@{
+    ViewBag.Title = "Manage your account";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
+<h4 class="text-muted">Change your account settings</h4>
+
 <div>
-    <h4>Change your account settings</h4>
+    <p class="text-success">@ViewBag.StatusMessage</p>
     <hr />
     <dl class="dl-horizontal">
+        <dt>Email:</dt>
+        <dd>@Html.ActionLink("Change your email", "ChangeEmail")</dd>
         <dt>Password:</dt>
-        <dd>
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-        </dd>
+        <dd>@Html.ActionLink("Change your password", "ChangePassword")</dd>
     </dl>
 </div>
