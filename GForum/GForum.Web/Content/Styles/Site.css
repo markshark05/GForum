@@ -20,26 +20,34 @@
     border-radius: 50%;
 }
 
-.category {
+.card {
     padding: 20px;
     margin-bottom: 20px;
     background-color: white;
     border: 1px solid #dddddd;
     border-radius: 4px;
+    overflow: hidden;
 }
-    .category .title {
-        display: inline-block;
-        width: 100%;
-        font-size: large;
-        font-weight: bold;
+    .card .title-one-line {
         overflow: hidden;
-        text-overflow: ellipsis;
         white-space: nowrap;
+        text-overflow: ellipsis;
     }
+    .card .content {
+        font-size: 1em;
+        border: 1px solid #024;
+        border-radius: 5px;
+        padding: 15px;
+    }
+    .card .content p {
+        margin: 5px 0;
+    }
+
 
 .profile-picture {
     border-radius: 50%;
 }
+
 .profile-details {
     padding: 0 40px;
 }

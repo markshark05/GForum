@@ -1,16 +1,21 @@
 ﻿@model GForum.Data.Models.Category
 @{
-    ViewBag.Title = "Category";
+    ViewBag.Title = $"{Model.Title} catgeory";
 }
 
-<h2>@Model.Title</h2>
-
-<ul>
-    @foreach (var post in Model.Posts)
-    {
-        <li>
-            <p><strong>@post.Title</strong></p>
-            <p>@post.Content</p>
-        </li>
-    }
-</ul>
+<div class="row">
+    <div class="col-xs-12">
+        <h2 class="text-center">@Model.Title</h2>
+        @foreach (var post in Model.Posts)
+        {
+            <div class="card">
+                <h4 class="title-one-line">@Html.ActionLink(post.Title, "Post", "Forum", new { id = post.Id }, null)</h4>
+                <p class="text-muted">
+                    Submitted by
+                    @Html.ActionLink(post.Author.UserName, "Index", "Users", new { username = post.Author.UserName }, null)
+                    @post.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)
+                </p>
+            </div>
+        }
+    </div>
+</div>

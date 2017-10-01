@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using GForum.Common;
 using GForum.Data.Models;
 using Microsoft.AspNet.Identity;
@@ -41,8 +42,9 @@ namespace GForum.Data
             {
                 Title = "README",
                 Content =
-                    $@"An admin account has been created with username - ""{Globals.DefaultAdminUsername}"" and " +
-                    $@"password - ""{Globals.DefaultAdminPassword}"". Please change the passowrd ASAP!",
+                    $"An admin account has been created " +
+                    $"with username - *{Globals.DefaultAdminUsername}* and password - *{Globals.DefaultAdminPassword}*.  \n" +
+                    $"**Please change the passowrd ASAP!**",
                 Category = category,
                 Author = admin,
             };

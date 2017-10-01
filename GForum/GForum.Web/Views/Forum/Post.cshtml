@@ -1,0 +1,23 @@
+﻿@using MarkdownSharp
+@model GForum.Data.Models.Post
+@{
+    ViewBag.Title = "Post";
+    var md = new Markdown();
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <h2 class="title">@Model.Title</h2>
+            <p class="text-muted">
+                Submitted by
+                @Html.ActionLink(Model.Author.UserName, "Index", "Users", new { username = Model.Author.UserName }, null)
+                @Model.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)
+            </p>
+
+            <div class="content">
+                @Html.MarkdownToHtml(Model.Content)
+            </div>
+        </div>
+    </div>
+</div>

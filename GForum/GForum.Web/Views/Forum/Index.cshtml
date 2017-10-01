@@ -1,6 +1,6 @@
 ﻿@model GForum.Web.Models.Forum.ForumIndexViewModel
 @{
-    ViewBag.Title = "Categories";
+    ViewBag.Title = "Forum Home";
 }
 
 <div class="row">
@@ -8,15 +8,15 @@
         <h2 class="text-center">@ViewBag.Title</h2>
         @foreach (var category in Model.Categories)
         {
-            <div class="category">
-                <a class="title" href="@category.Id">@category.Title</a>
-                <div class="text-muted">
-                    <span>Created by</span>
+            <div class="card">
+                <h4 class="title-one-line">@Html.ActionLink(category.Title, "Category", "Forum", new { id = category.Id }, null)</h4>
+                <p class="text-muted">
+                    Created by
                     @Html.ActionLink(category.Author.UserName, "Index", "Users", new { username = category.Author.UserName }, null)
-                    <span>@category.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)</span>
-                    <span>&ndash;</span>
-                    <span class="post-count">@("post".ToQuantity(category.PostsCount))</span>
-                </div>
+                    @category.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)
+                    <span>&bull;</span>
+                    @("post".ToQuantity(category.PostsCount))
+                </p>
             </div>
         }
     </div>
