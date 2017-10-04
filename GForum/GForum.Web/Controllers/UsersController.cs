@@ -1,6 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
+using AutoMapper.QueryableExtensions;
 using GForum.Data;
 using GForum.Web.Models.Users;
 
@@ -20,15 +20,7 @@ namespace GForum.Web.Controllers
         {
             var user = this.data.Users.Query()
                 .Where(x => x.UserName == username)
-                .Select(x => new IndexViewModel
-                {
-                    Id = x.Id,
-                    UserName = x.UserName,
-                    Email = x.Email,
-                    CategoriesCount = x.Categories.Count,
-                    PostsCount = x.Posts.Count,
-                    CreatedOn = x.CreatedOn ?? default(DateTime),
-                })
+                .ProjectTo<UserViewModel>()
                 .FirstOrDefault();
 
             return View(user);

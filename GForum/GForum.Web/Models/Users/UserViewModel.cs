@@ -1,8 +1,10 @@
 ﻿using System;
+using GForum.Data.Models;
+using Heroic.AutoMapper;
 
 namespace GForum.Web.Models.Users
 {
-    public class IndexViewModel
+    public class UserViewModel : IMapFrom<ApplicationUser>
     {
         public string Id { get; set; }
 

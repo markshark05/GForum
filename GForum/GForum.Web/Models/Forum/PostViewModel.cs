@@ -1,8 +1,10 @@
 ﻿using System;
+using GForum.Data.Models;
+using Heroic.AutoMapper;
 
 namespace GForum.Web.Models.Forum
 {
-    public class PostViewModel
+    public class PostViewModel: IMapFrom<Post>
     {
         public Guid Id { get; set; }
 

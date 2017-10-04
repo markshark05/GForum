@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using GForum.Services;
 using GForum.Web.Models.Forum;
 
@@ -11,7 +13,10 @@ namespace GForum.Web.Controllers
         private readonly CategoryService categoryService;
         private readonly PostService postService;
 
-        public ForumController(CategoryService categoryService, PostService postService)
+        public ForumController(
+                CategoryService categoryService,
+                PostService postService
+            )
         {
             this.categoryService = categoryService;
             this.postService = postService;
@@ -20,66 +25,27 @@ namespace GForum.Web.Controllers
         // GET: /forum
         public ActionResult Index()
         {
-            return View(this.categoryService
-                .GetAll()
-                .Select(c => new CategoryViewModel
-                {
-                    Id = c.Id,
-                    Author = new AuthorViewModel
-                    {
-                        Id = c.Author.Id,
-                        UserName = c.Author.UserName,
-                    },
-                    Title = c.Title,
-                    CreatedOn = c.CreatedOn ?? default(DateTime),
-                    PostsCount = c.Posts.Count,
-                })
-                .ToList()
-            );
+            var categories = this.categoryService.GetAll()
+                .ProjectTo<CategoryViewModel>()
+                .ToList();
+
+            return View(categories);
         }
 
         // GET: /forum/category/id
         public ActionResult Category(Guid id)
         {
-            var c = this.categoryService
-                .GetById(id);
+            var catgeory = Mapper.Map<CategoryWithPostsViewModel>(this.categoryService.GetById(id));
 
-            return View(new CategoryWithPostsViewModel
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Posts = c.Posts.Select(p => new PostViewModel
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    Author = new AuthorViewModel
-                    {
-                        Id = p.Author.Id,
-                        UserName = p.Author.UserName,
-                    },
-                    CreatedOn = p.CreatedOn ?? default(DateTime),
-                })
-            });
+            return View(catgeory);
         }
 
         // GET: /forum/post/id
         public ActionResult Post(Guid id)
         {
-            var p = this.postService
-                .GetById(id);
+            var post = Mapper.Map<PostViewModel>(this.postService.GetById(id));
 
-            return View(new PostViewModel
-            {
-                Id = p.Id,
-                Title = p.Title,
-                Content = p.Content,
-                Author = new AuthorViewModel
-                {
-                    Id = p.Author.Id,
-                    UserName = p.Author.UserName,
-                },
-                CreatedOn = p.CreatedOn ?? default(DateTime),
-            });
+            return View(post);
         }
     }
 }
