@@ -20,43 +20,66 @@ namespace GForum.Web.Controllers
         // GET: /forum
         public ActionResult Index()
         {
-            var indexViewModel = new ForumIndexViewModel
-            {
-                Categories = this.categoryService
-                    .GetAll()
-                    .Select(c => new ForumIndexViewModel.Category
+            return View(this.categoryService
+                .GetAll()
+                .Select(c => new CategoryViewModel
+                {
+                    Id = c.Id,
+                    Author = new AuthorViewModel
                     {
-                        Id = c.Id,
-                        Author = new ForumIndexViewModel.Author
-                        {
-                            Id = c.Author.Id,
-                            UserName = c.Author.UserName,
-                        },
-                        Title = c.Title,
-                        CreatedOn = c.CreatedOn ?? default(DateTime),
-                        PostsCount = c.Posts.Count,
-                    })
-            };
-
-            return View(indexViewModel);
+                        Id = c.Author.Id,
+                        UserName = c.Author.UserName,
+                    },
+                    Title = c.Title,
+                    CreatedOn = c.CreatedOn ?? default(DateTime),
+                    PostsCount = c.Posts.Count,
+                })
+                .ToList()
+            );
         }
 
         // GET: /forum/category/id
         public ActionResult Category(Guid id)
         {
-            var category = this.categoryService
+            var c = this.categoryService
                 .GetById(id);
 
-            return View(category);
+            return View(new CategoryWithPostsViewModel
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Posts = c.Posts.Select(p => new PostViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Author = new AuthorViewModel
+                    {
+                        Id = p.Author.Id,
+                        UserName = p.Author.UserName,
+                    },
+                    CreatedOn = p.CreatedOn ?? default(DateTime),
+                })
+            });
         }
 
         // GET: /forum/post/id
         public ActionResult Post(Guid id)
         {
-            var post = this.postService
+            var p = this.postService
                 .GetById(id);
 
-            return View(post);
+            return View(new PostViewModel
+            {
+                Id = p.Id,
+                Title = p.Title,
+                Content = p.Content,
+                Author = new AuthorViewModel
+                {
+                    Id = p.Author.Id,
+                    UserName = p.Author.UserName,
+                },
+                CreatedOn = p.CreatedOn ?? default(DateTime),
+            });
         }
     }
 }

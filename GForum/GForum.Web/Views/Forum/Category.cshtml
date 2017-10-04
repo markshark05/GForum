@@ -1,11 +1,13 @@
-﻿@model GForum.Data.Models.Category
+﻿@model GForum.Web.Models.Forum.CategoryWithPostsViewModel
 @{
     ViewBag.Title = $"{Model.Title} catgeory";
 }
 
+<h2 class="text-center">@Model.Title</h2>
+<hr />
+
 <div class="row">
-    <div class="col-xs-12">
-        <h2 class="text-center">@Model.Title</h2>
+    <div class="col-xs-10">
         @foreach (var post in Model.Posts)
         {
             <div class="card">
@@ -17,5 +19,8 @@
                 </p>
             </div>
         }
+    </div>
+    <div class="col-xs-2">
+        @Html.ActionLink("Submit a new post", "Meme", null, new { @class = "btn btn-primary"})
     </div>
 </div>

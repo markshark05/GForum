@@ -1,12 +1,15 @@
-﻿@model GForum.Web.Models.Forum.ForumIndexViewModel
+﻿@using GForum.Web.Models.Forum
+@model IEnumerable<CategoryViewModel>
 @{
     ViewBag.Title = "Forum Home";
 }
 
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
 <div class="row">
     <div class="col-xs-12">
-        <h2 class="text-center">@ViewBag.Title</h2>
-        @foreach (var category in Model.Categories)
+        @foreach (var category in Model)
         {
             <div class="card">
                 <h4 class="title-one-line">@Html.ActionLink(category.Title, "Category", "Forum", new { id = category.Id }, null)</h4>

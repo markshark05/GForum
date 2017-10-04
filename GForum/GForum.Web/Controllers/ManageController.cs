@@ -104,6 +104,7 @@ namespace GForum.Web.Controllers
             return View(model);
         }
 
+        // POST: /Manage/ChangeEmail
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangeEmail(ChangeEmailViewModel model)
