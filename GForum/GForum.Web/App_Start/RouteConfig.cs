@@ -14,7 +14,13 @@ namespace GForum.Web
             routes.MapRoute(
                 name: "UsersByUsername",
                 url: "User/{username}",
-                defaults: new { controller = "Users", action = "Index", username = UrlParameter.Optional }
+                defaults: new { controller = "Users", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "CategorySubmit",
+                url: "Forum/Category/{catgeoryId}/Submit",
+                defaults: new { controller = "Forum", action = "Submit" }
             );
 
             routes.MapRoute(

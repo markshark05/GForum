@@ -14,6 +14,8 @@ namespace GForum.Web.Models.Forum
 
         public AuthorViewModel Author { get; set; }
 
+        public Guid CategoryId { get; set; }
+
         public DateTime CreatedOn { get; set; }
     }
 }

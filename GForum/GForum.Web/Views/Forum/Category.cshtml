@@ -11,16 +11,28 @@
         @foreach (var post in Model.Posts)
         {
             <div class="card">
-                <h4 class="title-one-line">@Html.ActionLink(post.Title, "Post", "Forum", new { id = post.Id }, null)</h4>
+                <h4 class="title-one-line">
+                    @Html.ActionLink(post.Title, "Post", "Forum", new { id = post.Id }, null)
+                </h4>
                 <p class="text-muted">
                     Submitted by
-                    @Html.ActionLink(post.Author.UserName, "Index", "Users", new { username = post.Author.UserName }, null)
+                    @Html.ActionLink(
+                        post.Author.UserName,
+                        "Index",
+                        "Users",
+                        new { username = post.Author.UserName }, null
+                    )
                     @post.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)
                 </p>
             </div>
         }
     </div>
     <div class="col-xs-2">
-        @Html.ActionLink("Submit a new post", "Meme", null, new { @class = "btn btn-primary"})
+        @Html.ActionLink(
+            "Submit a new post",
+            "Submit",
+            new { catgeoryId = Model.Id },
+            new { @class = "btn btn-primary" }
+        )
     </div>
 </div>

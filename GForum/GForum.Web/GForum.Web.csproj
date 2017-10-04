@@ -231,6 +231,7 @@
     <Compile Include="Models\Forum\AuthorViewModel.cs" />
     <Compile Include="Models\Forum\CategoryWithPostsViewModel.cs" />
     <Compile Include="Models\Forum\CategoryViewModel.cs" />
+    <Compile Include="Models\Forum\PostSubmitViewModel.cs" />
     <Compile Include="Models\Forum\PostViewModel.cs" />
     <Compile Include="Models\Manage\ChangeEmailViewModel.cs" />
     <Compile Include="Models\Manage\ChangePasswordViewModel.cs" />
@@ -291,6 +292,8 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Manage\ChangeEmail.cshtml" />
     <Content Include="Views\Forum\Post.cshtml" />
+    <Content Include="Views\Forum\Submit.cshtml" />
+    <Content Include="Views\Forum\_MarkdownHelpPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
