@@ -5,7 +5,7 @@ using GForum.Data.Models.Contracts;
 
 namespace GForum.Data.Models.Abstract
 {
-    public class Entity: IEntity
+    public abstract class Entity: IEntity
     {
         public Entity()
         {

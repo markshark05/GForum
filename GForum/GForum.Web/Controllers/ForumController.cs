@@ -3,12 +3,14 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using GForum.Data.Models;
 using GForum.Services;
 using GForum.Web.Models.Forum;
+using Microsoft.AspNet.Identity;
 
 namespace GForum.Web.Controllers
 {
-    public class ForumController : Controller
+    public class ForumController : BaseController
     {
         private readonly CategoryService categoryService;
         private readonly PostService postService;
@@ -57,19 +59,43 @@ namespace GForum.Web.Controllers
         }
 
         // GET: /Forum/Category/Id/Submit
+        [Authorize]
         public ActionResult Submit(Guid catgeoryId)
         {
-            var category = Mapper.Map<CategoryViewModel>(this.categoryService.GetById(catgeoryId));
+            var model = Mapper.Map<PostSubmitViewModel>(this.categoryService.GetById(catgeoryId));
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(model);
+        }
+
+        // POST: /Forum/Category/Id/Submit
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Submit(PostSubmitViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var category = this.categoryService.GetById(model.CategoryId);
             if (category == null)
             {
                 return HttpNotFound();
             }
 
-            var model = new PostSubmitViewModel
+            this.postService.Submit(new Post
             {
+                Title = model.Title,
+                Content = model.Content,
                 Category = category,
-            };
-            return View(model);
+                Author = this.UserManager.FindById(this.User.Identity.GetUserId()),
+            });
+            return RedirectToAction("Category", "Forum", new { id = model.CategoryId });
         }
     }
 }

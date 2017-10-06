@@ -1,24 +1,16 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
-using GForum.Data;
 using GForum.Web.Models.Users;
 
 namespace GForum.Web.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
-        private readonly ApplicationData data;
-
-        public UsersController(ApplicationData data)
-        {
-            this.data = data;
-        }
-
-        // GET: User/username
+        // GET: User/Username
         public ActionResult Index(string username)
         {
-            var user = this.data.Users.Query()
+            var user = this.UserManager.Users
                 .Where(x => x.UserName == username)
                 .ProjectTo<UserViewModel>()
                 .FirstOrDefault();

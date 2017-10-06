@@ -1,6 +1,6 @@
 ﻿@model GForum.Web.Models.Forum.PostSubmitViewModel
 @{
-    ViewBag.Title = $"Submitting to {Model.Category.Title}";
+    ViewBag.Title = $"Submitting to {Model.CategoryTitle}";
 }
 
 <div class="col-xs-12">
@@ -12,6 +12,7 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.CategoryId)
                     <div class="form-group">
                         @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">

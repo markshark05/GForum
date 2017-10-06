@@ -16,14 +16,19 @@ namespace GForum.Services
 
         public IQueryable<Post> GetAll()
         {
-            return this.data.Posts.Query();
+            return this.data.Posts.Query;
         }
 
         public Post GetById(Guid id)
         {
-            return this.data.Posts
-                .Query()
+            return this.data.Posts.Query
                 .FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Submit(Post post)
+        {
+            this.data.Posts.Add(post);
+            this.data.Complete();
         }
     }
 }
