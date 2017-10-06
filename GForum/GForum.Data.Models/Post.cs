@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GForum.Common;
 using GForum.Data.Models.Abstract;
@@ -16,10 +17,10 @@ namespace GForum.Data.Models
         [Required]
         public string Content { get; set; }
 
-        [Required]
+        public string AuthorId { get; set; }
         public virtual ApplicationUser Author { get; set; }
 
-        [Required]
+        public Guid? CategoryId { get; set; }
         public virtual Category Category { get; set; }
     }
 }

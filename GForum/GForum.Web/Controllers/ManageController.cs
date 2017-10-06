@@ -2,12 +2,22 @@
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using GForum.Web.Models.Manage;
+using GForum.Web.IdentityConfig;
 
 namespace GForum.Web.Controllers
 {
     [Authorize]
-    public class ManageController : BaseController
+    public class ManageController : Controller
     {
+        private readonly ApplicationUserManager userManager;
+        private readonly ApplicationSignInManager signInManager;
+
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+        }
+
         public enum ManageMessageId
         {
             ChangePasswordSuccess,
@@ -50,13 +60,13 @@ namespace GForum.Web.Controllers
             {
                 return View(model);
             }
-            var result = await this.UserManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = await this.userManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+                var user = await this.userManager.FindByIdAsync(this.User.Identity.GetUserId());
                 if (user != null)
                 {
-                    await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await this.signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
@@ -69,7 +79,7 @@ namespace GForum.Web.Controllers
         {
             var model = new ChangeEmailViewModel
             {
-                CurrentEmail = this.UserManager.GetEmail(this.User.Identity.GetUserId())
+                CurrentEmail = this.userManager.GetEmail(this.User.Identity.GetUserId())
             };
 
             return View(model);
@@ -85,7 +95,7 @@ namespace GForum.Web.Controllers
                 return View(model);
             }
 
-            var result = await this.UserManager.SetEmailAsync(this.User.Identity.GetUserId(), model.NewEmail);
+            var result = await this.userManager.SetEmailAsync(this.User.Identity.GetUserId(), model.NewEmail);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChnageEmailSuccess });

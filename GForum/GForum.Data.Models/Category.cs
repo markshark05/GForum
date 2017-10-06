@@ -19,7 +19,7 @@ namespace GForum.Data.Models
         [StringLength(Globals.CategoryTitleLength)]
         public string Title { get; set; }
 
-        [Required]
+        public string AuthorId { get; set; }
         public virtual ApplicationUser Author { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }

@@ -5,23 +5,27 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using GForum.Data.Models;
 using GForum.Services;
+using GForum.Web.IdentityConfig;
 using GForum.Web.Models.Forum;
 using Microsoft.AspNet.Identity;
 
 namespace GForum.Web.Controllers
 {
-    public class ForumController : BaseController
+    public class ForumController : Controller
     {
         private readonly CategoryService categoryService;
         private readonly PostService postService;
+        private readonly ApplicationUserManager userManager;
 
         public ForumController(
                 CategoryService categoryService,
-                PostService postService
+                PostService postService,
+                ApplicationUserManager userManager
             )
         {
             this.categoryService = categoryService;
             this.postService = postService;
+            this.userManager = userManager;
         }
 
         // GET: /Forum
@@ -92,8 +96,8 @@ namespace GForum.Web.Controllers
             {
                 Title = model.Title,
                 Content = model.Content,
-                Category = category,
-                Author = this.UserManager.FindById(this.User.Identity.GetUserId()),
+                CategoryId = model.CategoryId,
+                AuthorId = this.User.Identity.GetUserId(),
             });
             return RedirectToAction("Category", "Forum", new { id = model.CategoryId });
         }

@@ -4,12 +4,28 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using GForum.Web.Models.Account;
 using GForum.Data.Models;
+using GForum.Web.IdentityConfig;
+using Microsoft.Owin.Security;
 
 namespace GForum.Web.Controllers
 {
     [Authorize]
-    public class AccountController : BaseController
+    public class AccountController : Controller
     {
+        private readonly ApplicationUserManager userManager;
+        private readonly ApplicationSignInManager signInManager;
+        private readonly IAuthenticationManager authenticationManager;
+
+        public AccountController(
+            ApplicationUserManager userManager, 
+            ApplicationSignInManager signInManager,
+            IAuthenticationManager authenticationManager)
+        {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.authenticationManager = authenticationManager;
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -46,7 +62,7 @@ namespace GForum.Web.Controllers
                 return View(model);
             }
 
-            var result = await this.SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: true);
+            var result = await this.signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -76,17 +92,16 @@ namespace GForum.Web.Controllers
             if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
-                var result = await this.UserManager.CreateAsync(user, model.Password);
+                var result = await this.userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await this.SignInManager.SignInAsync(user, isPersistent: true, rememberBrowser: false);
+                    await this.signInManager.SignInAsync(user, isPersistent: true, rememberBrowser: false);
 
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -95,7 +110,7 @@ namespace GForum.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            this.authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
     }

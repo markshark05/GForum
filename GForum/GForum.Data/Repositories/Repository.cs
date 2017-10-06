@@ -9,11 +9,9 @@ namespace GForum.Data.Repositories
         where TEntity : class, IEntity
     {
         private readonly DbSet<TEntity> entities;
-        private readonly DbContext context;
 
         public Repository(DbContext context)
         {
-            this.context = context;
             this.entities = context.Set<TEntity>();
         }
 
@@ -21,7 +19,6 @@ namespace GForum.Data.Repositories
 
         public void Add(TEntity entity)
         {
-            var entry = this.context.Entry(entity);
             this.entities.Add(entity);
         }
 

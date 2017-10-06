@@ -5,14 +5,14 @@
 
 @if (Request.IsAuthenticated)
 {
-    var userEmail = HttpContext.Current.Request.GetOwinContext()
-        .GetUserManager<ApplicationUserManager>()
-        .FindById(User.Identity.GetUserId()).Email;
+    //var userEmail = HttpContext.Current.Request.GetOwinContext()
+    //    .GetUserManager<ApplicationUserManager>()
+    //    .FindById(User.Identity.GetUserId()).Email;
 
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-        @Html.GravatarImage(userEmail, size: 35, cssClass: "user-navabar-avatar")
+        @*@Html.GravatarImage(userEmail, size: 35, cssClass: "user-navabar-avatar")*@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @Html.ActionLink(
