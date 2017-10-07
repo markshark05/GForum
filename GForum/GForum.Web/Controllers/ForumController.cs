@@ -100,5 +100,18 @@ namespace GForum.Web.Controllers
             });
             return RedirectToAction("Category", "Forum", new { id = model.CategoryId });
         }
+
+        // POST: /Forum/Category/Id/Submit
+        [HttpPost]
+        [Authorize]
+        public ActionResult Vote()
+        {
+            if (!this.Request.IsAjaxRequest())
+            {
+                return HttpNotFound();
+            }
+
+            return new EmptyResult();
+        }
     }
 }

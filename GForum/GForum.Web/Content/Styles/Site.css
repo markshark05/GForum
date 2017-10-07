@@ -81,3 +81,10 @@ textarea {
         background-color: aliceblue;
         text-align: center;
     }
+
+button.glyphicon {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 20px;
+}

@@ -18,9 +18,15 @@ namespace GForum.Web
             );
 
             routes.MapRoute(
-                name: "CategorySubmit",
+                name: "PostSubmit",
                 url: "Forum/Category/{catgeoryId}/Submit",
                 defaults: new { controller = "Forum", action = "Submit" }
+            );
+
+            routes.MapRoute(
+                name: "Vote",
+                url: "Forum/Post/{postId}/{voteType}",
+                defaults: new { controller = "Forum", action = "Vote" }
             );
 
             routes.MapRoute(
