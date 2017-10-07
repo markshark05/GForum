@@ -18,10 +18,9 @@ namespace GForum.Web.Controllers
         private readonly ApplicationUserManager userManager;
 
         public ForumController(
-                CategoryService categoryService,
-                PostService postService,
-                ApplicationUserManager userManager
-            )
+            CategoryService categoryService,
+            PostService postService,
+            ApplicationUserManager userManager)
         {
             this.categoryService = categoryService;
             this.postService = postService;

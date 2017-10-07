@@ -12,7 +12,9 @@ namespace GForum.Web.Controllers
         private readonly ApplicationUserManager userManager;
         private readonly ApplicationSignInManager signInManager;
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(
+            ApplicationUserManager userManager, 
+            ApplicationSignInManager signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;

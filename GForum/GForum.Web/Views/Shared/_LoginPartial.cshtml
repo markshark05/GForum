@@ -1,18 +1,15 @@
-﻿@using System.Web;
-@using Microsoft.AspNet.Identity;
-@using Microsoft.AspNet.Identity.Owin;
-@using GForum.Web.IdentityConfig;
+﻿@using Microsoft.AspNet.Identity;
 
 @if (Request.IsAuthenticated)
 {
-    //var userEmail = HttpContext.Current.Request.GetOwinContext()
-    //    .GetUserManager<ApplicationUserManager>()
-    //    .FindById(User.Identity.GetUserId()).Email;
+    var userEmail = Html.Action("UserEmail", "Account").ToString();
 
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-        @Html.AntiForgeryToken()
-        @*@Html.GravatarImage(userEmail, size: 35, cssClass: "user-navabar-avatar")*@
+        @Html.AntiForgeryToken();
+
+        @Html.GravatarImage(userEmail, size: 35, cssClass: "user-navabar-avatar")
+
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @Html.ActionLink(

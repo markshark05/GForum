@@ -17,7 +17,7 @@ namespace GForum.Web.Controllers
         private readonly IAuthenticationManager authenticationManager;
 
         public AccountController(
-            ApplicationUserManager userManager, 
+            ApplicationUserManager userManager,
             ApplicationSignInManager signInManager,
             IAuthenticationManager authenticationManager)
         {
@@ -62,7 +62,8 @@ namespace GForum.Web.Controllers
                 return View(model);
             }
 
-            var result = await this.signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: true);
+            var result = await this.signInManager
+                .PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -95,7 +96,8 @@ namespace GForum.Web.Controllers
                 var result = await this.userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await this.signInManager.SignInAsync(user, isPersistent: true, rememberBrowser: false);
+                    await this.signInManager
+                        .SignInAsync(user, isPersistent: true, rememberBrowser: false);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -112,6 +114,12 @@ namespace GForum.Web.Controllers
         {
             this.authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
+        }
+
+        [ChildActionOnly]
+        public string UserEmail()
+        {
+            return this.userManager.FindById(this.User.Identity.GetUserId()).Email;
         }
     }
 }
