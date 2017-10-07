@@ -26,16 +26,24 @@ namespace GForum.Services
                 .FirstOrDefault(x => x.Id == id);
         }
 
+        public VoteType GetUserVoteTypeForPost(Guid postId, string userId)
+        {
+            var vote = this.data.Votes.Query
+                .FirstOrDefault(x => x.UserId == userId && x.PostId == postId);
+            return vote != null ? vote.VoteType : VoteType.None;
+        }
+
         public void Submit(Post post)
         {
             this.data.Posts.Add(post);
             this.data.Complete();
         }
 
-        public void ToggleVote(Post post, Vote vote)
+        public void ToggleVote(Guid postId, Vote vote)
         {
-            var prevUserVote = post.Votes
-                .FirstOrDefault(x => x.IsDeleted == false && x.UserId == vote.UserId);
+            var post = this.GetById(postId);
+            var prevUserVote = this.data.Votes.Query
+                .FirstOrDefault(x => x.UserId == vote.UserId && x.PostId == postId);
 
             if (prevUserVote == null)
             {

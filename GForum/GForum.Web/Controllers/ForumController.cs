@@ -49,6 +49,12 @@ namespace GForum.Web.Controllers
                 return HttpNotFound();
             }
 
+            foreach (var post in category.Posts)
+            {
+                post.UserVoteType = this.postService
+                    .GetUserVoteTypeForPost(post.Id, this.User.Identity.GetUserId());
+            }
+
             return View(category);
         }
 
@@ -60,6 +66,9 @@ namespace GForum.Web.Controllers
             {
                 return HttpNotFound();
             }
+
+            post.UserVoteType = this.postService
+                .GetUserVoteTypeForPost(post.Id, this.User.Identity.GetUserId());
 
             return View(post);
         }
@@ -121,10 +130,10 @@ namespace GForum.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            this.postService.ToggleVote(post, new Vote
+            this.postService.ToggleVote(postId, new Vote
             {
                 UserId = this.User.Identity.GetUserId(),
-                PostId = post.Id,
+                PostId = postId,
                 VoteType = voteType,
             });
 

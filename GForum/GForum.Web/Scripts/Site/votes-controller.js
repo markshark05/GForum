@@ -1,4 +1,4 @@
-﻿$('body').on('click', '.vote-container', function(e) {
+﻿$('body').on('click', '.vote-btn', function(e) {
     $.ajax({
         method: 'POST',
         url: $(e.target.parentElement).data('vote-url'),
@@ -8,7 +8,7 @@
     }).done(function(data) {
         $(e.target).siblings('.vote-count').html(data);
         var targetIsActive = $(e.target).hasClass('active');
-        $('.vote-btn').removeClass('active');
+        $(e.target).siblings('.vote-btn').addBack().removeClass('active');
         if (!targetIsActive) $(e.target).addClass('active');
     });
 });
