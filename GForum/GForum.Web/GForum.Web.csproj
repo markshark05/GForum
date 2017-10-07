@@ -270,6 +270,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site\votes-controller.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -296,6 +297,7 @@
     <Content Include="Views\Forum\Post.cshtml" />
     <Content Include="Views\Forum\Submit.cshtml" />
     <Content Include="Views\Forum\_MarkdownHelpPartial.cshtml" />
+    <Content Include="Views\Forum\_VotesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

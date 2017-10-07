@@ -11,16 +11,19 @@ namespace GForum.Data
         public ApplicationData(ApplicationDbContext context)
         {
             this.context = context;
+            this.Users = new Repository<ApplicationUser>(context);
             this.Categories = new Repository<Category>(context);
             this.Posts = new Repository<Post>(context);
-            this.Users = new Repository<ApplicationUser>(context);
+            this.Votes = new Repository<Vote>(context);
         }
+
+        public Repository<ApplicationUser> Users { get; }
 
         public Repository<Category> Categories { get; }
 
         public Repository<Post> Posts { get; }
 
-        public Repository<ApplicationUser> Users { get; }
+        public Repository<Vote> Votes { get; }
 
         public int Complete()
         {

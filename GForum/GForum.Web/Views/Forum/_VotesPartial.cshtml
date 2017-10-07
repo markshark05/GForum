@@ -1,0 +1,8 @@
+﻿@using GForum.Common.Enums
+@model GForum.Web.Models.Forum.PostViewModel
+
+<div class="vote-container" data-vote-url="@Url.Action("Vote", new { postId = Model.Id })">
+    <div class="vote-btn glyphicon glyphicon-arrow-up @(Model.UserVoteType == VoteType.Upvote ? "active" : "")" data-vote-type="Upvote"></div>
+    <div class="vote-count">@Model.VoteCount.ToMetric()</div>
+    <div class="vote-btn glyphicon glyphicon-arrow-down @(Model.UserVoteType == VoteType.Downvote ? "active" : "")" data-vote-type="Downvote"></div>
+</div>

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using GForum.Common.Enums;
 using GForum.Data.Models;
 using GForum.Services;
 using GForum.Web.IdentityConfig;
 using GForum.Web.Models.Forum;
+using Humanizer;
 using Microsoft.AspNet.Identity;
 
 namespace GForum.Web.Controllers
@@ -52,7 +55,7 @@ namespace GForum.Web.Controllers
         // GET: /Forum/Post/Id
         public ActionResult Post(Guid id)
         {
-            var post = Mapper.Map<PostViewModel>(this.postService.GetById(id));
+            var post = Mapper.Map<Post, PostViewModel>(this.postService.GetById(id));
             if (post == null)
             {
                 return HttpNotFound();
@@ -88,7 +91,7 @@ namespace GForum.Web.Controllers
             var category = this.categoryService.GetById(model.CategoryId);
             if (category == null)
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             this.postService.Submit(new Post
@@ -104,14 +107,28 @@ namespace GForum.Web.Controllers
         // POST: /Forum/Category/Id/Submit
         [HttpPost]
         [Authorize]
-        public ActionResult Vote()
+        public ActionResult Vote(Guid postId, VoteType voteType)
         {
             if (!this.Request.IsAjaxRequest())
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return new EmptyResult();
+            var enumIsDefined = Enum.IsDefined(typeof(VoteType), voteType);
+            var post = this.postService.GetById(postId);
+            if (!enumIsDefined || post == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            this.postService.ToggleVote(post, new Vote
+            {
+                UserId = this.User.Identity.GetUserId(),
+                PostId = post.Id,
+                VoteType = voteType,
+            });
+
+            return Content(post.VoteCount.ToMetric());
         }
     }
 }

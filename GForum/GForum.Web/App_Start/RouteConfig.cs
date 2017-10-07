@@ -24,12 +24,6 @@ namespace GForum.Web
             );
 
             routes.MapRoute(
-                name: "Vote",
-                url: "Forum/Post/{postId}/{voteType}",
-                defaults: new { controller = "Forum", action = "Vote" }
-            );
-
-            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

@@ -119,7 +119,7 @@ namespace GForum.Web.Controllers
         [ChildActionOnly]
         public string UserEmail()
         {
-            return this.userManager.FindById(this.User.Identity.GetUserId()).Email;
+            return this.userManager.FindById(this.User.Identity.GetUserId())?.Email;
         }
     }
 }
