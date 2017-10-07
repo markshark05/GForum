@@ -7,6 +7,7 @@ using AutoMapper.QueryableExtensions;
 using GForum.Common.Enums;
 using GForum.Data.Models;
 using GForum.Services;
+using GForum.Web.Helpers;
 using GForum.Web.IdentityConfig;
 using GForum.Web.Models.Forum;
 using Humanizer;
@@ -49,10 +50,13 @@ namespace GForum.Web.Controllers
                 return HttpNotFound();
             }
 
-            foreach (var post in category.Posts)
+            if (this.Request.IsAuthenticated)
             {
-                post.UserVoteType = this.postService
-                    .GetUserVoteTypeForPost(post.Id, this.User.Identity.GetUserId());
+                foreach (var post in category.Posts)
+                {
+                    post.UserVoteType = this.postService
+                        .GetUserVoteTypeForPost(post.Id, this.User.Identity.GetUserId());
+                }
             }
 
             return View(category);
@@ -67,8 +71,11 @@ namespace GForum.Web.Controllers
                 return HttpNotFound();
             }
 
-            post.UserVoteType = this.postService
-                .GetUserVoteTypeForPost(post.Id, this.User.Identity.GetUserId());
+            if (this.Request.IsAuthenticated)
+            {
+                post.UserVoteType = this.postService
+                    .GetUserVoteTypeForPost(post.Id, this.User.Identity.GetUserId());
+            }
 
             return View(post);
         }
@@ -115,17 +122,12 @@ namespace GForum.Web.Controllers
 
         // POST: /Forum/Category/Id/Submit
         [HttpPost]
-        [Authorize]
+        [AjaxAuthorize]
         public ActionResult Vote(Guid postId, VoteType voteType)
         {
-            if (!this.Request.IsAjaxRequest())
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var enumIsDefined = Enum.IsDefined(typeof(VoteType), voteType);
+            var enumIsValid = Enum.IsDefined(typeof(VoteType), voteType) && voteType != VoteType.None;
             var post = this.postService.GetById(postId);
-            if (!enumIsDefined || post == null)
+            if (!enumIsValid || post == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

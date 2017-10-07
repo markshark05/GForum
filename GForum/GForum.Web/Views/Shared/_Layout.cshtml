@@ -40,6 +40,13 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/toastr")
+    <script>
+        toastr.options.positionClass = 'toast-top-center';
+        toastr.options.onclick = function() {
+            window.location = '@Url.Action("Login", "Account")';
+        };
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
