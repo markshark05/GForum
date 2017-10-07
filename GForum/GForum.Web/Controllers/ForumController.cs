@@ -120,7 +120,7 @@ namespace GForum.Web.Controllers
             return RedirectToAction("Category", "Forum", new { id = model.CategoryId });
         }
 
-        // POST: /Forum/Category/Id/Submit
+        // POST: /Forum/{postId}/Vote/{voteType}
         [HttpPost]
         [AjaxAuthorize]
         public ActionResult Vote(Guid postId, VoteType voteType)
