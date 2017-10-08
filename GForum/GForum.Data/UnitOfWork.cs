@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
+using GForum.Data.Contracts;
 
 namespace GForum.Data
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly DbContext context;
 

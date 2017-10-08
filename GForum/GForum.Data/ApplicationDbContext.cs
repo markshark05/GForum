@@ -19,10 +19,6 @@ namespace GForum.Data
             this.Database.Initialize(true);
         }
 
-        public virtual IDbSet<Post> Posts { get; set; }
-
-        public virtual IDbSet<Category> Categories { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

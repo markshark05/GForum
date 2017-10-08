@@ -7,6 +7,7 @@ namespace GForum.Web.App_Start
     using System.Data.Entity;
     using System.Web;
     using GForum.Data;
+    using GForum.Data.Contracts;
     using GForum.Data.Models;
     using GForum.Services;
     using GForum.Services.Contracts;
@@ -71,6 +72,7 @@ namespace GForum.Web.App_Start
         {
             // Data
             kernel.Bind<DbContext>().To<ApplicationDbContext>().InRequestScope();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
             kernel.Bind(typeof(IRepository<>)).To(typeof(EntityFrameworkRepository<>)).InRequestScope();
 
             // Servies

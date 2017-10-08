@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using GForum.Data;
+using GForum.Data.Contracts;
 using GForum.Data.Models;
 using GForum.Services.Contracts;
 
@@ -8,11 +8,11 @@ namespace GForum.Services
 {
     public class CategoryService: ICategoryService
     {
-        private readonly UnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Category> categories;
 
         public CategoryService(
-            UnitOfWork unitOfWork, 
+            IUnitOfWork unitOfWork, 
             IRepository<Category> categories)
         {
             this.unitOfWork = unitOfWork;

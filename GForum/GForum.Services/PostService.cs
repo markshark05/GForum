@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using GForum.Common.Enums;
-using GForum.Data;
+using GForum.Data.Contracts;
 using GForum.Data.Models;
 using GForum.Services.Contracts;
 
@@ -9,13 +9,13 @@ namespace GForum.Services
 {
     public class PostService: IPostService
     {
-        private readonly UnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Category> category;
         private readonly IRepository<Post> posts;
         private readonly IRepository<Vote> votes;
 
         public PostService(
-            UnitOfWork data,
+            IUnitOfWork data,
             IRepository<Category> category,
             IRepository<Post> posts,
             IRepository<Vote> votes)

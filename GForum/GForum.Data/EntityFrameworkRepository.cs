@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using GForum.Data.Contracts;
 using GForum.Data.Models.Contracts;
 
 namespace GForum.Data

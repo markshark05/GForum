@@ -34,7 +34,7 @@ namespace GForum.Data
                 Title = Globals.DefaultCategoryTitle,
                 Author = admin,
             };
-            context.Categories.Add(category);
+            context.Set<Category>().Add(category);
 
             // Seed posts
             var post = new Post

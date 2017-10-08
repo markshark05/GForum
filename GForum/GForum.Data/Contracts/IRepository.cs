@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace GForum.Data
+namespace GForum.Data.Contracts
 {
     public interface IRepository<TEntity>
     {
