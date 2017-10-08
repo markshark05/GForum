@@ -25,6 +25,11 @@ namespace GForum.Web.Controllers
                 .ProjectTo<UserViewModel>()
                 .FirstOrDefault();
 
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
             return View(user);
         }
 

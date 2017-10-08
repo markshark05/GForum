@@ -12,6 +12,7 @@ namespace GForum.Data.Models
         public ApplicationUser()
         {
             this.Posts = new HashSet<Post>();
+            this.Categories = new HashSet<Category>();
         }
 
         [Index]

@@ -10,6 +10,11 @@ namespace GForum.Data.Models
 {
     public class Post : Entity, IEntity
     {
+        public Post()
+        {
+            this.Votes = new HashSet<Vote>();
+        }
+
         [Index]
         [Required]
         [StringLength(Globals.PostTitleLength)]

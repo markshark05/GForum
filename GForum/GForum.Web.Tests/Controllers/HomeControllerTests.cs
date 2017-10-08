@@ -5,10 +5,10 @@ using NUnit.Framework;
 namespace GForum.Web.Tests.Controllers
 {
     [TestFixture]
-    public class HomeControllerTest
+    public class HomeControllerTests
     {
         [Test]
-        public void Index()
+        public void Index_ShouldReturnViewResult()
         {
             // Arrange
             var controller = new HomeController();
@@ -21,7 +21,7 @@ namespace GForum.Web.Tests.Controllers
         }
 
         [Test]
-        public void About()
+        public void About_ShouldReturnViewResult()
         {
             // Arrange
             var controller = new HomeController();
@@ -30,7 +30,7 @@ namespace GForum.Web.Tests.Controllers
             var result = controller.About() as ViewResult;
 
             // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+            Assert.IsNotNull(result);
         }
     }
 }
