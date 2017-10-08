@@ -1,13 +1,13 @@
 ﻿using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GForum.Web.Controllers;
+using NUnit.Framework;
 
 namespace GForum.Web.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class HomeControllerTest
     {
-        [TestMethod]
+        [Test]
         public void Index()
         {
             // Arrange
@@ -20,7 +20,7 @@ namespace GForum.Web.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void About()
         {
             // Arrange
