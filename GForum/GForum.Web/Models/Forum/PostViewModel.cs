@@ -22,5 +22,7 @@ namespace GForum.Web.Models.Forum
         public Guid CategoryId { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public DateTime? EditedOn { get; set; }
     }
 }

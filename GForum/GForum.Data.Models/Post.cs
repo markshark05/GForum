@@ -18,13 +18,15 @@ namespace GForum.Data.Models
         [Required]
         public string Content { get; set; }
 
+        public int VoteCount { get; set; }
+
+        public DateTime? EditedOn { get; set; }
+
         public string AuthorId { get; set; }
         public virtual ApplicationUser Author { get; set; }
 
         public Guid? CategoryId { get; set; }
         public virtual Category Category { get; set; }
-
-        public int VoteCount { get; set; }
 
         public virtual ICollection<Vote> Votes { get; set; }
     }

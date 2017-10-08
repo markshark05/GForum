@@ -15,7 +15,7 @@ namespace GForum.Services
             this.data = data;
         }
 
-        public IQueryable<Post> GetAll()
+        public IQueryable<Post> GetQueryable()
         {
             return this.data.Posts.Query;
         }
@@ -61,6 +61,14 @@ namespace GForum.Services
                     post.VoteCount += (int)vote.VoteType;
                 }
             }
+            this.data.Complete();
+        }
+
+        public void Edit(Guid postId, string newContent)
+        {
+            var post = this.GetById(postId);
+            post.Content = newContent;
+            post.EditedOn = DateTime.Now;
             this.data.Complete();
         }
     }

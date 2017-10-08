@@ -115,11 +115,5 @@ namespace GForum.Web.Controllers
             this.authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
-
-        [ChildActionOnly]
-        public string UserEmail()
-        {
-            return this.userManager.FindById(this.User.Identity.GetUserId())?.Email;
-        }
     }
 }

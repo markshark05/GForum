@@ -23,9 +23,6 @@ namespace GForum.Data.Models
         [DataType(DataType.DateTime)]
         public DateTime? CreatedOn { get; set; }
 
-        [DataType(DataType.DateTime)]
-        public DateTime? ModifiedOn { get; set; }
-
         public virtual ICollection<Post> Posts { get; set; }
 
         public virtual ICollection<Category> Categories { get; set; }

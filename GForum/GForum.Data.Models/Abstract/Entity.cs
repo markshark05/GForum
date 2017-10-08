@@ -23,8 +23,5 @@ namespace GForum.Data.Models.Abstract
 
         [DataType(DataType.DateTime)]
         public DateTime? CreatedOn { get; set; }
-
-        [DataType(DataType.DateTime)]
-        public DateTime? ModifiedOn { get; set; }
     }
 }

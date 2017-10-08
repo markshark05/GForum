@@ -34,7 +34,7 @@ namespace GForum.Web.Controllers
         // GET: /Forum
         public ActionResult Index()
         {
-            var categories = this.categoryService.GetAll()
+            var categories = this.categoryService.GetQueryable()
                 .ProjectTo<CategoryViewModel>()
                 .ToList();
 
@@ -84,7 +84,7 @@ namespace GForum.Web.Controllers
         [Authorize]
         public ActionResult Submit(Guid catgeoryId)
         {
-            var model = Mapper.Map<PostSubmitViewModel>(this.categoryService.GetById(catgeoryId));
+            var model = Mapper.Map<Category, PostSubmitViewModel>(this.categoryService.GetById(catgeoryId));
             if (model == null)
             {
                 return HttpNotFound();
@@ -96,6 +96,7 @@ namespace GForum.Web.Controllers
         // POST: /Forum/Category/Id/Submit
         [HttpPost]
         [Authorize]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Submit(PostSubmitViewModel model)
         {
@@ -120,7 +121,7 @@ namespace GForum.Web.Controllers
             return RedirectToAction("Category", "Forum", new { id = model.CategoryId });
         }
 
-        // POST: /Forum/{postId}/Vote/{voteType}
+        // POST: /Forum/Vote {voteType, postId}
         [HttpPost]
         [AjaxAuthorize]
         public ActionResult Vote(Guid postId, VoteType voteType)
@@ -139,7 +140,42 @@ namespace GForum.Web.Controllers
                 VoteType = voteType,
             });
 
-            return Content(post.VoteCount.ToMetric());
+            return Json(new
+            {
+                success = true,
+                likes = post.VoteCount.ToMetric()
+            });
+        }
+
+        // POST: /Forum/Edit {postId, newContent}
+        [HttpPost]
+        [AjaxAuthorize]
+        [ValidateInput(false)]
+        public ActionResult Edit(Guid postId, string content)
+        {
+            var post = this.postService.GetById(postId);
+            if (post == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            if (post.AuthorId != this.User.Identity.GetUserId())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                return Json(new
+                {
+                    success = false,
+                    error = "Content cannot be empty."
+                });
+            }
+
+            this.postService.Edit(postId, content);
+
+            return Json(new { success = true });
         }
     }
 }

@@ -48,8 +48,9 @@ button.toast-close-button {
 }
 .toast-top-center {
   top: 0;
-  right: 0;
-  width: 100%;
+  left: 50%;
+  margin-left: -150px;
+  width: 300px;
 }
 .toast-bottom-center {
   bottom: 0;

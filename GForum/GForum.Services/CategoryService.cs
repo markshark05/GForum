@@ -14,7 +14,7 @@ namespace GForum.Services
             this.data = data;
         }
 
-        public IQueryable<Category> GetAll()
+        public IQueryable<Category> GetQueryable()
         {
             return this.data.Categories.Query;
         }

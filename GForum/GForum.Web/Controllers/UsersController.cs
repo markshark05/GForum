@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
 using GForum.Web.IdentityConfig;
 using GForum.Web.Models.Users;
+using Microsoft.AspNet.Identity;
 
 namespace GForum.Web.Controllers
 {
@@ -24,6 +25,12 @@ namespace GForum.Web.Controllers
                 .FirstOrDefault();
 
             return View(user);
+        }
+
+        [ChildActionOnly]
+        public string GetEmail()
+        {
+            return this.userManager.FindById(this.User.Identity.GetUserId())?.Email;
         }
     }
 }

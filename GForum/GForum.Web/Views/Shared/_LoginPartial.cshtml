@@ -2,7 +2,7 @@
 
 @if (Request.IsAuthenticated)
 {
-    var userEmail = Html.Action("UserEmail", "Account").ToString();
+    var userEmail = Html.Action("GetEmail", "Users").ToString();
 
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
@@ -13,9 +13,9 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @Html.ActionLink(
-            $"Hello {User.Identity.GetUserName()}!",
-            "Index", "Users", new { username = User.Identity.GetUserName() }, null
-        )
+                    $"Hello {User.Identity.GetUserName()}!",
+                    "Index", "Users",
+                    new { username = User.Identity.GetUserName() }, null)
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>

@@ -1,4 +1,5 @@
-﻿@model GForum.Web.Models.Forum.PostViewModel
+﻿@using Microsoft.AspNet.Identity
+@model GForum.Web.Models.Forum.PostViewModel
 @{
     ViewBag.Title = "Post";
 }
@@ -13,8 +14,19 @@
                     Submitted by
                     @Html.ActionLink(Model.Author.UserName, "Index", "Users", new { username = Model.Author.UserName }, null)
                     @Model.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)
+                    @if (Request.IsAuthenticated && User.Identity.GetUserId() == Model.Author.Id)
+                    {
+                        <span>&bull;</span>
+                        <a class="edit-post-btn" href="#" data-edit-url="@Url.Action("Edit", new { postId = Model.Id })">Edit</a>
+                    }
+                    @if (Model.EditedOn != null)
+                    {
+                        <span>&bull;</span>
+                        <text>Last edited</text>
+                        @Model.EditedOn.Humanize(dateToCompareAgainst: DateTime.Now);
+                    }
                 </p>
-                <div class="content">@Html.MarkdownToHtml(Model.Content)</div>
+                <div class="content" data-raw-content="@Model.Content">@Html.MarkdownToHtml(Model.Content)</div>
             </div>
         </div>
     </div>
@@ -30,4 +42,5 @@
 
 @section Scripts {
     <script src="~/Scripts/Site/votes-controller.js"></script>
+    <script src="~/Scripts/Site/edit-controller.js"></script>
 }

@@ -7,10 +7,12 @@
         }
     })
         .done(function(data) {
-            $(e.target).siblings('.vote-count').html(data);
-            var targetIsActive = $(e.target).hasClass('active');
-            $(e.target).siblings('.vote-btn').addBack().removeClass('active');
-            if (!targetIsActive) $(e.target).addClass('active');
+            if (data.success) {
+                $(e.target).siblings('.vote-count').html(data.likes);
+                var targetIsActive = $(e.target).hasClass('active');
+                $(e.target).siblings('.vote-btn').addBack().removeClass('active');
+                if (!targetIsActive) $(e.target).addClass('active');
+            }
         })
         .fail(function() {
             toastr.error('You must be logged in to do this.')

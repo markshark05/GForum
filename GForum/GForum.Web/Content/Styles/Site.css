@@ -27,6 +27,7 @@ textarea {
     border-radius: 50%;
 }
 
+/*Forum*/
 .card {
     padding: 20px;
     margin-bottom: 20px;
@@ -40,6 +41,10 @@ textarea {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+    
+    .card .title {
+        margin-top: 0;
     }
 
     .card .content {

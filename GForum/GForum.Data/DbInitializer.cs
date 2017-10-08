@@ -42,7 +42,7 @@ namespace GForum.Data
                 Title = "README",
                 Content =
                     $"An admin account has been created " +
-                    $"with username - *{Globals.DefaultAdminUsername}* and password - *{Globals.DefaultAdminPassword}*.  \n" +
+                    $"with username - *{Globals.DefaultAdminUsername}* and password - *{Globals.DefaultAdminPassword}*.\n\n" +
                     $"**Please change the passowrd ASAP!**",
                 Category = category,
                 Author = admin,
