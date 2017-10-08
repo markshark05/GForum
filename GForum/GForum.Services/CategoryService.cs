@@ -2,27 +2,32 @@
 using System.Linq;
 using GForum.Data;
 using GForum.Data.Models;
+using GForum.Services.Contracts;
 
 namespace GForum.Services
 {
-    public class CategoryService
+    public class CategoryService: ICategoryService
     {
-        private readonly ApplicationData data;
+        private readonly UnitOfWork unitOfWork;
+        private readonly IRepository<Category> categories;
 
-        public CategoryService(ApplicationData data)
+        public CategoryService(
+            UnitOfWork unitOfWork, 
+            IRepository<Category> categories)
         {
-            this.data = data;
+            this.unitOfWork = unitOfWork;
+            this.categories = categories;
         }
 
-        public IQueryable<Category> GetQueryable()
+        public IQueryable<Category> GetAll()
         {
-            return this.data.Categories.Query;
+            return this.categories.Query;
         }
 
-        public Category GetById(Guid id)
+        public IQueryable<Category> GetById(Guid id)
         {
-            return this.data.Categories.Query
-                .FirstOrDefault(x => x.Id == id);
+            return this.categories.Query
+                .Where(x => x.Id == id);
         }
     }
 }

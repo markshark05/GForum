@@ -16,8 +16,9 @@ namespace GForum.Web.Controllers
             this.userManager = userManager;
         }
 
-        // GET: /User/Username
-        public ActionResult Index(string username)
+        // GET: /Users/Username
+        [ActionName("Profile")]
+        public ActionResult UserProfile(string username)
         {
             var user = this.userManager.Users
                 .Where(x => x.UserName == username)
@@ -30,7 +31,7 @@ namespace GForum.Web.Controllers
         [ChildActionOnly]
         public string GetEmail()
         {
-            return this.userManager.FindById(this.User.Identity.GetUserId())?.Email;
+            return this.userManager.GetEmail(this.User.Identity.GetUserId());
         }
     }
 }

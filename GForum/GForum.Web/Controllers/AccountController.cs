@@ -70,7 +70,6 @@ namespace GForum.Web.Controllers
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                case SignInStatus.Failure:
                 default:
                     this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
@@ -94,6 +93,7 @@ namespace GForum.Web.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
                 var result = await this.userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     await this.signInManager

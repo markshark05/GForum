@@ -12,7 +12,7 @@
                 <h2 class="title">@Model.Title</h2>
                 <p class="text-muted">
                     Submitted by
-                    @Html.ActionLink(Model.Author.UserName, "Index", "Users", new { username = Model.Author.UserName }, null)
+                    @Html.ActionLink(Model.Author.UserName, "Profile", "Users", new { username = Model.Author.UserName }, null)
                     @Model.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)
                     @if (Model.EditedOn != null)
                     {
@@ -23,11 +23,11 @@
                     @if (Request.IsAuthenticated && User.Identity.GetUserId() == Model.Author.Id)
                     {
                         <span>&bull;</span>
-                        <a class="edit-post-btn" href="@Url.Action("Edit", new { postId = Model.Id })">Edit</a>
+                        <a class="edit-post-btn" href="@Url.Action("Edit", "PostsAjax", new { postId = Model.Id })">Edit</a>
                         <span>&bull;</span>
                         <a class="delete-post-btn"
-                           data-redirect-url="@Url.Action("Category", new { id = Model.CategoryId })"
-                           href="@Url.Action("Delete", new { postId = Model.Id })">Delete</a>
+                           data-redirect-url="@Url.Action("Category", "Categories", new { id = Model.CategoryId })"
+                           href="@Url.Action("Delete", "PostsAJax", new { postId = Model.Id })">Delete</a>
                     }
                 </p>
                 <div class="content" data-raw-content="@Model.Content">@Html.MarkdownToHtml(Model.Content)</div>
@@ -35,9 +35,7 @@
         </div>
     </div>
     <div class="col-xs-2">
-        @Html.ActionLink(
-            "Submit a new post",
-            "Submit",
+        @Html.ActionLink("Submit a new post", "Submit", "Posts",
             new { catgeoryId = Model.CategoryId },
             new { @class = "btn btn-primary" }
         )

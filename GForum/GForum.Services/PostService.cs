@@ -3,46 +3,58 @@ using System.Linq;
 using GForum.Common.Enums;
 using GForum.Data;
 using GForum.Data.Models;
+using GForum.Services.Contracts;
 
 namespace GForum.Services
 {
-    public class PostService
+    public class PostService: IPostService
     {
-        private readonly ApplicationData data;
+        private readonly UnitOfWork unitOfWork;
+        private readonly IRepository<Category> category;
+        private readonly IRepository<Post> posts;
+        private readonly IRepository<Vote> votes;
 
-        public PostService(ApplicationData data)
+        public PostService(
+            UnitOfWork data,
+            IRepository<Category> category,
+            IRepository<Post> posts,
+            IRepository<Vote> votes)
         {
-            this.data = data;
+            this.unitOfWork = data;
+            this.category = category;
+            this.posts = posts;
+            this.votes = votes;
         }
 
-        public IQueryable<Post> GetQueryable()
+        public IQueryable<Post> GetAll()
         {
-            return this.data.Posts.Query;
+            return this.posts.Query;
         }
 
-        public Post GetById(Guid id)
+        public IQueryable<Post> GetById(Guid id)
         {
-            return this.data.Posts.Query
-                .FirstOrDefault(x => x.Id == id);
+            return this.posts.Query
+                .Where(x => x.Id == id);
         }
 
         public VoteType GetUserVoteTypeForPost(Guid postId, string userId)
         {
-            var vote = this.data.Votes.Query
+            var vote = this.votes.Query
                 .FirstOrDefault(x => x.UserId == userId && x.PostId == postId);
+
             return vote != null ? vote.VoteType : VoteType.None;
         }
 
         public void Submit(Post post)
         {
-            this.data.Posts.Add(post);
-            this.data.Complete();
+            this.posts.Add(post);
+            this.unitOfWork.Complete();
         }
 
         public void ToggleVote(Guid postId, Vote vote)
         {
-            var post = this.GetById(postId);
-            var prevUserVote = this.data.Votes.Query
+            var post = this.GetById(postId).FirstOrDefault();
+            var prevUserVote = this.votes.Query
                 .FirstOrDefault(x => x.UserId == vote.UserId && x.PostId == postId);
 
             if (prevUserVote == null)
@@ -52,7 +64,7 @@ namespace GForum.Services
             }
             else
             {
-                this.data.Votes.Remove(prevUserVote);
+                this.votes.Remove(prevUserVote);
                 post.VoteCount -= (int)prevUserVote.VoteType;
 
                 if (prevUserVote.VoteType != vote.VoteType)
@@ -61,22 +73,22 @@ namespace GForum.Services
                     post.VoteCount += (int)vote.VoteType;
                 }
             }
-            this.data.Complete();
+            this.unitOfWork.Complete();
         }
 
         public void Edit(Guid postId, string newContent)
         {
-            var post = this.GetById(postId);
+            var post = this.GetById(postId).FirstOrDefault();
             post.Content = newContent;
             post.EditedOn = DateTime.Now;
-            this.data.Complete();
+            this.unitOfWork.Complete();
         }
 
         public void Delete(Guid postId)
         {
-            var post = this.GetById(postId);
-            this.data.Posts.Remove(post);
-            this.data.Complete();
+            var post = this.GetById(postId).FirstOrDefault();
+            this.posts.Remove(post);
+            this.unitOfWork.Complete();
         }
     }
 }

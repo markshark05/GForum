@@ -14,7 +14,7 @@
             <li>
                 @Html.ActionLink(
                     $"Hello {User.Identity.GetUserName()}!",
-                    "Index", "Users",
+                    "Profile", "Users",
                     new { username = User.Identity.GetUserName() }, null)
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>

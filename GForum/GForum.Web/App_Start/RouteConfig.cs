@@ -12,15 +12,9 @@ namespace GForum.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "UsersByUsername",
-                url: "User/{username}",
-                defaults: new { controller = "Users", action = "Index" }
-            );
-
-            routes.MapRoute(
-                name: "PostSubmit",
-                url: "Forum/Category/{catgeoryId}/Submit",
-                defaults: new { controller = "Forum", action = "Submit" }
+                name: "UserProfile",
+                url: "Users/{username}",
+                defaults: new { controller = "Users", action = "Profile" }
             );
 
             routes.MapRoute(

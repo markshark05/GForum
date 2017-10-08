@@ -77,11 +77,11 @@ namespace GForum.Web.Controllers
         }
 
         // GET: /Manage/ChangeEmail
-        public ActionResult ChangeEmail()
+        public async Task<ActionResult> ChangeEmail()
         {
             var model = new ChangeEmailViewModel
             {
-                CurrentEmail = this.userManager.GetEmail(this.User.Identity.GetUserId())
+                CurrentEmail = await this.userManager.GetEmailAsync(this.User.Identity.GetUserId())
             };
 
             return View(model);

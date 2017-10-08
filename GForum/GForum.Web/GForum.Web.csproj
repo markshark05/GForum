@@ -209,15 +209,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig\ApplicationSignInManager.cs" />
-    <Compile Include="App_Start\IdentityConfig\ApplicationUserManager.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\PostsAjaxController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="IdentityConfig\ApplicationSignInManager.cs" />
+    <Compile Include="IdentityConfig\ApplicationUserManager.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -297,14 +299,14 @@
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Forum\Category.cshtml" />
-    <Content Include="Views\Forum\Index.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Categories\Category.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\Manage\ChangeEmail.cshtml" />
-    <Content Include="Views\Forum\Post.cshtml" />
-    <Content Include="Views\Forum\Submit.cshtml" />
-    <Content Include="Views\Forum\_MarkdownHelpPartial.cshtml" />
-    <Content Include="Views\Forum\_VotesPartial.cshtml" />
+    <Content Include="Views\Posts\Post.cshtml" />
+    <Content Include="Views\Posts\Submit.cshtml" />
+    <Content Include="Views\Shared\_MarkdownHelpPartial.cshtml" />
+    <Content Include="Views\Shared\_VotesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

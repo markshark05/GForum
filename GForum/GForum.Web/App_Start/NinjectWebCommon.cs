@@ -8,6 +8,8 @@ namespace GForum.Web.App_Start
     using System.Web;
     using GForum.Data;
     using GForum.Data.Models;
+    using GForum.Services;
+    using GForum.Services.Contracts;
     using GForum.Web.IdentityConfig;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -67,11 +69,16 @@ namespace GForum.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
+            // Data
+            kernel.Bind<DbContext>().To<ApplicationDbContext>().InRequestScope();
+            kernel.Bind(typeof(IRepository<>)).To(typeof(EntityFrameworkRepository<>)).InRequestScope();
 
-            // Identity bindings
-            kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().InRequestScope()
-                .WithConstructorArgument<DbContext>(kernel.Get<ApplicationDbContext>());
+            // Servies
+            kernel.Bind<ICategoryService>().To<CategoryService>().InRequestScope();
+            kernel.Bind<IPostService>().To<PostService>().InRequestScope();
+
+            // Identity
+            kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().InRequestScope();
             kernel.Bind<IAuthenticationManager>().ToMethod(c => HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
             kernel.Bind<ApplicationUserManager>().ToSelf().InRequestScope();
             kernel.Bind<ApplicationSignInManager>().ToSelf().InRequestScope();
