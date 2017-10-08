@@ -18,7 +18,10 @@ namespace GForum.Web.Models.Forum
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Category, CategoryWithPostsViewModel>()
-                .ForMember(d => d.Posts, opt => opt.MapFrom(s => s.Posts.OrderByDescending(x => x.CreatedOn)));
+                .ForMember(d => d.Posts, 
+                    opt => opt.MapFrom(s => s.Posts
+                        .Where(x => !x.IsDeleted)
+                        .OrderByDescending(x => x.CreatedOn)));
         }
     }
 }

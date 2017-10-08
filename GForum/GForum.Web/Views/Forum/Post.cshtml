@@ -14,16 +14,20 @@
                     Submitted by
                     @Html.ActionLink(Model.Author.UserName, "Index", "Users", new { username = Model.Author.UserName }, null)
                     @Model.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)
-                    @if (Request.IsAuthenticated && User.Identity.GetUserId() == Model.Author.Id)
-                    {
-                        <span>&bull;</span>
-                        <a class="edit-post-btn" href="#" data-edit-url="@Url.Action("Edit", new { postId = Model.Id })">Edit</a>
-                    }
                     @if (Model.EditedOn != null)
                     {
                         <span>&bull;</span>
                         <text>Last edited</text>
                         @Model.EditedOn.Humanize(dateToCompareAgainst: DateTime.Now);
+                    }
+                    @if (Request.IsAuthenticated && User.Identity.GetUserId() == Model.Author.Id)
+                    {
+                        <span>&bull;</span>
+                        <a class="edit-post-btn" href="@Url.Action("Edit", new { postId = Model.Id })">Edit</a>
+                        <span>&bull;</span>
+                        <a class="delete-post-btn"
+                           data-redirect-url="@Url.Action("Category", new { id = Model.CategoryId })"
+                           href="@Url.Action("Delete", new { postId = Model.Id })">Delete</a>
                     }
                 </p>
                 <div class="content" data-raw-content="@Model.Content">@Html.MarkdownToHtml(Model.Content)</div>
@@ -43,4 +47,5 @@
 @section Scripts {
     <script src="~/Scripts/Site/votes-controller.js"></script>
     <script src="~/Scripts/Site/edit-controller.js"></script>
+    <script src="~/Scripts/Site/delete-controller.js"></script>
 }

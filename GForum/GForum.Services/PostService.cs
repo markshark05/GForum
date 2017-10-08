@@ -71,5 +71,12 @@ namespace GForum.Services
             post.EditedOn = DateTime.Now;
             this.data.Complete();
         }
+
+        public void Delete(Guid postId)
+        {
+            var post = this.GetById(postId);
+            this.data.Posts.Remove(post);
+            this.data.Complete();
+        }
     }
 }

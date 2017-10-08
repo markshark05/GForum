@@ -43,9 +43,7 @@
     @Scripts.Render("~/bundles/toastr")
     <script>
         toastr.options.positionClass = 'toast-top-center';
-        toastr.options.onclick = function() {
-            window.location = '@Url.Action("Login", "Account")';
-        };
+        toastr.options.timeOut = 1000;
     </script>
     @RenderSection("scripts", required: false)
 </body>

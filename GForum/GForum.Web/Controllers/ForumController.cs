@@ -177,5 +177,27 @@ namespace GForum.Web.Controllers
 
             return Json(new { success = true });
         }
+
+        // POST: /Forum/Edit {postId, newContent}
+        [HttpPost]
+        [AjaxAuthorize]
+        [ValidateInput(false)]
+        public ActionResult Delete(Guid postId)
+        {
+            var post = this.postService.GetById(postId);
+            if (post == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            if (post.AuthorId != this.User.Identity.GetUserId())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
+            this.postService.Delete(postId);
+
+            return Json(new { success = true });
+        }
     }
 }

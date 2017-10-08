@@ -36,6 +36,9 @@ textarea {
     border-radius: 4px;
     overflow: hidden;
 }
+    .card a {
+        margin: 0 2px;
+    }
 
     .card .title-one-line {
         overflow: hidden;
