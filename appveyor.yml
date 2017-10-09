@@ -7,12 +7,13 @@ build:
   project: GForum\GForum.sln
   verbosity: minimal
 
-test_script:
+after_test:
 - >-
   GForum\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe
   -register:user
   -target:"GForum\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe"
   -targetargs:"GForum\GForum.Web.Tests\bin\Debug\GForum.Web.Tests.dll"
+  -filter:"+[*]* -[*.Tests]*"
   -output:".\coverage.xml"
 - >-
   GForum\packages\Codecov.1.0.3\tools\codecov.exe -f ".\coverage.xml"
