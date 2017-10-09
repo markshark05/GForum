@@ -6,7 +6,7 @@ using GForum.Common.Enums;
 using GForum.Data.Models;
 using GForum.Services.Contracts;
 using GForum.Web.Helpers;
-using GForum.Web.IdentityConfig;
+using GForum.Web.Identity;
 using Humanizer;
 using Microsoft.AspNet.Identity;
 

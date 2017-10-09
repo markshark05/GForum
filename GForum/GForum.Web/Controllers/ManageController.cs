@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using GForum.Web.Models.Manage;
-using GForum.Web.IdentityConfig;
+using GForum.Web.Identity;
 
 namespace GForum.Web.Controllers
 {

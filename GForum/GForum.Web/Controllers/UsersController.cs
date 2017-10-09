@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
-using GForum.Web.IdentityConfig;
+using GForum.Web.Identity;
 using GForum.Web.Models.Users;
 using Microsoft.AspNet.Identity;
 

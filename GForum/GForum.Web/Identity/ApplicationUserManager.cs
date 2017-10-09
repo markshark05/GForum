@@ -3,7 +3,7 @@ using GForum.Common;
 using GForum.Data.Models;
 using Microsoft.AspNet.Identity;
 
-namespace GForum.Web.IdentityConfig
+namespace GForum.Web.Identity
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {

@@ -11,7 +11,7 @@ namespace GForum.Web.App_Start
     using GForum.Data.Models;
     using GForum.Services;
     using GForum.Services.Contracts;
-    using GForum.Web.IdentityConfig;
+    using GForum.Web.Identity;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.Owin.Security;

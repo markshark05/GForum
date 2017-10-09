@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using GForum.Data.Models;
 using GForum.Web.Controllers;
-using GForum.Web.IdentityConfig;
+using GForum.Web.Identity;
 using GForum.Web.Models.Users;
 using Microsoft.AspNet.Identity;
 using Moq;

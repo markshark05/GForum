@@ -3,7 +3,7 @@ using GForum.Data.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 
-namespace GForum.Web.IdentityConfig
+namespace GForum.Web.Identity
 {
     public class ApplicationSignInManager : SignInManager<ApplicationUser, String>
     {

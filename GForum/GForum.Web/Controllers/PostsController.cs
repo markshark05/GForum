@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
 using GForum.Data.Models;
 using GForum.Services.Contracts;
-using GForum.Web.IdentityConfig;
+using GForum.Web.Identity;
 using GForum.Web.Models.Forum;
 using Microsoft.AspNet.Identity;
 

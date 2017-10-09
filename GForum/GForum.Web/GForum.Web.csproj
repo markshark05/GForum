@@ -212,8 +212,8 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\PostsAjaxController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
-    <Compile Include="IdentityConfig\ApplicationSignInManager.cs" />
-    <Compile Include="IdentityConfig\ApplicationUserManager.cs" />
+    <Compile Include="Identity\ApplicationSignInManager.cs" />
+    <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -317,19 +317,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GForum.Common\GForum.Common.csproj">
-      <Project>{E7914C4F-111D-4236-8379-09ACB0FCA834}</Project>
+      <Project>{e7914c4f-111d-4236-8379-09acb0fca834}</Project>
       <Name>GForum.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\GForum.Data.Models\GForum.Data.Models.csproj">
-      <Project>{87E3EF97-EA81-4DAC-8B1D-C0CA7AD6A49F}</Project>
+      <Project>{87e3ef97-ea81-4dac-8b1d-c0ca7ad6a49f}</Project>
       <Name>GForum.Data.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\GForum.Data\GForum.Data.csproj">
-      <Project>{BFBB8190-FF1E-4551-B0D8-B4D1B5782CCE}</Project>
+      <Project>{bfbb8190-ff1e-4551-b0d8-b4d1b5782cce}</Project>
       <Name>GForum.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\GForum.Services\GForum.Services.csproj">
-      <Project>{51385AF6-58EF-44BD-B72E-3B00B0B6747E}</Project>
+      <Project>{51385af6-58ef-44bd-b72e-3b00b0b6747e}</Project>
       <Name>GForum.Services</Name>
     </ProjectReference>
   </ItemGroup>
