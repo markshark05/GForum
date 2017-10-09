@@ -2,3 +2,17 @@ image: Visual Studio 2017
 
 before_build:
 - nuget restore GForum\GForum.sln
+
+build:
+  project: GForum\GForum.sln
+  verbosity: minimal
+
+test_script:
+- >-
+  GForum\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe
+  -register:user
+  -target:"GForum\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe"
+  -targetargs:"GForum\GForum.Web.Tests\bin\Debug\GForum.Web.Tests.dll"
+  -output:".\coverage.xml"
+- >-
+  GForum\packages\Codecov.1.0.3\tools\codecov.exe -f ".\coverage.xml"

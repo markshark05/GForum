@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GForum.Common", "GForum.Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GForum.Services", "GForum.Services\GForum.Services.csproj", "{51385AF6-58EF-44BD-B72E-3B00B0B6747E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{35ECBF86-0E49-424E-94FD-7ABE0FDE4A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GForum.Coverage", "GForum.Coverage\GForum.Coverage.csproj", "{3EE8B4C2-B8DB-46DF-A8C5-CAE9ADD3728E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,9 +49,17 @@ Global
 		{51385AF6-58EF-44BD-B72E-3B00B0B6747E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51385AF6-58EF-44BD-B72E-3B00B0B6747E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51385AF6-58EF-44BD-B72E-3B00B0B6747E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EE8B4C2-B8DB-46DF-A8C5-CAE9ADD3728E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EE8B4C2-B8DB-46DF-A8C5-CAE9ADD3728E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EE8B4C2-B8DB-46DF-A8C5-CAE9ADD3728E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EE8B4C2-B8DB-46DF-A8C5-CAE9ADD3728E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E24767D5-672C-4B65-B413-E783245CB1ED} = {35ECBF86-0E49-424E-94FD-7ABE0FDE4A33}
+		{3EE8B4C2-B8DB-46DF-A8C5-CAE9ADD3728E} = {35ECBF86-0E49-424E-94FD-7ABE0FDE4A33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8503E76-0F4F-48D0-A7A1-A491BCE43991}
