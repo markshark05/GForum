@@ -92,8 +92,8 @@ namespace GForum.Web.Helpers
 
             imgTag.Attributes.Add("src",
                 string.Format("{0}://{1}.gravatar.com/avatar/{2}?s={3}{4}{5}{6}",
-                    htmlHelper.ViewContext.HttpContext.Request.IsSecureConnection || forceSecureRequest ? "https" : "http",
-                    htmlHelper.ViewContext.HttpContext.Request.IsSecureConnection || forceSecureRequest ? "secure" : "www",
+                    forceSecureRequest || htmlHelper.ViewContext.HttpContext.Request.IsSecureConnection ? "https" : "http",
+                    forceSecureRequest || htmlHelper.ViewContext.HttpContext.Request.IsSecureConnection ? "secure" : "www",
                     GetMd5Hash(emailAddress),
                     size.ToString(),
                     "&d=" + (!string.IsNullOrEmpty(defaultImageUrl) ? HttpUtility.UrlEncode(defaultImageUrl) : defaultImage.GetDescription()),
