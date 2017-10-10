@@ -26,10 +26,8 @@ namespace GForum.Services
 
         public IQueryable<Post> GetById(Guid id)
         {
-            var posts = this.posts.Query
+            return this.posts.Query
                 .Where(x => x.Id == id);
-
-                return posts;
         }
 
         public Post Submit(Guid categoryId, string userId, string title, string content)

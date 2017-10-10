@@ -61,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GForum.Common\GForum.Common.csproj">
+      <Project>{E7914C4F-111D-4236-8379-09ACB0FCA834}</Project>
+      <Name>GForum.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GForum.Data.Models\GForum.Data.Models.csproj">
       <Project>{87E3EF97-EA81-4DAC-8B1D-C0CA7AD6A49F}</Project>
       <Name>GForum.Data.Models</Name>

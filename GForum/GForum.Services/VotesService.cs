@@ -33,31 +33,38 @@ namespace GForum.Services
 
         public void ToggleVote(Guid postId, string userId, VoteType newVoteType)
         {
-            var vote = new Vote
+            var post = this.posts.Query
+                .FirstOrDefault(x => x.Id == postId);
+
+            if (post == null)
+            {
+                throw new ArgumentException("Post does not exist.");
+            }
+
+            var prevUserVote = this.votes.Query
+                .FirstOrDefault(x => x.PostId == postId && x.UserId == userId);
+
+            var newVote = new Vote
             {
                 VoteType = newVoteType,
                 UserId = userId,
+                PostId = postId,
             };
-
-            var post = this.posts.Query
-                .FirstOrDefault(x => x.Id == postId);
-            var prevUserVote = this.votes.Query
-                .FirstOrDefault(x => x.PostId == postId && x.UserId == vote.UserId);
 
             if (prevUserVote == null)
             {
-                post.Votes.Add(vote);
-                post.VoteCount += (int)vote.VoteType;
+                this.votes.Add(newVote);
+                post.VoteCount += (int)newVote.VoteType;
             }
             else
             {
                 this.votes.Remove(prevUserVote);
                 post.VoteCount -= (int)prevUserVote.VoteType;
 
-                if (prevUserVote.VoteType != vote.VoteType)
+                if (prevUserVote.VoteType != newVote.VoteType)
                 {
-                    post.Votes.Add(vote);
-                    post.VoteCount += (int)vote.VoteType;
+                    this.votes.Add(newVote);
+                    post.VoteCount += (int)newVote.VoteType;
                 }
             }
 
