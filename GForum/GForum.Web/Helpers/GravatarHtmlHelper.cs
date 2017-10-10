@@ -17,7 +17,8 @@ namespace GForum.Web.Helpers
     public static class GravatarHtmlHelper
     {
         /// <summary>
-        /// In addition to allowing you to use your own image, Gravatar has a number of built in options which you can also use as defaults. Most of these work by taking the requested email hash and using it to generate a themed image that is unique to that email address
+        /// In addition to allowing you to use your own image, Gravatar has a number of built in options which you can also use as defaults. 
+        /// Most of these work by taking the requested email hash and using it to generate a themed image that is unique to that email address
         /// </summary>
         public enum DefaultImage
         {
@@ -45,7 +46,8 @@ namespace GForum.Web.Helpers
         }
 
         /// <summary>
-        /// Gravatar allows users to self-rate their images so that they can indicate if an image is appropriate for a certain audience. By default, only 'G' rated images are displayed unless you indicate that you would like to see higher ratings
+        /// Gravatar allows users to self-rate their images so that they can indicate if an image is appropriate for a certain audience.
+        /// By default, only 'G' rated images are displayed unless you indicate that you would like to see higher ratings
         /// </summary>
         public enum Rating
         {
@@ -85,22 +87,19 @@ namespace GForum.Web.Helpers
           string cssClass = "gravatar",
           string alt = "Gravatar image")
         {
-
             var imgTag = new TagBuilder("img");
 
             emailAddress = string.IsNullOrEmpty(emailAddress) ? string.Empty : emailAddress.Trim().ToLower();
 
-            imgTag.Attributes.Add("src",
-                string.Format("{0}://{1}.gravatar.com/avatar/{2}?s={3}{4}{5}{6}",
-                    forceSecureRequest || htmlHelper.ViewContext.HttpContext.Request.IsSecureConnection ? "https" : "http",
-                    forceSecureRequest || htmlHelper.ViewContext.HttpContext.Request.IsSecureConnection ? "secure" : "www",
+            imgTag.Attributes.Add("src", 
+                    string.Format("{0}://{1}.gravatar.com/avatar/{2}?s={3}{4}{5}{6}",
+                    forceSecureRequest ? "https" : "http",
+                    forceSecureRequest ? "secure" : "www",
                     GetMd5Hash(emailAddress),
                     size.ToString(),
                     "&d=" + (!string.IsNullOrEmpty(defaultImageUrl) ? HttpUtility.UrlEncode(defaultImageUrl) : defaultImage.GetDescription()),
                     forceDefaultImage ? "&f=y" : "",
-                    "&r=" + rating.GetDescription()
-                    )
-                );
+                    "&r=" + rating.GetDescription()));
 
             imgTag.Attributes.Add("class", cssClass);
             imgTag.Attributes.Add("alt", alt);
@@ -113,7 +112,6 @@ namespace GForum.Web.Helpers
         /// <remarks>Source: http://msdn.microsoft.com/en-us/library/system.security.cryptography.md5.aspx </remarks>
         private static string GetMd5Hash(string input)
         {
-
             // Convert the input string to a byte array and compute the hash.
             var data = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(input));
 
@@ -140,7 +138,6 @@ namespace GForum.Web.Helpers
         /// <returns></returns>
         private static string GetDescription(this Enum en)
         {
-
             var type = en.GetType();
             var memInfo = type.GetMember(en.ToString());
 

@@ -10,7 +10,7 @@ namespace GForum.Web.Tests.Helpers
     public class GravatarHtmlHelperTests
     {
         [Test]
-        public void Expect_ToReturnCorrectImageTag()
+        public void Expect_ToReturnCorrectImageTagWithDefaultImage()
         {
             // Arrange
             var email = "test@test.com";
@@ -29,6 +29,44 @@ namespace GForum.Web.Tests.Helpers
             Assert.IsInstanceOf<HtmlString>(result);
             StringAssert.Contains(emailHash, result.ToString());
             StringAssert.Contains("d=retro", result.ToString());
+        }
+
+        [Test]
+        public void Expect_ToReturnCorrectImageTagWithCustomImage()
+        {
+            // Arrange
+            var email = "test@test.com";
+            var emailHash = "b642b4217b34b1e8d3bd915fc65c4452";
+
+            var mockViewContext = new Mock<ViewContext>();
+            var mockViewDataContainer = new Mock<IViewDataContainer>();
+            var htmlHelper = new HtmlHelper(mockViewContext.Object, mockViewDataContainer.Object);
+
+            // Act
+            var result = GravatarHtmlHelper.GravatarImage(htmlHelper,
+                email,
+                defaultImageUrl: "test.jpg");
+
+            // Assert
+            Assert.IsInstanceOf<HtmlString>(result);
+            StringAssert.Contains(emailHash, result.ToString());
+            StringAssert.Contains("d=test.jpg", result.ToString());
+        }
+
+        [Test]
+        public void Expect_ToSwitchToUnsecureWithGivenParam()
+        {
+            // Arrange
+            var mockViewContext = new Mock<ViewContext>();
+            var mockViewDataContainer = new Mock<IViewDataContainer>();
+            var htmlHelper = new HtmlHelper(mockViewContext.Object, mockViewDataContainer.Object);
+
+            // Act
+            var result = GravatarHtmlHelper.GravatarImage(htmlHelper, string.Empty, forceSecureRequest: false);
+
+            // Assert
+            Assert.IsInstanceOf<HtmlString>(result);
+            StringAssert.DoesNotContain("https", result.ToString());
         }
     }
 }
