@@ -117,7 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GForum.Data.Models\GForum.Data.Models.csproj">
-      <Project>{87E3EF97-EA81-4DAC-8B1D-C0CA7AD6A49F}</Project>
+      <Project>{87e3ef97-ea81-4dac-8b1d-c0ca7ad6a49f}</Project>
       <Name>GForum.Data.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\GForum.Web\GForum.Web.csproj">

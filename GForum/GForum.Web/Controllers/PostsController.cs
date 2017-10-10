@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
-using GForum.Data.Models;
 using GForum.Services.Contracts;
 using GForum.Web.Identity;
 using GForum.Web.Models.Forum;
@@ -11,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace GForum.Web.Controllers
 {
-    public class PostsController: Controller
+    public class PostsController : Controller
     {
         private readonly ICategoryService categoryService;
         private readonly IPostService postService;
@@ -48,7 +47,7 @@ namespace GForum.Web.Controllers
             return View(post);
         }
 
-        // GET: /Posts/Submit/{categoryId}
+        // GET: /Posts/Submit {categoryId}
         [Authorize]
         public ActionResult Submit(Guid catgeoryId)
         {
@@ -84,14 +83,9 @@ namespace GForum.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var post = new Post
-            {
-                Title = model.Title,
-                Content = model.Content,
-                CategoryId = model.CategoryId,
-                AuthorId = this.User.Identity.GetUserId(),
-            };
-            this.postService.Submit(post);
+            var userId = this.User.Identity.GetUserId();
+            var post = this.postService
+                .Submit(model.CategoryId, userId, model.Title, model.Content);
 
             return RedirectToAction("Post", new { id = post.Id });
         }

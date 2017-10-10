@@ -13,9 +13,9 @@ namespace GForum.Services.Contracts
 
         VoteType GetUserVoteTypeForPost(Guid postId, string userId);
 
-        void Submit(Post post);
+        Post Submit(Guid categoryId, string userId, string title, string content);
 
-        void ToggleVote(Guid postId, Vote vote);
+        void ToggleVote(Guid postId, string userId, VoteType voteType);
 
         void Edit(Guid postId, string newContent);
 

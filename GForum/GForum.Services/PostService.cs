@@ -7,7 +7,7 @@ using GForum.Services.Contracts;
 
 namespace GForum.Services
 {
-    public class PostService: IPostService
+    public class PostService : IPostService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Category> category;
@@ -45,14 +45,29 @@ namespace GForum.Services
             return vote != null ? vote.VoteType : VoteType.None;
         }
 
-        public void Submit(Post post)
+        public Post Submit(Guid categoryId, string userId, string title, string content)
         {
+            var post = new Post
+            {
+                CategoryId = categoryId,
+                AuthorId = userId,
+                Title = title,
+                Content = content
+            };
+
             this.posts.Add(post);
             this.unitOfWork.Complete();
+            return post;
         }
 
-        public void ToggleVote(Guid postId, Vote vote)
+        public void ToggleVote(Guid postId, string userId, VoteType voteType)
         {
+            var vote = new Vote
+            {
+                VoteType = voteType,
+                UserId = userId,
+            };
+
             var post = this.GetById(postId).FirstOrDefault();
             var prevUserVote = this.votes.Query
                 .FirstOrDefault(x => x.UserId == vote.UserId && x.PostId == postId);

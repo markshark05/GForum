@@ -57,7 +57,7 @@
       <Name>GForum.Data.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\GForum.Data\GForum.Data.csproj">
-      <Project>{BFBB8190-FF1E-4551-B0D8-B4D1B5782CCE}</Project>
+      <Project>{bfbb8190-ff1e-4551-b0d8-b4d1b5782cce}</Project>
       <Name>GForum.Data</Name>
     </ProjectReference>
   </ItemGroup>

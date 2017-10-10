@@ -3,9 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using GForum.Common.Enums;
-using GForum.Data.Models;
 using GForum.Services.Contracts;
-using GForum.Web.Helpers;
 using GForum.Web.Identity;
 using Humanizer;
 using Microsoft.AspNet.Identity;
@@ -30,7 +28,7 @@ namespace GForum.Web.Controllers
 
         // POST: /Posts/Vote {voteType, postId}
         [HttpPost]
-        [AjaxAuthorize]
+        [Authorize]
         public ActionResult Vote(Guid postId, VoteType voteType)
         {
             var enumIsValid = Enum.IsDefined(typeof(VoteType), voteType) && voteType != VoteType.None;
@@ -41,12 +39,8 @@ namespace GForum.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            this.postService.ToggleVote(postId, new Vote
-            {
-                UserId = this.User.Identity.GetUserId(),
-                PostId = postId,
-                VoteType = voteType,
-            });
+            var userId = this.User.Identity.GetUserId();
+            this.postService.ToggleVote(postId, userId, voteType);
 
             return Json(new
             {
@@ -57,7 +51,7 @@ namespace GForum.Web.Controllers
 
         // POST: /Posts/Edit {postId, newContent}
         [HttpPost]
-        [AjaxAuthorize]
+        [Authorize]
         [ValidateInput(false)]
         public ActionResult Edit(Guid postId, string content)
         {
@@ -88,7 +82,7 @@ namespace GForum.Web.Controllers
 
         // POST: /Posts/Delete {postId, newContent}
         [HttpPost]
-        [AjaxAuthorize]
+        [Authorize]
         public ActionResult Delete(Guid postId)
         {
             var post = this.postService.GetById(postId).FirstOrDefault();
