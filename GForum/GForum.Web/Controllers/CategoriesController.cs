@@ -12,20 +12,17 @@ namespace GForum.Web.Controllers
     public class CategoriesController : Controller
     {
         private readonly ICategoryService categoryService;
-        private readonly IPostService postService;
         private readonly IVoteService voteService;
         private readonly ApplicationUserManager userManager;
         private readonly IMapper mapper;
 
         public CategoriesController(
             ICategoryService categoryService,
-            IPostService postService,
             IVoteService voteService,
             ApplicationUserManager userManager,
             IMapper mapper)
         {
             this.categoryService = categoryService;
-            this.postService = postService;
             this.voteService = voteService;
             this.userManager = userManager;
             this.mapper = mapper;
