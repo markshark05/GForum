@@ -14,15 +14,18 @@ namespace GForum.Web.Controllers
     {
         private readonly ICategoryService categoryService;
         private readonly IPostService postService;
+        private readonly IVoteService voteService;
         private readonly ApplicationUserManager userManager;
 
         public PostsAjaxController(
             ICategoryService categoryService,
             IPostService postService,
+            IVoteService voteService,
             ApplicationUserManager userManager)
         {
             this.categoryService = categoryService;
             this.postService = postService;
+            this.voteService = voteService;
             this.userManager = userManager;
         }
 
@@ -40,7 +43,7 @@ namespace GForum.Web.Controllers
             }
 
             var userId = this.User.Identity.GetUserId();
-            this.postService.ToggleVote(postId, userId, voteType);
+            this.voteService.ToggleVote(postId, userId, voteType);
 
             return Json(new
             {

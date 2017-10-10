@@ -13,15 +13,18 @@ namespace GForum.Web.Controllers
     {
         private readonly ICategoryService categoryService;
         private readonly IPostService postService;
+        private readonly IVoteService voteService;
         private readonly ApplicationUserManager userManager;
 
         public CategoriesController(
             ICategoryService categoryService,
             IPostService postService,
+            IVoteService voteService,
             ApplicationUserManager userManager)
         {
             this.categoryService = categoryService;
             this.postService = postService;
+            this.voteService = voteService;
             this.userManager = userManager;
         }
 
@@ -51,7 +54,7 @@ namespace GForum.Web.Controllers
             {
                 foreach (var post in category.Posts)
                 {
-                    post.UserVoteType = this.postService
+                    post.UserVoteType = this.voteService
                         .GetUserVoteTypeForPost(post.Id, this.User.Identity.GetUserId());
                 }
             }

@@ -11,11 +11,7 @@ namespace GForum.Services.Contracts
 
         IQueryable<Post> GetById(Guid id);
 
-        VoteType GetUserVoteTypeForPost(Guid postId, string userId);
-
         Post Submit(Guid categoryId, string userId, string title, string content);
-
-        void ToggleVote(Guid postId, string userId, VoteType voteType);
 
         void Edit(Guid postId, string newContent);
 

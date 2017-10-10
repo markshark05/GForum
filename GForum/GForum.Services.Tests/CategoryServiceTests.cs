@@ -20,9 +20,8 @@ namespace GForum.Services.Tests
             }.AsQueryable();
             var repositoryMock = new Mock<IRepository<Category>>();
             repositoryMock.Setup(x => x.Query).Returns(categories);
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
 
-            var categoryService = new CategoryService(unitOfWorkMock.Object, repositoryMock.Object);
+            var categoryService = new CategoryService(repositoryMock.Object);
 
             // Act
             var result = categoryService.GetAll();
@@ -32,32 +31,31 @@ namespace GForum.Services.Tests
         }
 
         [Test]
-        public void GetByID_ShouldReturnQueriableContainingCurrectElement()
+        public void GetByID_ShouldReturnQueriableContainingOnlyCurrectElement()
         {
             // Arrange
             var guidPattern = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
             var guid1 = new Guid(guidPattern.Replace('x', '1'));
             var guid2 = new Guid(guidPattern.Replace('x', '2'));
 
-            var expectedResult = new Category { Id = guid1 };
+            var expectedCategory = new Category { Id = guid1 };
 
             var categories = new Category[] {
                 new Category { Id = guid2},
-                expectedResult,
+                expectedCategory,
             }.AsQueryable();
 
             var repositoryMock = new Mock<IRepository<Category>>();
             repositoryMock.Setup(x => x.Query).Returns(categories);
 
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-
-            var categoryService = new CategoryService(unitOfWorkMock.Object, repositoryMock.Object);
+            var categoryService = new CategoryService(repositoryMock.Object);
 
             // Act
             var result = categoryService.GetById(guid1);
 
             // Assert
-            Assert.Contains(expectedResult, result.ToList());
+            Assert.Contains(expectedCategory, result.ToList());
+            Assert.AreEqual(1, result.Count());
         }
 
         [Test]
@@ -76,9 +74,7 @@ namespace GForum.Services.Tests
             var repositoryMock = new Mock<IRepository<Category>>();
             repositoryMock.Setup(x => x.Query).Returns(categories);
 
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-
-            var categoryService = new CategoryService(unitOfWorkMock.Object, repositoryMock.Object);
+            var categoryService = new CategoryService(repositoryMock.Object);
 
             // Act
             var result = categoryService.GetById(new Guid());

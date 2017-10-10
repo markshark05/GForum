@@ -78,6 +78,7 @@ namespace GForum.Web.App_Start
             // Servies
             kernel.Bind<ICategoryService>().To<CategoryService>().InRequestScope();
             kernel.Bind<IPostService>().To<PostService>().InRequestScope();
+            kernel.Bind<IVoteService>().To<VoteService>().InRequestScope();
 
             // Identity
             kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().InRequestScope();

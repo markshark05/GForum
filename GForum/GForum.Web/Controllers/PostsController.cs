@@ -14,15 +14,18 @@ namespace GForum.Web.Controllers
     {
         private readonly ICategoryService categoryService;
         private readonly IPostService postService;
+        private readonly IVoteService voteService;
         private readonly ApplicationUserManager userManager;
 
         public PostsController(
             ICategoryService categoryService,
             IPostService postService,
+            IVoteService voteService,
             ApplicationUserManager userManager)
         {
             this.categoryService = categoryService;
             this.postService = postService;
+            this.voteService = voteService;
             this.userManager = userManager;
         }
 
@@ -40,7 +43,7 @@ namespace GForum.Web.Controllers
 
             if (this.Request.IsAuthenticated)
             {
-                post.UserVoteType = this.postService
+                post.UserVoteType = this.voteService
                     .GetUserVoteTypeForPost(post.Id, this.User.Identity.GetUserId());
             }
 

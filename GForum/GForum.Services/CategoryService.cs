@@ -8,14 +8,10 @@ namespace GForum.Services
 {
     public class CategoryService: ICategoryService
     {
-        private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Category> categories;
 
-        public CategoryService(
-            IUnitOfWork unitOfWork, 
-            IRepository<Category> categories)
+        public CategoryService(IRepository<Category> categories)
         {
-            this.unitOfWork = unitOfWork;
             this.categories = categories;
         }
 
