@@ -208,7 +208,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\PostsAjaxController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
@@ -296,7 +295,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Categories\Category.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using AutoMapper.QueryableExtensions;
+using AutoMapper;
 using GForum.Web.Identity;
 using GForum.Web.Models.Users;
 using Microsoft.AspNet.Identity;
@@ -10,10 +10,14 @@ namespace GForum.Web.Controllers
     public class UsersController : Controller
     {
         private readonly ApplicationUserManager userManager;
+        private readonly IMapper mapper;
 
-        public UsersController(ApplicationUserManager userManager)
+        public UsersController(
+            ApplicationUserManager userManager,
+            IMapper mapper)
         {
             this.userManager = userManager;
+            this.mapper = mapper;
         }
 
         // GET: /Users/Username
@@ -22,7 +26,7 @@ namespace GForum.Web.Controllers
         {
             var user = this.userManager.Users
                 .Where(x => x.UserName == username)
-                .ProjectTo<UserViewModel>()
+                .Select(this.mapper.Map<UserViewModel>)
                 .FirstOrDefault();
 
             if (user == null)

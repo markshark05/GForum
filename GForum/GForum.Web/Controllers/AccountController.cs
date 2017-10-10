@@ -40,6 +40,7 @@ namespace GForum.Web.Controllers
             {
                 return Redirect(returnUrl);
             }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -68,8 +69,6 @@ namespace GForum.Web.Controllers
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
                 default:
                     this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
@@ -101,6 +100,7 @@ namespace GForum.Web.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+
                 AddErrors(result);
             }
 

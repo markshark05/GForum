@@ -62,7 +62,9 @@ namespace GForum.Web.Controllers
             {
                 return View(model);
             }
-            var result = await this.userManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+
+            var result = await this.userManager
+                .ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
                 var user = await this.userManager.FindByIdAsync(this.User.Identity.GetUserId());
@@ -72,6 +74,7 @@ namespace GForum.Web.Controllers
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
+
             AddErrors(result);
             return View(model);
         }
@@ -102,6 +105,7 @@ namespace GForum.Web.Controllers
             {
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChnageEmailSuccess });
             }
+
             AddErrors(result);
             return View(model);
         }

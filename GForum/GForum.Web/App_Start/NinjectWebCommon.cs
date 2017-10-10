@@ -6,6 +6,7 @@ namespace GForum.Web.App_Start
     using System;
     using System.Data.Entity;
     using System.Web;
+    using AutoMapper;
     using GForum.Data;
     using GForum.Data.Contracts;
     using GForum.Data.Models;
@@ -85,6 +86,9 @@ namespace GForum.Web.App_Start
             kernel.Bind<IAuthenticationManager>().ToMethod(c => HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
             kernel.Bind<ApplicationUserManager>().ToSelf().InRequestScope();
             kernel.Bind<ApplicationSignInManager>().ToSelf().InRequestScope();
+
+            // AutoMapper
+            kernel.Bind<IMapper>().ToMethod(c => Mapper.Instance).InSingletonScope();
         }
     }
 }

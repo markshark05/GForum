@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using AutoMapper.QueryableExtensions;
+using AutoMapper;
 using GForum.Services.Contracts;
 using GForum.Web.Identity;
 using GForum.Web.Models.Forum;
@@ -16,24 +16,27 @@ namespace GForum.Web.Controllers
         private readonly IPostService postService;
         private readonly IVoteService voteService;
         private readonly ApplicationUserManager userManager;
+        private readonly IMapper mapper;
 
         public PostsController(
             ICategoryService categoryService,
             IPostService postService,
             IVoteService voteService,
-            ApplicationUserManager userManager)
+            ApplicationUserManager userManager,
+            IMapper mapper)
         {
             this.categoryService = categoryService;
             this.postService = postService;
             this.voteService = voteService;
             this.userManager = userManager;
+            this.mapper = mapper;
         }
 
         // GET: /Posts/Post/{id}
         public ActionResult Post(Guid id)
         {
             var post = this.postService.GetById(id)
-                .ProjectTo<PostViewModel>()
+                .Select(this.mapper.Map<PostViewModel>)
                 .FirstOrDefault();
 
             if (post == null)
@@ -55,7 +58,7 @@ namespace GForum.Web.Controllers
         public ActionResult Submit(Guid catgeoryId)
         {
             var model = this.categoryService.GetById(catgeoryId)
-                .ProjectTo<PostSubmitViewModel>()
+                .Select(this.mapper.Map<PostSubmitViewModel>)
                 .FirstOrDefault();
 
             if (model == null)

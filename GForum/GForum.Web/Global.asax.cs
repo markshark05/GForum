@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Heroic.AutoMapper;
 
 namespace GForum.Web
 {
@@ -13,7 +14,7 @@ namespace GForum.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AutoMapperConfig.Configure();
+            HeroicAutoMapperConfigurator.LoadMapsFromCallerAndReferencedAssemblies();
         }
     }
 }

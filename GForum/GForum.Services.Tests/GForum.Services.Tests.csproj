@@ -55,6 +55,7 @@
     <Compile Include="CategoryServiceTests.cs" />
     <Compile Include="PostServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VoteServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
