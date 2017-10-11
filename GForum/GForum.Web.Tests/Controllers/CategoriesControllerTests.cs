@@ -9,10 +9,9 @@ using AutoMapper;
 using GForum.Common.Enums;
 using GForum.Data.Models;
 using GForum.Services.Contracts;
+using GForum.Web.Contracts.Identity;
 using GForum.Web.Controllers;
-using GForum.Web.Identity;
 using GForum.Web.Models.Forum;
-using Microsoft.AspNet.Identity;
 using Moq;
 using NUnit.Framework;
 
@@ -37,9 +36,7 @@ namespace GForum.Web.Tests.Controllers
                 .Returns(categories.AsQueryable());
 
             var voteServiceMock = new Mock<IVoteService>();
-
-            var storeMock = new Mock<IUserStore<ApplicationUser>>();
-            var userManagerMock = new Mock<ApplicationUserManager>(storeMock.Object);
+            var userManagerMock = new Mock<IApplicationUserManager>();
 
             var mapperMock = new Mock<IMapper>();
             mapperMock
@@ -66,9 +63,7 @@ namespace GForum.Web.Tests.Controllers
             // Arrange
             var categoryServiceMock = new Mock<ICategoryService>();
             var voteServiceMock = new Mock<IVoteService>();
-            var storeMock = new Mock<IUserStore<ApplicationUser>>();
-            var userManagerMock = new Mock<ApplicationUserManager>(storeMock.Object);
-
+            var userManagerMock = new Mock<IApplicationUserManager>();
             var mapperMock = new Mock<IMapper>();
 
             var controller = new CategoriesController(
@@ -104,8 +99,7 @@ namespace GForum.Web.Tests.Controllers
                 .Setup(x => x.GetUserVoteTypeForPost(It.IsAny<Guid>(), It.IsAny<string>()))
                 .Returns(VoteType.None);
 
-            var storeMock = new Mock<IUserStore<ApplicationUser>>();
-            var userManagerMock = new Mock<ApplicationUserManager>(storeMock.Object);
+            var userManagerMock = new Mock<IApplicationUserManager>();
 
             var mapperMock = new Mock<IMapper>();
             mapperMock

@@ -4,7 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using GForum.Common.Enums;
 using GForum.Services.Contracts;
-using GForum.Web.Identity;
+using GForum.Web.Contracts.Identity;
 using Humanizer;
 using Microsoft.AspNet.Identity;
 
@@ -15,13 +15,13 @@ namespace GForum.Web.Controllers
         private readonly ICategoryService categoryService;
         private readonly IPostService postService;
         private readonly IVoteService voteService;
-        private readonly ApplicationUserManager userManager;
+        private readonly IApplicationUserManager userManager;
 
         public PostsAjaxController(
             ICategoryService categoryService,
             IPostService postService,
             IVoteService voteService,
-            ApplicationUserManager userManager)
+            IApplicationUserManager userManager)
         {
             this.categoryService = categoryService;
             this.postService = postService;

@@ -4,21 +4,21 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using GForum.Web.Models.Account;
 using GForum.Data.Models;
-using GForum.Web.Identity;
 using Microsoft.Owin.Security;
+using GForum.Web.Contracts.Identity;
 
 namespace GForum.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly ApplicationUserManager userManager;
-        private readonly ApplicationSignInManager signInManager;
+        private readonly IApplicationUserManager userManager;
+        private readonly IApplicationSignInManager signInManager;
         private readonly IAuthenticationManager authenticationManager;
 
         public AccountController(
-            ApplicationUserManager userManager,
-            ApplicationSignInManager signInManager,
+            IApplicationUserManager userManager,
+            IApplicationSignInManager signInManager,
             IAuthenticationManager authenticationManager)
         {
             this.userManager = userManager;
@@ -114,6 +114,12 @@ namespace GForum.Web.Controllers
         {
             this.authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
+        }
+
+        [ChildActionOnly]
+        public string GetEmail(string id)
+        {
+            return this.userManager.GetEmailAsync(id).Result;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using GForum.Services.Contracts;
-using GForum.Web.Identity;
+using GForum.Web.Contracts.Identity;
 using GForum.Web.Models.Forum;
 using Microsoft.AspNet.Identity;
 
@@ -13,18 +13,16 @@ namespace GForum.Web.Controllers
     {
         private readonly ICategoryService categoryService;
         private readonly IVoteService voteService;
-        private readonly ApplicationUserManager userManager;
         private readonly IMapper mapper;
 
         public CategoriesController(
             ICategoryService categoryService,
             IVoteService voteService,
-            ApplicationUserManager userManager,
+            IApplicationUserManager userManager,
             IMapper mapper)
         {
             this.categoryService = categoryService;
             this.voteService = voteService;
-            this.userManager = userManager;
             this.mapper = mapper;
         }
 

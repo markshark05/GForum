@@ -2,10 +2,9 @@
 using System.Web.Mvc;
 using AutoMapper;
 using GForum.Data.Models;
+using GForum.Web.Contracts.Identity;
 using GForum.Web.Controllers;
-using GForum.Web.Identity;
 using GForum.Web.Models.Users;
-using Microsoft.AspNet.Identity;
 using Moq;
 using NUnit.Framework;
 
@@ -19,17 +18,16 @@ namespace GForum.Web.Tests.Controllers
         {
             // Arrange
             var user = new ApplicationUser { UserName = "admin" };
-            var users = new ApplicationUser[] { user }.AsQueryable();
 
-            var storeMock = new Mock<IUserStore<ApplicationUser>>();
-
-            var userManagerMock = new Mock<ApplicationUserManager>(storeMock.Object);
-            userManagerMock.Setup(x => x.Users).Returns(users);
+            var userManagerMock = new Mock<IApplicationUserManager>();
+            userManagerMock
+                .Setup(x => x.Users)
+                .Returns(new ApplicationUser[] { user }.AsQueryable());
 
             var mapperMock = new Mock<IMapper>();
             mapperMock
-                .Setup(x => x.Map<UserViewModel>(It.Is<ApplicationUser>(u => u.UserName == "admin")))
-                .Returns(new UserViewModel { UserName = "admin" });
+                .Setup(x => x.Map<UserViewModel>(It.IsAny<ApplicationUser>()))
+                .Returns<ApplicationUser>(u => new UserViewModel { UserName = u.UserName });
 
             var controller = new UsersController(userManagerMock.Object, mapperMock.Object);
 
@@ -45,12 +43,11 @@ namespace GForum.Web.Tests.Controllers
         {
             // Arrange
             var user = new ApplicationUser { UserName = "admin" };
-            var users = new ApplicationUser[] { user }.AsQueryable();
 
-            var storeMock = new Mock<IUserStore<ApplicationUser>>();
-
-            var userManagerMock = new Mock<ApplicationUserManager>(storeMock.Object);
-            userManagerMock.Setup(x => x.Users).Returns(users);
+            var userManagerMock = new Mock<IApplicationUserManager>();
+            userManagerMock
+                .Setup(x => x.Users)
+                .Returns(new ApplicationUser[] { user }.AsQueryable());
 
             var mapperMock = new Mock<IMapper>();
             

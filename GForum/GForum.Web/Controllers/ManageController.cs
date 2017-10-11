@@ -2,19 +2,19 @@
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using GForum.Web.Models.Manage;
-using GForum.Web.Identity;
+using GForum.Web.Contracts.Identity;
 
 namespace GForum.Web.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly ApplicationUserManager userManager;
-        private readonly ApplicationSignInManager signInManager;
+        private readonly IApplicationUserManager userManager;
+        private readonly IApplicationSignInManager signInManager;
 
         public ManageController(
-            ApplicationUserManager userManager, 
-            ApplicationSignInManager signInManager)
+            IApplicationUserManager userManager, 
+            IApplicationSignInManager signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;

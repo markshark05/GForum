@@ -1,19 +1,18 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using GForum.Web.Identity;
+using GForum.Web.Contracts.Identity;
 using GForum.Web.Models.Users;
-using Microsoft.AspNet.Identity;
 
 namespace GForum.Web.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly ApplicationUserManager userManager;
+        private readonly IApplicationUserManager userManager;
         private readonly IMapper mapper;
 
         public UsersController(
-            ApplicationUserManager userManager,
+            IApplicationUserManager userManager,
             IMapper mapper)
         {
             this.userManager = userManager;
@@ -35,12 +34,6 @@ namespace GForum.Web.Controllers
             }
 
             return View(user);
-        }
-
-        [ChildActionOnly]
-        public string GetEmail()
-        {
-            return this.userManager.GetEmail(this.User.Identity.GetUserId());
         }
     }
 }

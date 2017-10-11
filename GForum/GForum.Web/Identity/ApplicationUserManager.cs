@@ -1,11 +1,12 @@
 ﻿using System;
 using GForum.Common;
 using GForum.Data.Models;
+using GForum.Web.Contracts.Identity;
 using Microsoft.AspNet.Identity;
 
 namespace GForum.Web.Identity
 {
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : UserManager<ApplicationUser>, IApplicationUserManager
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)

@@ -12,6 +12,7 @@ namespace GForum.Web.App_Start
     using GForum.Data.Models;
     using GForum.Services;
     using GForum.Services.Contracts;
+    using GForum.Web.Contracts.Identity;
     using GForum.Web.Identity;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -84,8 +85,8 @@ namespace GForum.Web.App_Start
             // Identity
             kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().InRequestScope();
             kernel.Bind<IAuthenticationManager>().ToMethod(c => HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
-            kernel.Bind<ApplicationUserManager>().ToSelf().InRequestScope();
-            kernel.Bind<ApplicationSignInManager>().ToSelf().InRequestScope();
+            kernel.Bind<IApplicationUserManager>().To<ApplicationUserManager>().InRequestScope();
+            kernel.Bind<IApplicationSignInManager>().To<ApplicationSignInManager>().InRequestScope();
 
             // AutoMapper
             kernel.Bind<IMapper>().ToMethod(c => Mapper.Instance).InSingletonScope();

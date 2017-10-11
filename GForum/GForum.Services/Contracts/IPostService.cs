@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using GForum.Common.Enums;
 using GForum.Data.Models;
 
 namespace GForum.Services.Contracts
