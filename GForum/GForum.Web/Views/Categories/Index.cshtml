@@ -12,11 +12,11 @@
         @foreach (var category in Model)
         {
             <div class="card">
-                <h4 class="title-one-line">@Html.ActionLink(category.Title, "Category", "Categories", new { id = category.Id }, null)</h4>
+                <h4 class="title-one-line">
+                    @Html.ActionLink(category.Title, "Category", "Categories", new { id = category.Id }, null)
+                </h4>
                 <p class="text-muted">
-                    Created by
-                    @Html.ActionLink(category.Author.UserName, "Profile", "Users", new { username = category.Author.UserName }, null)
-                    @category.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)
+                    @Html.Partial("_SubmittedByPartial", category)
                     <span>&bull;</span>
                     @("post".ToQuantity(category.PostsCount))
                 </p>

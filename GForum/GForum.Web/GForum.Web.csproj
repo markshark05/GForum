@@ -236,6 +236,7 @@
     <Compile Include="Models\Forum\CategoryViewModel.cs" />
     <Compile Include="Models\Forum\PostSubmitViewModel.cs" />
     <Compile Include="Models\Forum\PostViewModel.cs" />
+    <Compile Include="Models\Forum\SubmittedByPartialViewModel.cs" />
     <Compile Include="Models\Manage\ChangeEmailViewModel.cs" />
     <Compile Include="Models\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="Models\Users\UserViewModel.cs" />
@@ -306,6 +307,7 @@
     <Content Include="Views\Posts\Submit.cshtml" />
     <Content Include="Views\Shared\_MarkdownHelpPartial.cshtml" />
     <Content Include="Views\Shared\_VotesPartial.cshtml" />
+    <Content Include="Views\Shared\_SubmittedByPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

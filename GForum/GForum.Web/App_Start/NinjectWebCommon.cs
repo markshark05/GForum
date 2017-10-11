@@ -84,9 +84,9 @@ namespace GForum.Web.App_Start
 
             // Identity
             kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().InRequestScope();
-            kernel.Bind<IAuthenticationManager>().ToMethod(c => HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
-            kernel.Bind<IApplicationUserManager>().To<ApplicationUserManager>().InRequestScope();
+            kernel.Bind<IApplicationUserManager, ApplicationUserManager>().To<ApplicationUserManager>().InRequestScope();
             kernel.Bind<IApplicationSignInManager>().To<ApplicationSignInManager>().InRequestScope();
+            kernel.Bind<IAuthenticationManager>().ToMethod(c => HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
 
             // AutoMapper
             kernel.Bind<IMapper>().ToMethod(c => Mapper.Instance).InSingletonScope();

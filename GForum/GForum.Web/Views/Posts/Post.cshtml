@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
-@model GForum.Web.Models.Forum.PostViewModel
+@using GForum.Web.Models.Forum
+@model PostViewModel
 @{
     ViewBag.Title = "Post";
 }
@@ -11,9 +12,7 @@
             <div style="margin-left:40px">
                 <h2 class="title">@Model.Title</h2>
                 <p class="text-muted">
-                    Submitted by
-                    @Html.ActionLink(Model.Author.UserName, "Profile", "Users", new { username = Model.Author.UserName }, null)
-                    @Model.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)
+                    @Html.Partial("_SubmittedByPartial", Model)
                     @if (Model.EditedOn != null)
                     {
                         <span>&bull;</span>
@@ -23,7 +22,8 @@
                     @if (Request.IsAuthenticated && User.Identity.GetUserId() == Model.Author.Id)
                     {
                         <span>&bull;</span>
-                        <a class="edit-post-btn" href="@Url.Action("Edit", "PostsAjax", new { postId = Model.Id })">Edit</a>
+                        <a class="edit-post-btn"
+                           href="@Url.Action("Edit", "PostsAjax", new { postId = Model.Id })">Edit</a>
                         <span>&bull;</span>
                         <a class="delete-post-btn"
                            data-redirect-url="@Url.Action("Category", "Categories", new { id = Model.CategoryId })"

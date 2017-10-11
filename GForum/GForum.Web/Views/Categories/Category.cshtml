@@ -1,4 +1,5 @@
-﻿@model GForum.Web.Models.Forum.CategoryWithPostsViewModel
+﻿@using GForum.Web.Models.Forum
+@model CategoryWithPostsViewModel
 @{
     ViewBag.Title = $"{Model.Title} catgeory";
 }
@@ -17,21 +18,14 @@
                         @Html.ActionLink(post.Title, "Post", "Posts", new { id = post.Id }, null)
                     </h4>
                     <p class="text-muted">
-                        Submitted by
-                        @Html.ActionLink(
-                        post.Author.UserName,
-                        "Profile",
-                        "Users",
-                        new { username = post.Author.UserName }, null
-                    )
-                        @post.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)
+                        @Html.Partial("_SubmittedByPartial", post)
                     </p>
                 </div>
             </div>
         }
     </div>
     <div class="col-xs-2">
-        @Html.ActionLink("Submit a new post", "Submit", "Posts", 
+        @Html.ActionLink("Submit a new post", "Submit", "Posts",
             new { catgeoryId = Model.Id },
             new { @class = "btn btn-primary" }
         )
