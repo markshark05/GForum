@@ -4,6 +4,7 @@ using GForum.Web.Contracts.Identity;
 using GForum.Web.Controllers;
 using GForum.Web.Models.Account;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Moq;
 using NUnit.Framework;
@@ -14,7 +15,7 @@ namespace GForum.Web.Tests.Controllers
     public class AccountControllerTests
     {
         [Test]
-        public void GetLogin_ShouldReturnView()
+        public void LoginGet_ShouldReturnView()
         {
             // Arrange
             var signInManagerMock = new Mock<IApplicationSignInManager>();
@@ -34,7 +35,7 @@ namespace GForum.Web.Tests.Controllers
         }
 
         [Test]
-        public void PostLogin_ShouldCallSignInMethodWithCorectArgs()
+        public void LoginPost_ShouldCallSignInMethodWithCorectArgs()
         {
             // Arrange
             var signInManagerMock = new Mock<IApplicationSignInManager>();
@@ -49,7 +50,6 @@ namespace GForum.Web.Tests.Controllers
                 Url = new Mock<UrlHelper>().Object
             };
 
-            // Act
             var model = new LoginViewModel
             {
                 Username = "username",
@@ -57,6 +57,7 @@ namespace GForum.Web.Tests.Controllers
                 RememberMe = true,
             };
 
+            // Act
             var result = controller.Login(model, "").Result;
 
             // Assert
@@ -68,7 +69,66 @@ namespace GForum.Web.Tests.Controllers
         }
 
         [Test]
-        public void GetRegister_ShouldReturnView()
+        public void LoginPost_ShouldReDisplayFormIfThereAreModelErrors()
+        {
+            // Arrange
+            var userManagerMock = new Mock<IApplicationUserManager>();
+            var authManager = new Mock<IAuthenticationManager>();
+            var signInManagerMock = new Mock<IApplicationSignInManager>();
+
+            var controller = new AccountController(
+                userManagerMock.Object,
+                signInManagerMock.Object,
+                authManager.Object)
+            {
+                Url = new Mock<UrlHelper>().Object
+            };
+            controller.ModelState.AddModelError("", "");
+
+            var model = new LoginViewModel();
+
+            // Act
+            var result = controller.Login(model, "").Result;
+
+            // Assert
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void LoginPost_ShouldReDisplayFormIfThereIsASignInError()
+        {
+            // Arrange
+            var userManagerMock = new Mock<IApplicationUserManager>();
+            var authManager = new Mock<IAuthenticationManager>();
+
+            var signInManagerMock = new Mock<IApplicationSignInManager>();
+            signInManagerMock
+                .Setup(x => x.PasswordSignInAsync(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<bool>(),
+                    It.IsAny<bool>()))
+                .ReturnsAsync(SignInStatus.Failure);
+
+            var controller = new AccountController(
+                userManagerMock.Object,
+                signInManagerMock.Object,
+                authManager.Object)
+            {
+                Url = new Mock<UrlHelper>().Object
+            };
+
+            var model = new LoginViewModel();
+
+            // Act
+            var result = controller.Login(model, "").Result;
+
+            // Assert
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void RegisterGet_ShouldReturnView()
         {
             // Arrange
             var signInManagerMock = new Mock<IApplicationSignInManager>();
@@ -88,7 +148,7 @@ namespace GForum.Web.Tests.Controllers
         }
 
         [Test]
-        public void PostRegister_ShouldCallCreateAsyncWithCorectArgs()
+        public void RegisterGet_ShouldCallCreateAsyncWithCorectArgs()
         {
             // Arrange
             var signInManagerMock = new Mock<IApplicationSignInManager>();
@@ -107,7 +167,6 @@ namespace GForum.Web.Tests.Controllers
                 Url = new Mock<UrlHelper>().Object
             };
 
-            // Act
             var model = new RegisterViewModel
             {
                 Username = "username",
@@ -115,12 +174,54 @@ namespace GForum.Web.Tests.Controllers
                 ConfirmPassword = "password",
             };
 
+            // Act
             var result = controller.Register(model).Result;
 
             // Assert
             userManagerMock.Verify(x => x.CreateAsync(
                 It.IsAny<ApplicationUser>(),
                 It.Is<string>(y => y == model.Password)));
+        }
+
+        [Test]
+        public void LogOff_ShouldCallCreateSignOutAndRedirect()
+        {
+            // Arrange
+            var signInManagerMock = new Mock<IApplicationSignInManager>();
+            var authManagerMock = new Mock<IAuthenticationManager>();
+            var userManagerMock = new Mock<IApplicationUserManager>();
+
+            var controller = new AccountController(
+                userManagerMock.Object,
+                signInManagerMock.Object,
+                authManagerMock.Object);
+
+            // Act
+            var result = controller.LogOff();
+
+            // Assert
+            authManagerMock.Verify(x => x.SignOut(It.IsAny<string>()), Times.Once);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+        }
+
+        [Test]
+        public void GetEmail_ShouldCallGetEmailAsync()
+        {
+            // Arrange
+            var signInManagerMock = new Mock<IApplicationSignInManager>();
+            var authManagerMock = new Mock<IAuthenticationManager>();
+            var userManagerMock = new Mock<IApplicationUserManager>();
+
+            var controller = new AccountController(
+                userManagerMock.Object,
+                signInManagerMock.Object,
+                authManagerMock.Object);
+
+            // Act
+            var result = controller.GetEmail("id");
+
+            // Assert
+            userManagerMock.Verify(x => x.GetEmailAsync(It.Is<string>(s => s == "id")), Times.Once);
         }
     }
 }
