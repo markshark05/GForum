@@ -100,7 +100,8 @@ namespace GForum.Web.Controllers
                 return View(model);
             }
 
-            var result = await this.userManager.SetEmailAsync(this.User.Identity.GetUserId(), model.NewEmail);
+            var result = await this.userManager
+                .SetEmailAsync(this.User.Identity.GetUserId(), model.NewEmail);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChnageEmailSuccess });

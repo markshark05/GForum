@@ -115,6 +115,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\CategoriesControllerTests.cs" />
+    <Compile Include="Controllers\ManageControllerTests.cs" />
     <Compile Include="Controllers\UsersControllerTests.cs" />
     <Compile Include="Helpers\GravatarHtmlHelperTests.cs" />
     <Compile Include="Helpers\MarkdownToHtmlHelperTests.cs" />
