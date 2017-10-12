@@ -23,7 +23,7 @@ namespace GForum.Web
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
                       "~/Scripts/toastr.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/Styles/all").Include(
                       "~/Content/Styles/bootstrap.css",
                       "~/Content/Styles/toastr.css",
                       "~/Content/Styles/site.css"));
