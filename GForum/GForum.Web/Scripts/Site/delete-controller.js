@@ -9,6 +9,7 @@
     $deleteBtn.after($yesBtn).after($noBtn);
 
     $noBtn.on('click', function(e) {
+        e.preventDefault();
         $noBtn.remove();
         $yesBtn.remove();
         $deleteBtn.show();
@@ -28,6 +29,8 @@
                             window.location.href = $deleteBtn.data('redirect-url');
                         }
                     });
+                } else {
+                    toastr.error(data.error);
                 }
             });
     });

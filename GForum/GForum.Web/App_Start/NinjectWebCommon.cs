@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(GForum.Web.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(GForum.Web.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(GForum.Web.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(GForum.Web.NinjectWebCommon), "Stop")]
 
-namespace GForum.Web.App_Start
+namespace GForum.Web
 {
     using System;
     using System.Data.Entity;

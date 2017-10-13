@@ -29,9 +29,6 @@
                     } else {
                         $errors.html(data.error);
                     }
-                })
-                .fail(function() {
-                    $errors.html('Error!');
                 });
         });
 

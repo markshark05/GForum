@@ -17,9 +17,8 @@
                 if (!btnWasActiveBeforeClick) {
                     $voteBtn.addClass('active');
                 }
+            } else {
+                toastr.error(data.error);
             }
-        })
-        .fail(function() {
-            toastr.info('You must be logged in to do this.')
         });
 });

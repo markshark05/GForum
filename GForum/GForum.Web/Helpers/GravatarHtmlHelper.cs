@@ -103,6 +103,8 @@ namespace GForum.Web.Helpers
 
             imgTag.Attributes.Add("class", cssClass);
             imgTag.Attributes.Add("alt", alt);
+            imgTag.Attributes.Add("width", size.ToString());
+            imgTag.Attributes.Add("height", size.ToString());
             return new HtmlString(imgTag.ToString(TagRenderMode.SelfClosing));
         }
 

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using GForum.Common.Enums;
 using GForum.Services.Contracts;
 using GForum.Web.Contracts.Identity;
+using GForum.Web.Helpers;
 using Humanizer;
 using Microsoft.AspNet.Identity;
 
@@ -31,7 +32,7 @@ namespace GForum.Web.Controllers
 
         // POST: /Posts/Vote {voteType, postId}
         [HttpPost]
-        [Authorize]
+        [AjaxAuthorize]
         public ActionResult Vote(Guid postId, VoteType voteType)
         {
             var enumIsValid = Enum.IsDefined(typeof(VoteType), voteType) && voteType != VoteType.None;
@@ -54,7 +55,7 @@ namespace GForum.Web.Controllers
 
         // POST: /Posts/Edit {postId, newContent}
         [HttpPost]
-        [Authorize]
+        [AjaxAuthorize]
         [ValidateInput(false)]
         public ActionResult Edit(Guid postId, string content)
         {
@@ -85,7 +86,7 @@ namespace GForum.Web.Controllers
 
         // POST: /Posts/Delete {postId, newContent}
         [HttpPost]
-        [Authorize]
+        [AjaxAuthorize]
         public ActionResult Delete(Guid postId)
         {
             var post = this.postService.GetById(postId).FirstOrDefault();
