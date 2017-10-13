@@ -30,7 +30,11 @@ namespace GForum.Web.Tests.Controllers
         }
 
         [Test]
-        public void Index_ShouldDisplayMessage()
+        [TestCase(ManageMessageId.Error, "error")]
+        [TestCase(ManageMessageId.ChnageEmailSuccess, "email")]
+        [TestCase(ManageMessageId.ChangePasswordSuccess, "password")]
+        [TestCase(null, "")]
+        public void Index_ShouldDisplayMessage(ManageMessageId messageId, string expected)
         {
             // Arrange
             var signInManagerMock = new Mock<IApplicationSignInManager>();
@@ -39,11 +43,10 @@ namespace GForum.Web.Tests.Controllers
             var controller = new ManageController(userManagerMock.Object, signInManagerMock.Object);
 
             // Act
-            var result = controller.Index(ManageMessageId.ChangePasswordSuccess);
+            var result = controller.Index(messageId);
 
             // Assert
-            StringAssert.Contains("change", controller.ViewBag.StatusMessage);
-            StringAssert.Contains("password", controller.ViewBag.StatusMessage);
+            StringAssert.Contains(expected, controller.ViewBag.StatusMessage);
         }
 
         [Test]
@@ -153,6 +156,29 @@ namespace GForum.Web.Tests.Controllers
             userManagerMock.Verify(x => x.SetEmailAsync(
                 It.IsAny<string>(),
                 It.Is<string>(y => y == model.NewEmail)), Times.Once);
+        }
+
+        [Test]
+        public void ChangeEmailPost_ShouldReturnView_IfModelIsInvalid()
+        {
+            // Arrange
+            var signInManagerMock = new Mock<IApplicationSignInManager>();
+            var userManagerMock = new Mock<IApplicationUserManager>();
+
+            var model = new ChangeEmailViewModel
+            {
+                CurrentEmail = "current@email.com",
+                NewEmail = "new@email.com",
+            };
+
+            var controller = new ManageController(userManagerMock.Object, signInManagerMock.Object);
+            controller.ModelState.AddModelError("error", "error");
+
+            // Act
+            var result = controller.ChangeEmail(model).Result;
+
+            // Assert
+            Assert.IsInstanceOf<ViewResult>(result);
         }
     }
 }

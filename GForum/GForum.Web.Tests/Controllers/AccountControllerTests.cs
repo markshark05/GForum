@@ -148,7 +148,7 @@ namespace GForum.Web.Tests.Controllers
         }
 
         [Test]
-        public void RegisterGet_ShouldCallCreateAsyncWithCorectArgs()
+        public void RegisterPost_ShouldCallCreateAsyncWithCorectArgs()
         {
             // Arrange
             var signInManagerMock = new Mock<IApplicationSignInManager>();
@@ -181,6 +181,35 @@ namespace GForum.Web.Tests.Controllers
             userManagerMock.Verify(x => x.CreateAsync(
                 It.IsAny<ApplicationUser>(),
                 It.Is<string>(y => y == model.Password)));
+        }
+
+        [Test]
+        public void RegisterPost_ShouldAddErrorsWhenNeeded()
+        {
+            // Arrange
+            var signInManagerMock = new Mock<IApplicationSignInManager>();
+            var authManager = new Mock<IAuthenticationManager>();
+
+            var userManagerMock = new Mock<IApplicationUserManager>();
+            userManagerMock
+                .Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
+                .ReturnsAsync(IdentityResult.Failed("error"));
+
+            var controller = new AccountController(
+                userManagerMock.Object,
+                signInManagerMock.Object,
+                authManager.Object)
+            {
+                Url = new Mock<UrlHelper>().Object
+            };
+
+            var model = new RegisterViewModel();
+
+            // Act
+            var result = controller.Register(model).Result;
+
+            // Assert
+            Assert.IsFalse(controller.ModelState.IsValid);
         }
 
         [Test]
