@@ -14,7 +14,7 @@ configuration: Release
 
 build:
   project: GForum\GForum.sln
-  verbosity: minimal
+  verbosity: quiet
   publish_wap: true
 
 test_script:
@@ -22,8 +22,8 @@ test_script:
       GForum\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe
       -register:user
       -target:"GForum\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe"
-      -targetargs:"$(ls -r Gforum\*\bin\$configuration\*.Tests.dll | % FullName)"
-      -filter:"+[*]* -[*.Tests]*"
+      -targetargs:"$(ls -r GForum\*\bin\$configuration\*.Tests.dll | % FullName)"
+      -filter:"+[GForum*]* -[GForum*.Tests]*"
       -output:".\coverage.xml"
   - ps: GForum\packages\Codecov.1.0.3\tools\codecov.exe -f ".\coverage.xml"
 
