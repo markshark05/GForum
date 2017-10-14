@@ -1,12 +1,13 @@
-﻿@using System.Linq
-@using GridMvc.Html
-@using GForum.Data.Models
-@model IQueryable<Category>
+﻿@using GridMvc.Html
+@using GForum.Web.Areas.Admin.Models
+@model AdminCategoriesViewModel
 
 <div class="card">
     <h2>Categories</h2>
 
-    @Html.Grid(Model).Columns(columns =>
+    @Html.Partial("_AddCategoryPartial", Model.CategoryAdd)
+
+    @Html.Grid(Model.CategoriesQueriable).Columns(columns =>
     {
         columns.Add(c => c.Title).Sortable(true);
         columns.Add(c => c.Author.UserName).Titled("Author").Sortable(true);
@@ -20,4 +21,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/gridmvc")
+    @Scripts.Render("~/bundles/jqueryval")
 }

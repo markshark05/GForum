@@ -1,7 +1,7 @@
 ﻿@using GForum.Web.Models.Posts
 @model PostSubmitViewModel
 @{
-    ViewBag.Title = $"Submit";
+    ViewBag.Title = "Submit post";
 }
 
 <div class="col-xs-12">
@@ -9,7 +9,10 @@
         <div class="row">
             <div class="col-sm-6">
                 <h2 class="title text-center">Submit to <strong>@Model.CategoryTitle</strong></h2>
-                @using (Html.BeginForm("Submit", "Posts", FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm(
+                    "Submit", "Posts", 
+                    FormMethod.Post, 
+                    new { @class = "form-horizontal" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

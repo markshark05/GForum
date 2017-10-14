@@ -1,0 +1,15 @@
+﻿@using GForum.Web.Areas.Admin.Models
+@model CategoryAddViewModel
+
+@using (Html.BeginForm("Add", "Categories", FormMethod.Post, new { @class = "form-horizontal panel" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="input-group">
+        @Html.EditorFor(m => m.Title,
+                new { htmlAttributes = new { @class = "form-control", placeholder = "New category title" } })
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </div>
+        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+}

@@ -20,7 +20,7 @@ namespace GForum.Data
         {
             get => this.entities
                 .Where(e => !e.IsDeleted)
-                .OrderBy(e => e.CreatedOn);
+                .OrderByDescending(e => e.CreatedOn);
         }
 
         public void Add(TEntity entity)

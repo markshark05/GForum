@@ -9,5 +9,7 @@ namespace GForum.Services.Contracts
         IQueryable<Category> GetAll();
 
         IQueryable<Category> GetById(Guid id);
+
+        Category Create(string userId, string title);
     }
 }

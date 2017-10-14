@@ -36,6 +36,7 @@ textarea {
     border-radius: 4px;
     overflow: hidden;
 }
+
     .card a {
         margin: 0 2px;
     }
@@ -45,7 +46,7 @@ textarea {
         white-space: nowrap;
         text-overflow: ellipsis;
     }
-    
+
     .card .title {
         margin-top: 0;
     }

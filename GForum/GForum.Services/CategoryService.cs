@@ -9,10 +9,14 @@ namespace GForum.Services
     public class CategoryService: ICategoryService
     {
         private readonly IRepository<Category> categories;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CategoryService(IRepository<Category> categories)
+        public CategoryService(
+            IRepository<Category> categories,
+            IUnitOfWork unitOfWork)
         {
             this.categories = categories;
+            this.unitOfWork = unitOfWork;
         }
 
         public IQueryable<Category> GetAll()
@@ -24,6 +28,19 @@ namespace GForum.Services
         {
             return this.categories.Query
                 .Where(x => x.Id == id);
+        }
+
+        public Category Create(string userId, string title)
+        {
+            var category = new Category
+            {
+                AuthorId = userId,
+                Title = title
+            };
+
+            this.categories.Add(category);
+            this.unitOfWork.Complete();
+            return category;
         }
     }
 }

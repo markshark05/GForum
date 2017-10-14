@@ -18,10 +18,12 @@ namespace GForum.Services.Tests
                 new Category(),
                 new Category()
             }.AsQueryable();
+
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
             var repositoryMock = new Mock<IRepository<Category>>();
             repositoryMock.Setup(x => x.Query).Returns(categories);
 
-            var categoryService = new CategoryService(repositoryMock.Object);
+            var categoryService = new CategoryService(repositoryMock.Object, unitOfWorkMock.Object);
 
             // Act
             var result = categoryService.GetAll();
@@ -45,10 +47,11 @@ namespace GForum.Services.Tests
                 expectedCategory,
             }.AsQueryable();
 
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
             var repositoryMock = new Mock<IRepository<Category>>();
             repositoryMock.Setup(x => x.Query).Returns(categories);
 
-            var categoryService = new CategoryService(repositoryMock.Object);
+            var categoryService = new CategoryService(repositoryMock.Object, unitOfWorkMock.Object);
 
             // Act
             var result = categoryService.GetById(guid1);
@@ -71,10 +74,11 @@ namespace GForum.Services.Tests
                 new Category { Id = guid2},
             }.AsQueryable();
 
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
             var repositoryMock = new Mock<IRepository<Category>>();
             repositoryMock.Setup(x => x.Query).Returns(categories);
 
-            var categoryService = new CategoryService(repositoryMock.Object);
+            var categoryService = new CategoryService(repositoryMock.Object, unitOfWorkMock.Object);
 
             // Act
             var result = categoryService.GetById(new Guid());
