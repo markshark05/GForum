@@ -6,6 +6,7 @@ namespace GForum.Web
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            // Scripts
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js"));
@@ -24,9 +25,14 @@ namespace GForum.Web
                       "~/Scripts/toastr.js",
                       "~/Scripts/Site/toastr-config.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/gridmvc").Include(
+                      "~/Scripts/gridmvc.js"));
+
+            // Styles
             bundles.Add(new StyleBundle("~/Content/Styles/all").Include(
                       "~/Content/Styles/bootstrap.css",
                       "~/Content/Styles/toastr.css",
+                      "~/Content/Styles/Gridmvc.css",
                       "~/Content/Styles/site.css"));
         }
     }

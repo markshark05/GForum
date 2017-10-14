@@ -18,7 +18,9 @@ namespace GForum.Data
 
         public IQueryable<TEntity> Query
         {
-            get => this.entities.Where(e => !e.IsDeleted);
+            get => this.entities
+                .Where(e => !e.IsDeleted)
+                .OrderBy(e => e.CreatedOn);
         }
 
         public void Add(TEntity entity)

@@ -1,0 +1,23 @@
+﻿@using System.Linq
+@using GridMvc.Html
+@using GForum.Data.Models
+@model IQueryable<Category>
+
+<div class="card">
+    <h2>Categories</h2>
+
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(c => c.Title).Sortable(true);
+        columns.Add(c => c.Author.UserName).Titled("Author").Sortable(true);
+        columns.Add(c => c.Posts.Count).Titled("Posts").Sortable(true);
+        columns.Add(c => c.CreatedOn).Titled("Created").Sortable(true)
+            .RenderValueAs(x => x.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now));
+        columns.Add(c => c.DeletedOn).Titled("Deleted").Sortable(true)
+            .RenderValueAs(x => x.DeletedOn.Humanize(dateToCompareAgainst: DateTime.Now));
+    }).WithPaging(10)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/gridmvc")
+}

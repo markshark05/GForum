@@ -5,11 +5,15 @@
 
 <div class="row">
     <div class="col-xs-2 list-group">
-        @Html.ActionLink("Users", "Users", null, new { @class = "list-group-item" })
-        @Html.ActionLink("Users", "Users", null, new { @class = "list-group-item" })
-        @Html.ActionLink("Users", "Users", null, new { @class = "list-group-item" })
+        @Html.ActionLink("Manage categories", "Index", "Categories", null, new { @class = "list-group-item" })
+        @Html.ActionLink("Manage posts", "Index", "Posts", null, new { @class = "list-group-item" })
+        @Html.ActionLink("Manage users", "Index", "Users", null, new { @class = "list-group-item" })
     </div>
     <div class="col-xs-10">
         @RenderBody()
     </div>
 </div>
+
+@section Scripts {
+    @RenderSection("Scripts", false)
+}
