@@ -5,7 +5,7 @@ using GForum.Common;
 using GForum.Data.Models;
 using Heroic.AutoMapper;
 
-namespace GForum.Web.Models.Forum
+namespace GForum.Web.Models.Posts
 {
     public class PostSubmitViewModel : IMapFrom<Category>, IHaveCustomMappings
     {

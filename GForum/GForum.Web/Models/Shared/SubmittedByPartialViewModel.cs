@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GForum.Web.Models.Forum
+namespace GForum.Web.Models.Shared
 {
     public class SubmittedByPartialViewModel
     {

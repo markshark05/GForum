@@ -11,7 +11,8 @@ using GForum.Data.Models;
 using GForum.Services.Contracts;
 using GForum.Web.Contracts.Identity;
 using GForum.Web.Controllers;
-using GForum.Web.Models.Forum;
+using GForum.Web.Models.Categories;
+using GForum.Web.Models.Posts;
 using Moq;
 using NUnit.Framework;
 

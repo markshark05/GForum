@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using GForum.Data.Models;
+using GForum.Web.Models.Posts;
 using Heroic.AutoMapper;
 
-namespace GForum.Web.Models.Forum
+namespace GForum.Web.Models.Categories
 {
     public class CategoryWithPostsViewModel: IMapFrom<Category>, IHaveCustomMappings
     {

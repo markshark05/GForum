@@ -1,9 +1,10 @@
 ﻿using System;
 using GForum.Common.Enums;
 using GForum.Data.Models;
+using GForum.Web.Models.Shared;
 using Heroic.AutoMapper;
 
-namespace GForum.Web.Models.Forum
+namespace GForum.Web.Models.Posts
 {
     public class PostViewModel : IMapFrom<Post>
     {

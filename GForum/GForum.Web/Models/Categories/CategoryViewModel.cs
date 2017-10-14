@@ -2,9 +2,10 @@
 using System.Linq;
 using AutoMapper;
 using GForum.Data.Models;
+using GForum.Web.Models.Shared;
 using Heroic.AutoMapper;
 
-namespace GForum.Web.Models.Forum
+namespace GForum.Web.Models.Categories
 {
     public class CategoryViewModel: IMapFrom<Category>, IHaveCustomMappings
     {

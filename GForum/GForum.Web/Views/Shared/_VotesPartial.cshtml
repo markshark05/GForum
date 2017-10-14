@@ -1,5 +1,6 @@
 ﻿@using GForum.Common.Enums
-@model GForum.Web.Models.Forum.PostViewModel
+@using GForum.Web.Models.Posts
+@model PostViewModel
 
 <div class="vote-container" data-vote-url="@Url.Action("Vote", "PostsAjax", new { postId = Model.Id })">
     <div class="vote-btn glyphicon glyphicon-arrow-up @(Model.UserVoteType == VoteType.Upvote ? "active" : "")" data-vote-type="Upvote"></div>

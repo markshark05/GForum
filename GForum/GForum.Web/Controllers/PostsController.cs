@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using GForum.Services.Contracts;
 using GForum.Web.Contracts.Identity;
-using GForum.Web.Models.Forum;
+using GForum.Web.Models.Posts;
 using Microsoft.AspNet.Identity;
 
 namespace GForum.Web.Controllers

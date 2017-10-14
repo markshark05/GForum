@@ -1,7 +1,7 @@
 ﻿using GForum.Data.Models;
 using Heroic.AutoMapper;
 
-namespace GForum.Web.Models.Forum
+namespace GForum.Web.Models.Shared
 {
     public class AuthorViewModel : IMapFrom<ApplicationUser>
     {
