@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Administration";
+}
+
+<div class="row">
+    <div class="col-xs-2 list-group">
+        @Html.ActionLink("Users", "Users", null, new { @class = "list-group-item" })
+        @Html.ActionLink("Users", "Users", null, new { @class = "list-group-item" })
+        @Html.ActionLink("Users", "Users", null, new { @class = "list-group-item" })
+    </div>
+    <div class="col-xs-10">
+        @RenderBody()
+    </div>
+</div>

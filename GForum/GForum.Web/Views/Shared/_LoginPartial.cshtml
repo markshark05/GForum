@@ -2,7 +2,7 @@
 
 @if (Request.IsAuthenticated)
 {
-    var userEmail = Html.Action("GetEmail", "Account", new { id = this.User.Identity.GetUserId() }).ToString();
+    var userEmail = Html.Action("GetEmail", "Account", new { area = "", id = this.User.Identity.GetUserId() }).ToString();
 
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
