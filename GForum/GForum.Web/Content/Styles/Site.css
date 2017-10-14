@@ -21,10 +21,18 @@ textarea {
     white-space: normal;
 }
 
+a.glyphicon {
+    text-decoration: none;
+}
+
 .user-navabar-avatar {
     width: 35px;
     margin: 7.5px auto;
     border-radius: 50%;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
 }
 
 /*Forum*/
@@ -34,7 +42,6 @@ textarea {
     background-color: white;
     border: 1px solid #dddddd;
     border-radius: 4px;
-    overflow: hidden;
 }
 
     .card a {

@@ -9,14 +9,16 @@
 
     @Html.Grid(Model.CategoriesQueriable).Columns(columns =>
     {
-        columns.Add(c => c.Title).Sortable(true);
-        columns.Add(c => c.Author.UserName).Titled("Author").Sortable(true);
-        columns.Add(c => c.Posts.Count).Titled("Posts").Sortable(true);
-        columns.Add(c => c.CreatedOn).Titled("Created").Sortable(true)
+        columns.Add(c => c.Title);
+        columns.Add(c => c.Author.UserName).Titled("Author");
+        columns.Add(c => c.Posts.Count).Titled("Posts");
+        columns.Add(c => c.CreatedOn).Titled("Created")
             .RenderValueAs(x => x.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now));
-        columns.Add(c => c.DeletedOn).Titled("Deleted").Sortable(true)
+        columns.Add(c => c.DeletedOn).Titled("Deleted")
             .RenderValueAs(x => x.DeletedOn.Humanize(dateToCompareAgainst: DateTime.Now));
-    }).WithPaging(10)
+        columns.Add().Sanitized(false).Encoded(false).SetWidth(40)
+            .RenderValueAs(x => @<a href="@Url.Action("Delete")" class="glyphicon glyphicon-trash"></a>);
+    }).WithPaging(10).Sortable(true).Selectable(false)
 </div>
 
 @section Scripts {

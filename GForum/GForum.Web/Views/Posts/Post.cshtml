@@ -6,7 +6,14 @@
 }
 
 <div class="row">
-    <div class="col-xs-10">
+    <div class="col-xs-12 text-right">
+        <div class="margin-bottom">
+            <a class="btn btn-primary" href="@Url.Action("Submit", "Posts", new { catgeoryId = Model.CategoryId })">
+                Submit a new post to <strong>@Model.CategoryTitle</strong>
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-12">
         <div class="card">
             @Html.Partial("_VotesPartial", Model)
             <div style="margin-left:40px">
@@ -33,12 +40,6 @@
                 <div class="content" data-raw-content="@Model.Content">@Html.MarkdownToHtml(Model.Content)</div>
             </div>
         </div>
-    </div>
-    <div class="col-xs-2">
-        @Html.ActionLink("Submit a new post", "Submit", "Posts",
-            new { catgeoryId = Model.CategoryId },
-            new { @class = "btn btn-primary" }
-        )
     </div>
 </div>
 
