@@ -128,6 +128,7 @@
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\CategoriesControllerTests.cs" />
     <Compile Include="Controllers\ManageControllerTests.cs" />
+    <Compile Include="Controllers\PostsAjaxControllerTests.cs" />
     <Compile Include="Controllers\PostsControllerTests.cs" />
     <Compile Include="Controllers\UsersControllerTests.cs" />
     <Compile Include="Helpers\AjaxAuthorizeAttributeTests.cs" />

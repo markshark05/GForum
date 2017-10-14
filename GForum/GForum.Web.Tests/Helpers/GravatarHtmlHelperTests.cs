@@ -54,7 +54,23 @@ namespace GForum.Web.Tests.Helpers
         }
 
         [Test]
-        public void Expect_ToSwitchToUnsecureWithGivenParam()
+        public void Expect_ToForceDefaultImg_WhenGIvenParam()
+        {
+            // Arrange
+            var mockViewContext = new Mock<ViewContext>();
+            var mockViewDataContainer = new Mock<IViewDataContainer>();
+            var htmlHelper = new HtmlHelper(mockViewContext.Object, mockViewDataContainer.Object);
+
+            // Act
+            var result = GravatarHtmlHelper.GravatarImage(htmlHelper, string.Empty, forceDefaultImage: true);
+
+            // Assert
+            Assert.IsInstanceOf<HtmlString>(result);
+            StringAssert.Contains("f=y", result.ToString());
+        }
+
+        [Test]
+        public void Expect_ToSwitchToUnsecure_WhenGivenParam()
         {
             // Arrange
             var mockViewContext = new Mock<ViewContext>();

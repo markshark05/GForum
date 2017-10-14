@@ -164,5 +164,24 @@ namespace GForum.Services.Tests
 
             unitOfWorkMock.Verify(x => x.Complete(), Times.Once);
         }
+
+        [Test]
+        public void ToggleVote_ShouldDoNothing_IfPostDoesntExist()
+        {
+            // Arrange
+            var postsRepoMock = new Mock<IRepository<Post>>();
+            var votesRepoMock = new Mock<IRepository<Vote>>();
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
+
+            var voteService = new VoteService(unitOfWorkMock.Object, postsRepoMock.Object, votesRepoMock.Object);
+            
+            // Act
+            voteService.ToggleVote(Guid.Empty, "userid", VoteType.Downvote);
+
+            // Assert
+            postsRepoMock.VerifyGet(x => x.Query, Times.Once);
+            votesRepoMock.VerifyGet(x => x.Query, Times.Never);
+            unitOfWorkMock.Verify(x => x.Complete(), Times.Never);
+        }
     }
 }

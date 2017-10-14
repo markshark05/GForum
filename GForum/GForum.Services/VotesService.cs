@@ -38,7 +38,7 @@ namespace GForum.Services
 
             if (post == null)
             {
-                throw new ArgumentException("Post does not exist.");
+                return;
             }
 
             var prevUserVote = this.votes.Query

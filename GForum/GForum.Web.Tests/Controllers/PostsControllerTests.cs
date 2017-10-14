@@ -20,14 +20,14 @@ namespace GForum.Web.Tests.Controllers
             // Arrange
             var categoryServiceMock = new Mock<ICategoryService>();
             var postServiceMock = new Mock<IPostService>();
-            var postVoteMock = new Mock<IVoteService>();
+            var voteServiceMock = new Mock<IVoteService>();
             var userManagerMock = new Mock<IApplicationUserManager>();
             var mapperMock = new Mock<IMapper>();
 
             var controller = new PostsController(
                 categoryServiceMock.Object,
                 postServiceMock.Object, 
-                postVoteMock.Object, 
+                voteServiceMock.Object, 
                 userManagerMock.Object, 
                 mapperMock.Object);
 
@@ -44,14 +44,14 @@ namespace GForum.Web.Tests.Controllers
             // Arrange
             var categoryServiceMock = new Mock<ICategoryService>();
             var postServiceMock = new Mock<IPostService>();
-            var postVoteMock = new Mock<IVoteService>();
+            var voteServiceMock = new Mock<IVoteService>();
             var userManagerMock = new Mock<IApplicationUserManager>();
             var mapperMock = new Mock<IMapper>();
 
             var controller = new PostsController(
                 categoryServiceMock.Object,
                 postServiceMock.Object,
-                postVoteMock.Object,
+                voteServiceMock.Object,
                 userManagerMock.Object,
                 mapperMock.Object);
 
