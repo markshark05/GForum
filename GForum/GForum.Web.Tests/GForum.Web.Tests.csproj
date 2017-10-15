@@ -126,6 +126,7 @@
     <Compile Include="App_Start\BundleConfigTests.cs" />
     <Compile Include="App_Start\RouteConfigTests.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesControllerTests.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeControllerTests.cs" />
     <Compile Include="Areas\Admin\Controllers\PostsControllerTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\CategoriesControllerTests.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Principal;
 using System.Web.Mvc;
 using AutoMapper;
 using GForum.Data.Models;
@@ -30,16 +31,16 @@ namespace GForum.Web.Tests.Controllers
             var controller = new PostsController(
                 categoryServiceMock.Object,
                 postServiceMock.Object,
-                voteServiceMock.Object, 
+                voteServiceMock.Object,
                 commentServiceMock.Object,
-                userManagerMock.Object, 
+                userManagerMock.Object,
                 mapperMock.Object);
 
             // Act
             var result = controller.Post(Guid.Empty);
 
             // Assert
-            Assert.IsInstanceOf<HttpNotFoundResult>(result);   
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
         }
 
         [Test]
@@ -101,6 +102,64 @@ namespace GForum.Web.Tests.Controllers
 
             // Assert
             Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void SubmitPost_CallPostServiceSubmit()
+        {
+            // Arrange
+            var voteServiceMock = new Mock<IVoteService>();
+            var commentServiceMock = new Mock<ICommentService>();
+            var userManagerMock = new Mock<IApplicationUserManager>();
+            var mapperMock = new Mock<IMapper>();
+
+            var postServiceMock = new Mock<IPostService>();
+            postServiceMock
+                .Setup(x => x.Submit(
+                    It.IsAny<Guid>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>()))
+                .Returns(new Post());
+
+            var categoryServiceMock = new Mock<ICategoryService>();
+            categoryServiceMock
+                .Setup(x => x.GetById(It.IsAny<Guid>(), It.IsAny<bool>()))
+                .Returns(new[] { new Category() }.AsQueryable());
+
+            var identityMock = new Mock<IIdentity>();
+            var principalMock = new Mock<IPrincipal>();
+            principalMock.SetupGet(x => x.Identity).Returns(identityMock.Object);
+            var contextMock = new Mock<ControllerContext>();
+            contextMock.SetupGet(p => p.HttpContext.User).Returns(principalMock.Object);
+
+            var controller = new PostsController(
+                categoryServiceMock.Object,
+                postServiceMock.Object,
+                voteServiceMock.Object,
+                commentServiceMock.Object,
+                userManagerMock.Object,
+                mapperMock.Object)
+            {
+                ControllerContext = contextMock.Object
+            };
+
+            var model = new PostSubmitViewModel
+            {
+                CategoryId = Guid.NewGuid(),
+                Title = "title",
+                Content = "content"
+            };
+
+            // Act
+            var result = controller.Submit(model);
+
+            // Assert
+            postServiceMock.Verify(x => x.Submit(
+                    It.Is<Guid>(y => y == model.CategoryId),
+                    It.IsAny<string>(),
+                    It.Is<string>(y => y == model.Title),
+                    It.Is<string>(y => y == model.Content)));
         }
 
         [Test]
