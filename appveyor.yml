@@ -23,7 +23,7 @@ test_script:
       -register:user
       -target:"GForum\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe"
       -targetargs:"$(ls -r GForum\*\bin\$configuration\*.Tests.dll | % FullName)"
-      -filter:"+[GForum*]* -[GForum*.Tests]*"
+      -filter:"+[GForum*]* -[GForum*.Tests]* -[GForum.Data]*"
       -output:".\coverage.xml"
   - ps: GForum\packages\Codecov.1.0.3\tools\codecov.exe -f ".\coverage.xml"
 
@@ -32,5 +32,5 @@ deploy:
   server: https://gforum-mvc.scm.azurewebsites.net:443/msdeploy.axd?site=gforum-mvc
   website: gforum-mvc
   username: $gforum-mvc
-  password: 
+  password:
     secure: M69u+JBNrtCkgyZpo6/OFYdU9i95TinkyWObdqXZafDKra2AYfNd4ucvOXpgOlxHMOxcOulhDIKRKm1EFbAAEw==
