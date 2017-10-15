@@ -4,7 +4,9 @@ namespace GForum.Data.Contracts
 {
     public interface IRepository<TEntity>
     {
-        IQueryable<TEntity> Query { get; }
+        IQueryable<TEntity> QueryAll { get; }
+
+        IQueryable<TEntity> QueryAllWithDeletd { get; }
 
         void Add(TEntity entity);
 

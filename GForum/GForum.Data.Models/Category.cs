@@ -7,7 +7,7 @@ using GForum.Data.Models.Contracts;
 
 namespace GForum.Data.Models
 {
-    public class Category: Entity, IEntity
+    public class Category: Entity, IEntity, IEntityWithGuid
     {
         public Category()
         {

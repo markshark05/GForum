@@ -33,7 +33,7 @@ namespace GForum.Web.Tests.Controllers
 
             var categoryServiceMock = new Mock<ICategoryService>();
             categoryServiceMock
-                .Setup(x => x.GetAll())
+                .Setup(x => x.GetAll(It.IsAny<bool>()))
                 .Returns(categories.AsQueryable());
 
             var voteServiceMock = new Mock<IVoteService>();
@@ -92,7 +92,7 @@ namespace GForum.Web.Tests.Controllers
 
             var categoryServiceMock = new Mock<ICategoryService>();
             categoryServiceMock
-                .Setup(x => x.GetById(It.IsAny<Guid>()))
+                .Setup(x => x.GetById(It.IsAny<Guid>(), It.IsAny<bool>()))
                 .Returns(categories.AsQueryable());
 
             var voteServiceMock = new Mock<IVoteService>();

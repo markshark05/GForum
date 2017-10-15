@@ -1,18 +1,10 @@
-﻿@using GForum.Web.Models.Shared
-@{ var dynamicModel = new SubmittedByPartialViewModel
-    {
-        Author = new AuthorViewModel
-        {
-            UserName = Model.Author.UserName,
-            Email = Model.Author.Email
-        },
-        CreatedOn = Model.CreatedOn
-    };
-}
+﻿@model dynamic
 
-<span>Submitted by</span>
-<a href="@Url.Action("Profile", "Users", new { username = dynamicModel.Author.UserName })">
-    @Html.GravatarImage(dynamicModel.Author.Email, size: 15, cssClass: "profile-picture")
-    @dynamicModel.Author.UserName
-</a>
-<span>@dynamicModel.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now)</span>
+<span>
+    Submitted by
+    <a href="@Url.Action("Profile", "Users", new { username = Model.Author.UserName })">
+        @Html.GravatarImage((string)Model.Author.Email, size: 15, cssClass: "profile-picture")
+        @(Model.Author.UserName)
+    </a>
+    @(((DateTime)Model.CreatedOn).Humanize(dateToCompareAgainst: DateTime.Now))
+</span>

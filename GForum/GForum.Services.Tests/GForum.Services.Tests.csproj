@@ -53,8 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryServiceTests.cs" />
+    <Compile Include="Abstracts\Fakes\Entitity_Fake.cs" />
     <Compile Include="PostServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Abstracts\ServiceTests.cs" />
+    <Compile Include="Abstracts\Fakes\Service_Fake.cs" />
     <Compile Include="VoteServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>

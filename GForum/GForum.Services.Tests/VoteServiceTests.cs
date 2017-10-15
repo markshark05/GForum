@@ -11,30 +11,27 @@ namespace GForum.Services.Tests
     [TestFixture]
     public class VoteServiceTests
     {
-        private string guidPattern = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
-
         [Test]
         public void GetUserVoteTypeForPost_ShouldReturnCorrectVoteType()
         {
             // Arrange
-            var postId = new Guid(this.guidPattern.Replace('x', '1'));
             var vote = new Vote
             {
                 UserId = "userid",
-                PostId = postId,
+                PostId = Guid.NewGuid(),
                 VoteType = VoteType.Upvote,
             };
 
             var postsRepoMock = new Mock<IRepository<Post>>();
 
             var votesRepoMock = new Mock<IRepository<Vote>>();
-            votesRepoMock.Setup(x => x.Query).Returns(new Vote[] { vote }.AsQueryable());
+            votesRepoMock.Setup(x => x.QueryAll).Returns(new Vote[] { vote }.AsQueryable());
 
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            var voteService = new VoteService(unitOfWorkMock.Object, postsRepoMock.Object, votesRepoMock.Object);
+            var voteService = new VoteService(unitOfWorkMock.Object, votesRepoMock.Object, postsRepoMock.Object);
 
             // Act
-            var result = voteService.GetUserVoteTypeForPost(postId, "userid");
+            var result = voteService.GetUserVoteTypeForPost((Guid)vote.PostId, "userid");
 
             // Assert
             Assert.AreEqual(VoteType.Upvote, result);
@@ -47,7 +44,7 @@ namespace GForum.Services.Tests
             var postsRepoMock = new Mock<IRepository<Post>>();
             var votesRepoMock = new Mock<IRepository<Vote>>();
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            var voteService = new VoteService(unitOfWorkMock.Object, postsRepoMock.Object, votesRepoMock.Object);
+            var voteService = new VoteService(unitOfWorkMock.Object, votesRepoMock.Object, postsRepoMock.Object);
 
             // Act
             var result = voteService.GetUserVoteTypeForPost(Guid.Empty, string.Empty);
@@ -60,14 +57,14 @@ namespace GForum.Services.Tests
         public void ToggleVote_ShouldAddNewVote_IfUseHasNotVotedOnPost()
         {
             // Arrange
-            var post = new Post { Id = new Guid(this.guidPattern.Replace('x', '1')) };
+            var post = new Post { Id = Guid.NewGuid() };
 
             var postsRepoMock = new Mock<IRepository<Post>>();
-            postsRepoMock.Setup(x => x.Query).Returns(new Post[] { post }.AsQueryable());
+            postsRepoMock.Setup(x => x.QueryAll).Returns(new Post[] { post }.AsQueryable());
 
             var votesRepoMock = new Mock<IRepository<Vote>>();
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            var voteService = new VoteService(unitOfWorkMock.Object, postsRepoMock.Object, votesRepoMock.Object);
+            var voteService = new VoteService(unitOfWorkMock.Object, votesRepoMock.Object, postsRepoMock.Object);
 
             // Act
             voteService.ToggleVote(post.Id, "userid", VoteType.Upvote);
@@ -88,7 +85,7 @@ namespace GForum.Services.Tests
             // Arrange
             var post = new Post
             {
-                Id = new Guid(this.guidPattern.Replace('x', '1')),
+                Id = Guid.NewGuid(),
                 VoteCount = 1,
             };
             var vote = new Vote
@@ -99,13 +96,13 @@ namespace GForum.Services.Tests
             };
 
             var postsRepoMock = new Mock<IRepository<Post>>();
-            postsRepoMock.Setup(x => x.Query).Returns(new Post[] { post }.AsQueryable());
+            postsRepoMock.Setup(x => x.QueryAll).Returns(new Post[] { post }.AsQueryable());
 
             var votesRepoMock = new Mock<IRepository<Vote>>();
-            votesRepoMock.Setup(x => x.Query).Returns(new Vote[] { vote }.AsQueryable());
+            votesRepoMock.Setup(x => x.QueryAll).Returns(new Vote[] { vote }.AsQueryable());
 
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            var voteService = new VoteService(unitOfWorkMock.Object, postsRepoMock.Object, votesRepoMock.Object);
+            var voteService = new VoteService(unitOfWorkMock.Object, votesRepoMock.Object, postsRepoMock.Object);
 
             // Act
             voteService.ToggleVote(post.Id, "userid", VoteType.Upvote);
@@ -125,7 +122,7 @@ namespace GForum.Services.Tests
             // Arrange
             var post = new Post
             {
-                Id = new Guid(this.guidPattern.Replace('x', '1')),
+                Id = Guid.NewGuid(),
                 VoteCount = 1,
             };
             var vote = new Vote
@@ -136,13 +133,13 @@ namespace GForum.Services.Tests
             };
 
             var postsRepoMock = new Mock<IRepository<Post>>();
-            postsRepoMock.Setup(x => x.Query).Returns(new Post[] { post }.AsQueryable());
+            postsRepoMock.Setup(x => x.QueryAll).Returns(new Post[] { post }.AsQueryable());
 
             var votesRepoMock = new Mock<IRepository<Vote>>();
-            votesRepoMock.Setup(x => x.Query).Returns(new Vote[] { vote }.AsQueryable());
+            votesRepoMock.Setup(x => x.QueryAll).Returns(new Vote[] { vote }.AsQueryable());
 
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            var voteService = new VoteService(unitOfWorkMock.Object, postsRepoMock.Object, votesRepoMock.Object);
+            var voteService = new VoteService(unitOfWorkMock.Object, votesRepoMock.Object, postsRepoMock.Object);
 
             // Act
             voteService.ToggleVote(post.Id, "userid", VoteType.Downvote);
@@ -173,14 +170,14 @@ namespace GForum.Services.Tests
             var votesRepoMock = new Mock<IRepository<Vote>>();
             var unitOfWorkMock = new Mock<IUnitOfWork>();
 
-            var voteService = new VoteService(unitOfWorkMock.Object, postsRepoMock.Object, votesRepoMock.Object);
-            
+            var voteService = new VoteService(unitOfWorkMock.Object, votesRepoMock.Object, postsRepoMock.Object);
+
             // Act
             voteService.ToggleVote(Guid.Empty, "userid", VoteType.Downvote);
 
             // Assert
-            postsRepoMock.VerifyGet(x => x.Query, Times.Once);
-            votesRepoMock.VerifyGet(x => x.Query, Times.Never);
+            postsRepoMock.VerifyGet(x => x.QueryAll, Times.Once);
+            votesRepoMock.VerifyGet(x => x.QueryAll, Times.Never);
             unitOfWorkMock.Verify(x => x.Complete(), Times.Never);
         }
     }

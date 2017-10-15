@@ -12,12 +12,15 @@
         columns.Add(c => c.Title);
         columns.Add(c => c.Author.UserName).Titled("Author");
         columns.Add(c => c.Posts.Count).Titled("Posts");
+
         columns.Add(c => c.CreatedOn).Titled("Created")
             .RenderValueAs(x => x.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now));
+
         columns.Add(c => c.DeletedOn).Titled("Deleted")
             .RenderValueAs(x => x.DeletedOn.Humanize(dateToCompareAgainst: DateTime.Now));
+
         columns.Add().Sanitized(false).Encoded(false).SetWidth(40)
-            .RenderValueAs(x => @<a href="@Url.Action("Delete")" class="glyphicon glyphicon-trash"></a>);
+            .RenderValueAs(x => !x.IsDeleted ? Html.Partial("_DeleteCategoryPartial", x.Id) : MvcHtmlString.Empty);
     }).WithPaging(10).Sortable(true).Selectable(false)
 </div>
 

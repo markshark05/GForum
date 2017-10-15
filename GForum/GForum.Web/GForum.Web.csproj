@@ -280,6 +280,7 @@
     <Content Include="Grid.mvc.readme" />
     <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\_AddCategoryPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\_DeleteCategoryPartial.cshtml" />
     <None Include="Properties\PublishProfiles\gforum-mvc - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />

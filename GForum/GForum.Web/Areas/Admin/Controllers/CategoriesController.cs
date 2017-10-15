@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using AutoMapper;
 using GForum.Services.Contracts;
 using GForum.Web.Areas.Admin.Models;
@@ -25,7 +26,7 @@ namespace GForum.Web.Areas.Admin.Controllers
         {
             var model = new AdminCategoriesViewModel
             {
-                CategoriesQueriable = this.categoryService.GetAll(),
+                CategoriesQueriable = this.categoryService.GetAll(true),
                 CategoryAdd = new CategoryAddViewModel()
             };
 
@@ -44,8 +45,18 @@ namespace GForum.Web.Areas.Admin.Controllers
             }
 
             var userId = this.User.Identity.GetUserId();
-            var post = this.categoryService
-                .Create(userId, model.Title);
+            this.categoryService.Create(userId, model.Title);
+
+            return RedirectToAction("Index");
+        }
+
+        // GET: /Admin/Categories/Delete
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Guid id)
+        {
+            this.categoryService.Delete(id);
 
             return RedirectToAction("Index");
         }

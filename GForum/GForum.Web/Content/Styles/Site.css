@@ -21,9 +21,16 @@ textarea {
     white-space: normal;
 }
 
-a.glyphicon {
-    text-decoration: none;
+button.glyphicon {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    color: #555;
 }
+
+    button.glyphicon:hover {
+        color: #000;
+    }
 
 .user-navabar-avatar {
     width: 35px;

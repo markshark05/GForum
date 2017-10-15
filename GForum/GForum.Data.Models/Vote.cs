@@ -1,10 +1,11 @@
 ﻿using System;
 using GForum.Common.Enums;
 using GForum.Data.Models.Abstract;
+using GForum.Data.Models.Contracts;
 
 namespace GForum.Data.Models
 {
-    public class Vote: Entity
+    public class Vote: Entity, IEntity, IEntityWithGuid
     {
         public VoteType VoteType { get; set; }
 

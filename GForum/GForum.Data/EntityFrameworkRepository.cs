@@ -16,10 +16,16 @@ namespace GForum.Data
             this.entities = context.Set<TEntity>();
         }
 
-        public IQueryable<TEntity> Query
+        public IQueryable<TEntity> QueryAll
         {
             get => this.entities
                 .Where(e => !e.IsDeleted)
+                .OrderByDescending(e => e.CreatedOn);
+        }
+
+        public IQueryable<TEntity> QueryAllWithDeletd
+        {
+            get => this.entities
                 .OrderByDescending(e => e.CreatedOn);
         }
 

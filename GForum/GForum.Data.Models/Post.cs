@@ -8,7 +8,7 @@ using GForum.Data.Models.Contracts;
 
 namespace GForum.Data.Models
 {
-    public class Post : Entity, IEntity
+    public class Post : Entity, IEntity, IEntityWithGuid
     {
         public Post()
         {

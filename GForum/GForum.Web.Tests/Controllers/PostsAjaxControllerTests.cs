@@ -25,7 +25,7 @@ namespace GForum.Web.Tests.Controllers
             var categoryServiceMock = new Mock<ICategoryService>();
             var postServiceMock = new Mock<IPostService>();
             postServiceMock
-                .Setup(x => x.GetById(It.Is<Guid>(g => g == post.Id)))
+                .Setup(x => x.GetById(It.Is<Guid>(g => g == post.Id), It.IsAny<bool>()))
                 .Returns(new Post[] { post }.AsQueryable());
 
             var voteServiceMock = new Mock<IVoteService>();
@@ -65,7 +65,7 @@ namespace GForum.Web.Tests.Controllers
             var categoryServiceMock = new Mock<ICategoryService>();
             var postServiceMock = new Mock<IPostService>();
             postServiceMock
-                .Setup(x => x.GetById(It.Is<Guid>(g => g == post.Id)))
+                .Setup(x => x.GetById(It.Is<Guid>(g => g == post.Id), It.IsAny<bool>()))
                 .Returns(new Post[] { post }.AsQueryable());
 
             var voteServiceMock = new Mock<IVoteService>();
@@ -104,7 +104,7 @@ namespace GForum.Web.Tests.Controllers
             var categoryServiceMock = new Mock<ICategoryService>();
             var postServiceMock = new Mock<IPostService>();
             postServiceMock
-                .Setup(x => x.GetById(It.Is<Guid>(g => g == post.Id)))
+                .Setup(x => x.GetById(It.Is<Guid>(g => g == post.Id), It.IsAny<bool>()))
                 .Returns(new Post[] { post }.AsQueryable());
 
             var voteServiceMock = new Mock<IVoteService>();
@@ -143,7 +143,7 @@ namespace GForum.Web.Tests.Controllers
             var categoryServiceMock = new Mock<ICategoryService>();
             var postServiceMock = new Mock<IPostService>();
             postServiceMock
-                .Setup(x => x.GetById(It.Is<Guid>(g => g == post.Id)))
+                .Setup(x => x.GetById(It.Is<Guid>(g => g == post.Id), It.IsAny<bool>()))
                 .Returns(new Post[] { post }.AsQueryable());
 
             var voteServiceMock = new Mock<IVoteService>();
@@ -180,7 +180,7 @@ namespace GForum.Web.Tests.Controllers
             var categoryServiceMock = new Mock<ICategoryService>();
             var postServiceMock = new Mock<IPostService>();
             postServiceMock
-                .Setup(x => x.GetById(It.Is<Guid>(g => g == post.Id)))
+                .Setup(x => x.GetById(It.Is<Guid>(g => g == post.Id), It.IsAny<bool>()))
                 .Returns(new Post[] { post }.AsQueryable());
 
             var voteServiceMock = new Mock<IVoteService>();
