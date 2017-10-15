@@ -6,7 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GForum.Data
 {
-    internal class DbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    internal class DbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
