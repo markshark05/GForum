@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using AutoMapper;
 using GForum.Services.Contracts;
-using GForum.Web.Areas.Admin.Models;
+using GForum.Web.Areas.Admin.Models.Categories;
 using Microsoft.AspNet.Identity;
 
 namespace GForum.Web.Areas.Admin.Controllers
@@ -24,7 +24,7 @@ namespace GForum.Web.Areas.Admin.Controllers
         // GET: /Admin/Categories
         public ActionResult Index()
         {
-            var model = new AdminCategoriesViewModel
+            var model = new CategoriesViewModel
             {
                 CategoriesQueriable = this.categoryService.GetAll(true),
                 CategoryAdd = new CategoryAddViewModel()
@@ -57,6 +57,17 @@ namespace GForum.Web.Areas.Admin.Controllers
         public ActionResult Delete(Guid id)
         {
             this.categoryService.Delete(id);
+
+            return RedirectToAction("Index");
+        }
+
+        // GET: /Admin/Categories/Restore
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Restore(Guid id)
+        {
+            this.categoryService.Restore(id);
 
             return RedirectToAction("Index");
         }

@@ -2,8 +2,7 @@
 using System.Web.Mvc;
 using AutoMapper;
 using GForum.Services.Contracts;
-using GForum.Web.Areas.Admin.Models;
-using Microsoft.AspNet.Identity;
+using GForum.Web.Areas.Admin.Models.Posts;
 
 namespace GForum.Web.Areas.Admin.Controllers
 {
@@ -21,10 +20,10 @@ namespace GForum.Web.Areas.Admin.Controllers
             this.mapper = mapper;
         }
 
-        // GET: /Admin/Categories
+        // GET: /Admin/Posts
         public ActionResult Index()
         {
-            var model = new AdminPostsViewModel
+            var model = new PostsViewModel
             {
                 PostsQueriable = this.postService.GetAll(true),
             };
@@ -32,15 +31,26 @@ namespace GForum.Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        //// GET: /Admin/Categories/Delete
-        //[HttpPost]
-        //[Authorize]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(Guid id)
-        //{
-        //    this.postService.Delete(id);
+        // GET: /Admin/Posts/Delete
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Guid id)
+        {
+            this.postService.Delete(id);
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
+
+        // GET: /Admin/Posts/Restore
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Restore(Guid id)
+        {
+            this.postService.Restore(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,0 +1,23 @@
+﻿@using GForum.Web.Areas.Admin.Models.Shared
+@model BtnPartialViewModel
+
+@using (Html.BeginForm(Model.Action, Model.Controller, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.Id">
+    switch (Model.Action)
+    {
+        case "Delete":
+            <button type="submit"
+                    title="Delete"
+                    class="admin-btn glyphicon glyphicon-remove"
+                    data-message="Are you sure you want to remove this item."></button>
+            break;
+        case "Restore":
+            <button type="submit"
+                    title="Restore"
+                    class="admin-btn glyphicon glyphicon-repeat"
+                    data-message="Are you sure you want to restore this item."></button>
+            break;
+    }
+}

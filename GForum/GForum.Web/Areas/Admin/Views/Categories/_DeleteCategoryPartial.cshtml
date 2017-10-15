@@ -1,8 +1,0 @@
-﻿@model Guid
-
-@using (Html.BeginForm("Delete", "Categories", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    <input type="hidden" name="id" value="@Model">
-    <button type="submit" title="Delete" class="category-delete-btn glyphicon glyphicon-trash"></button>
-}

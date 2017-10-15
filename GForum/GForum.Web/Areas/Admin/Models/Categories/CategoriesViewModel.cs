@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using GForum.Data.Models;
 
-namespace GForum.Web.Areas.Admin.Models
+namespace GForum.Web.Areas.Admin.Models.Categories
 {
-    public class AdminCategoriesViewModel
+    public class CategoriesViewModel
     {
         public CategoryAddViewModel CategoryAdd { get; set; }
 

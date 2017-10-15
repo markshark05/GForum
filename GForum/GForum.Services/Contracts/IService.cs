@@ -12,5 +12,7 @@ namespace GForum.Services.Contracts
         IQueryable<TEntity> GetById(Guid id, bool includeDeleted = false);
 
         void Delete(Guid id);
+
+        void Restore(Guid id);
     }
 }

@@ -65,5 +65,22 @@ namespace GForum.Services.Abstract
             this.repository.Remove(entity);
             this.unitOfWork.Complete();
         }
+
+        public void Restore(Guid id)
+        {
+            var entity = this.repository
+                .QueryAllWithDeletd
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            entity.IsDeleted = false;
+            entity.DeletedOn = null;
+            this.unitOfWork.Complete();
+        }
     }
 }

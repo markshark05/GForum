@@ -1,31 +1,47 @@
 ﻿@using GridMvc.Html
-@using GForum.Web.Areas.Admin.Models
-@model AdminCategoriesViewModel
+@using GForum.Web.Areas.Admin.Models.Categories
+@using GForum.Web.Areas.Admin.Models.Shared
+@model CategoriesViewModel
 
 <div class="card">
     <h2>Manage categories</h2>
 
+    <hr />
     @Html.Partial("_AddCategoryPartial", Model.CategoryAdd)
+    <hr />
 
     @Html.Grid(Model.CategoriesQueriable).Columns(columns =>
     {
-        columns.Add(c => c.Title);
+        columns.Add(c => c.Title)
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(x => !x.IsDeleted ?
+                Html.ActionLink(x.Title, "Category", "Categories", new { area = "", id = x.Id }, null) :
+                MvcHtmlString.Create(x.Title));
+
         columns.Add(c => c.Author.UserName).Titled("Author");
         columns.Add(c => c.Posts.Count).Titled("Posts");
 
-        columns.Add(c => c.CreatedOn).Titled("Created")
+        columns.Add(c => c.CreatedOn)
+            .Titled("Created")
             .RenderValueAs(x => x.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now));
 
-        columns.Add(c => c.DeletedOn).Titled("Deleted")
+        columns.Add(c => c.DeletedOn)
+            .Titled("Deleted")
             .RenderValueAs(x => x.DeletedOn.Humanize(dateToCompareAgainst: DateTime.Now));
 
-        columns.Add().Sanitized(false).Encoded(false).SetWidth(40)
-            .RenderValueAs(x => !x.IsDeleted ? Html.Partial("_DeleteCategoryPartial", x.Id) : MvcHtmlString.Empty);
+        columns.Add()
+            .Sanitized(false)
+            .Encoded(false)
+            .SetWidth(40)
+            .RenderValueAs(x => !x.IsDeleted ?
+                Html.Partial("_BtnPartial", new BtnPartialViewModel { Controller = "Categories", Action = "Delete", Id = x.Id }) :
+                Html.Partial("_BtnPartial", new BtnPartialViewModel { Controller = "Categories", Action = "Restore", Id = x.Id }));
     }).WithPaging(10).Sortable(true).Selectable(false)
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/gridmvc")
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/Site/Admin/delete-controller.js")
+    @Scripts.Render("~/Scripts/Site/Admin/btn-controller.js")
 }

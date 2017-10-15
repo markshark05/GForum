@@ -1,27 +1,58 @@
 ﻿@using GridMvc.Html
-@using GForum.Web.Areas.Admin.Models
-@model AdminPostsViewModel
+@using GForum.Web.Areas.Admin.Models.Posts
+@using GForum.Web.Areas.Admin.Models.Shared
+@model PostsViewModel
 
 <div class="card">
     <h2>Manage posts</h2>
 
+    <hr />
+
     @Html.Grid(Model.PostsQueriable).Columns(columns =>
     {
-        columns.Add(c => c.Title).RenderValueAs(x => x.Title.Truncate(20));
-        columns.Add(c => c.Content).RenderValueAs(x => x.Content.Truncate(20));
-        columns.Add(c => c.Author.UserName).Titled("Author");
-        columns.Add(c => c.Category.Title).Titled("Category");
+        columns.Add(c => c.Title)
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(x => !x.IsDeleted ?
+                Html.ActionLink(x.Title, "Post", "Posts", new { area = "", id = x.Id }, null) :
+                MvcHtmlString.Create(x.Title));
 
-        columns.Add(c => c.CreatedOn).Titled("Created")
+        columns.Add(c => c.Content)
+            .RenderValueAs(x => x.Content.Truncate(25));
+
+        columns.Add(c => c.VoteCount)
+            .Titled("Votes");
+
+        columns.Add(c => c.Author.UserName)
+            .Titled("Author");
+
+        columns.Add(c => c.Category.Title)
+            .Titled("Category")
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(x => !x.Category.IsDeleted ?
+                Html.ActionLink(x.Category.Title, "Category", "Categories", new { area = "", id = x.Category.Id }, null) :
+                MvcHtmlString.Create(x.Category.Title));
+
+        columns.Add(c => c.CreatedOn)
+            .Titled("Created")
             .RenderValueAs(x => x.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now));
 
-        columns.Add(c => c.DeletedOn).Titled("Deleted")
+        columns.Add(c => c.DeletedOn)
+            .Titled("Deleted")
             .RenderValueAs(x => x.DeletedOn.Humanize(dateToCompareAgainst: DateTime.Now));
+
+        columns.Add()
+            .Sanitized(false)
+            .Encoded(false)
+            .RenderValueAs(x => !x.IsDeleted ?
+                Html.Partial("_BtnPartial", new BtnPartialViewModel { Controller = "Posts", Action = "Delete", Id = x.Id }) :
+                Html.Partial("_BtnPartial", new BtnPartialViewModel { Controller = "Posts", Action = "Restore", Id = x.Id }));
 
     }).WithPaging(10).Sortable(true).Selectable(false)
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/gridmvc")
-    @Scripts.Render("~/Scripts/Site/Admin/delete-controller.js")
+    @Scripts.Render("~/Scripts/Site/Admin/btn-controller.js")
 }
