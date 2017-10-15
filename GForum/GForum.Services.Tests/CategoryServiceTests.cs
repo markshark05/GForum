@@ -14,9 +14,10 @@ namespace GForum.Services.Tests
         {
             // Arrange
             var repositoryMock = new Mock<IRepository<Category>>();
+            var postRepositoryMock = new Mock<IRepository<Post>>();
             var unitOfWorkMock = new Mock<IUnitOfWork>();
 
-            var postService = new CategoryService(unitOfWorkMock.Object, repositoryMock.Object);
+            var postService = new CategoryService(unitOfWorkMock.Object, repositoryMock.Object, postRepositoryMock.Object);
 
             // Act
             var result = postService.Create("userid", "title");

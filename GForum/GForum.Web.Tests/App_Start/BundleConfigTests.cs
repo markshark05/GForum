@@ -21,6 +21,7 @@ namespace GForum.Web.Tests.App_Start
             Assert.IsTrue(bundles.Any(x => x.Path == "~/bundles/jqueryval"));
             Assert.IsTrue(bundles.Any(x => x.Path == "~/bundles/modernizr"));
             Assert.IsTrue(bundles.Any(x => x.Path == "~/bundles/bootstrap"));
+            Assert.IsTrue(bundles.Any(x => x.Path == "~/bundles/bootbox"));
             Assert.IsTrue(bundles.Any(x => x.Path == "~/bundles/toastr"));
             Assert.IsTrue(bundles.Any(x => x.Path == "~/Content/Styles/all"));
         }

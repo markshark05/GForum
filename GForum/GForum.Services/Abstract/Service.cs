@@ -50,7 +50,7 @@ namespace GForum.Services.Abstract
             }
         }
 
-        public void Delete(Guid id)
+        public virtual void Delete(Guid id)
         {
             var entity = this.repository
                 .QueryAll

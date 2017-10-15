@@ -21,6 +21,9 @@ namespace GForum.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/bootbox").Include(
+                      "~/Scripts/bootbox.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
                       "~/Scripts/toastr.js",
                       "~/Scripts/Site/toastr-config.js"));

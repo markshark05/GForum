@@ -44,7 +44,7 @@
 </div>
 
 @section Scripts {
-    <script src="~/Scripts/Site/votes-controller.js"></script>
-    <script src="~/Scripts/Site/edit-controller.js"></script>
-    <script src="~/Scripts/Site/delete-controller.js"></script>
+    @Scripts.Render("~/Scripts/Site/votes-controller.js")
+    @Scripts.Render("~/Scripts/Site/edit-controller.js")
+    @Scripts.Render("~/Scripts/Site/delete-controller.js")
 }
