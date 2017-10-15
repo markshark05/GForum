@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Net.Http;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
 using GForum.Data.Models;
 using GForum.Web.Contracts.Identity;
 using GForum.Web.Controllers;
@@ -234,23 +237,35 @@ namespace GForum.Web.Tests.Controllers
         }
 
         [Test]
-        public void GetEmail_ShouldCallGetEmailAsync()
+        public void UserAvatar_ShouldQueryUsersAndRerurnResult()
         {
             // Arrange
             var signInManagerMock = new Mock<IApplicationSignInManager>();
             var authManagerMock = new Mock<IAuthenticationManager>();
             var userManagerMock = new Mock<IApplicationUserManager>();
 
+            var identityMock = new Mock<IIdentity>();
+            var principalMock = new Mock<IPrincipal>();
+            principalMock.Setup(x => x.Identity).Returns(identityMock.Object);
+            var httpContext = new Mock<HttpContextBase>();
+            httpContext.Setup(x => x.User).Returns(principalMock.Object);
+            var contextMock = new Mock<ControllerContext>();
+            contextMock.Setup(x => x.HttpContext).Returns(httpContext.Object);
+
             var controller = new AccountController(
                 userManagerMock.Object,
                 signInManagerMock.Object,
-                authManagerMock.Object);
+                authManagerMock.Object)
+            {
+                ControllerContext = contextMock.Object
+            };
 
             // Act
-            var result = controller.GetEmail("id");
+            var result = controller.UserAvatar();
 
             // Assert
-            userManagerMock.Verify(x => x.GetEmailAsync(It.Is<string>(s => s == "id")), Times.Once);
+            userManagerMock.Verify(x => x.Users, Times.Once);
+            Assert.IsInstanceOf<ActionResult>(result);
         }
     }
 }

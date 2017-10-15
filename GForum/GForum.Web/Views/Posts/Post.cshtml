@@ -40,7 +40,10 @@
                 <div class="content" data-raw-content="@Model.Content">@Html.MarkdownToHtml(Model.Content)</div>
             </div>
         </div>
-        @Html.Partial("../Comments/_CommentAddPartial", Model.AddComment)
+        @if (Request.IsAuthenticated)
+        {
+            @Html.Partial("../Comments/_CommentAddPartial", Model.AddComment)
+        }
         @foreach (var comment in Model.Comments)
         {
             <div class="card">

@@ -2,11 +2,7 @@
 
 @if (Request.IsAuthenticated)
 {
-    var userEmail = Html.Action(
-        "GetEmail",
-        "Account",
-        new { area = "", id = this.User.Identity.GetUserId() }).ToString();
-
+    
     using (Html.BeginForm(
         "LogOff",
         "Account",
@@ -15,14 +11,14 @@
         new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken();
-        @Html.GravatarImage(userEmail, size: 35, cssClass: "user-navabar-avatar")
+        @Html.Action("UserAvatar", "Account", new { area = "" })
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @Html.ActionLink(
                     $"Hello {User.Identity.GetUserName()}!",
-                    "Profile", 
+                    "Profile",
                     "Users",
-                    new { area = "", username = User.Identity.GetUserName() }, 
+                    new { area = "", username = User.Identity.GetUserName() },
                     null)
             </li>
             <li><a href="javascript:$('#logoutForm').submit()">Log off</a></li>

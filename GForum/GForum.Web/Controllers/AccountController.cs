@@ -6,6 +6,7 @@ using GForum.Web.Models.Account;
 using GForum.Data.Models;
 using Microsoft.Owin.Security;
 using GForum.Web.Contracts.Identity;
+using System.Linq;
 
 namespace GForum.Web.Controllers
 {
@@ -117,9 +118,19 @@ namespace GForum.Web.Controllers
         }
 
         [ChildActionOnly]
-        public string GetEmail(string id)
+        public ActionResult UserAvatar()
         {
-            return this.userManager.GetEmailAsync(id).Result;
+            var userId = this.User.Identity.GetUserId();
+            var user = this.userManager.Users
+                    .Where(x => x.Id == userId)
+                    .FirstOrDefault();
+
+            if (user == null)
+            {
+                return new EmptyResult();
+            }
+
+            return PartialView("_UserAvatarPartial", user.Email);
         }
     }
 }
