@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using AutoMapper;
 using GForum.Services.Contracts;
 using GForum.Web.Areas.Admin.Models.Posts;
 
@@ -10,14 +9,10 @@ namespace GForum.Web.Areas.Admin.Controllers
     public class PostsController : Controller
     {
         private readonly IPostService postService;
-        private readonly IMapper mapper;
 
-        public PostsController(
-            IPostService postService,
-            IMapper mapper)
+        public PostsController(IPostService postService)
         {
             this.postService = postService;
-            this.mapper = mapper;
         }
 
         // GET: /Admin/Posts

@@ -11,14 +11,10 @@ namespace GForum.Web.Areas.Admin.Controllers
     public class CategoriesController : Controller
     {
         private readonly ICategoryService categoryService;
-        private readonly IMapper mapper;
 
-        public CategoriesController(
-            ICategoryService categoryService,
-            IMapper mapper)
+        public CategoriesController(ICategoryService categoryService)
         {
             this.categoryService = categoryService;
-            this.mapper = mapper;
         }
 
         // GET: /Admin/Categories
