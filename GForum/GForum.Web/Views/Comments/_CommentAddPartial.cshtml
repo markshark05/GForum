@@ -1,0 +1,13 @@
+﻿@using GForum.Web.Models.Comments
+@model CommentAddViewModel
+
+<div class="card">
+    @using (Html.BeginForm("Comment", "Posts", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.PostId)
+        @Html.EditorFor(m => m.Content, new { htmlAttributes = 
+            new { @class = "comment form-control", placeholder = "Comment..." } })
+        <button class="btn btn-primary" type="submit">Comment</button>
+    }
+</div>

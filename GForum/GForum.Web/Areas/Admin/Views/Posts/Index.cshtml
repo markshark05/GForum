@@ -21,7 +21,10 @@
             .RenderValueAs(x => x.Content.Truncate(25));
 
         columns.Add(c => c.VoteCount)
-            .Titled("Votes");
+            .Titled("Vote score");
+
+        columns.Add(c => c.CommentCount)
+            .Titled("Comments");
 
         columns.Add(c => c.Author.UserName)
             .Titled("Author");

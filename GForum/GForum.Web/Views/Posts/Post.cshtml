@@ -40,6 +40,14 @@
                 <div class="content" data-raw-content="@Model.Content">@Html.MarkdownToHtml(Model.Content)</div>
             </div>
         </div>
+        @Html.Partial("../Comments/_CommentAddPartial", Model.AddComment)
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="card">
+                <p class="text-muted">@Html.Partial("_SubmittedByPartial", comment)</p>
+                <div class="content">@Html.MarkdownToHtml(comment.Content)</div>
+            </div>
+        }
     </div>
 </div>
 

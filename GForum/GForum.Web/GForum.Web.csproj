@@ -243,6 +243,8 @@
     <Compile Include="Contracts\Identity\IApplicationUserManager.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
+    <Compile Include="Models\Comments\CommentAddViewModel.cs" />
+    <Compile Include="Models\Comments\CommentViewModel.cs" />
     <Compile Include="Models\Shared\AuthorViewModel.cs" />
     <Compile Include="Models\Categories\CategoryWithPostsViewModel.cs" />
     <Compile Include="Models\Categories\CategoryViewModel.cs" />
@@ -338,6 +340,7 @@
     <Content Include="Views\Shared\_SubmittedByPartial.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Comments\_CommentAddPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

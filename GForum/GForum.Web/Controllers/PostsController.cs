@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using GForum.Services.Contracts;
 using GForum.Web.Contracts.Identity;
+using GForum.Web.Models.Comments;
 using GForum.Web.Models.Posts;
 using Microsoft.AspNet.Identity;
 
@@ -15,6 +16,7 @@ namespace GForum.Web.Controllers
         private readonly ICategoryService categoryService;
         private readonly IPostService postService;
         private readonly IVoteService voteService;
+        private readonly ICommentService commentService;
         private readonly IApplicationUserManager userManager;
         private readonly IMapper mapper;
 
@@ -22,12 +24,14 @@ namespace GForum.Web.Controllers
             ICategoryService categoryService,
             IPostService postService,
             IVoteService voteService,
+            ICommentService commentService,
             IApplicationUserManager userManager,
             IMapper mapper)
         {
             this.categoryService = categoryService;
             this.postService = postService;
             this.voteService = voteService;
+            this.commentService = commentService;
             this.userManager = userManager;
             this.mapper = mapper;
         }
@@ -94,6 +98,32 @@ namespace GForum.Web.Controllers
                 .Submit(model.CategoryId, userId, model.Title, model.Content);
 
             return RedirectToAction("Post", new { id = post.Id });
+        }
+
+        // POST: /Posts/Comment {Model}
+        [HttpPost]
+        [Authorize]
+        [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Comment(CommentAddViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var post = this.postService.GetById(model.PostId)
+                .FirstOrDefault();
+
+            if (post == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var userId = this.User.Identity.GetUserId();
+            this.commentService.AddCommentToPost(model.PostId, userId, model.Content);
+
+            return RedirectToAction("Post", new { id = model.PostId });
         }
     }
 }

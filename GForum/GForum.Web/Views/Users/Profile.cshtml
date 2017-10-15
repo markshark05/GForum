@@ -14,7 +14,10 @@
             <section class="text-muted">
                 <h4>@(Model.Email ?? "No email provied.")</h4>
                 <h4>Member since @Model.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now).</h4>
-                <h4>Has created @("post".ToQuantity(Model.PostsCount)) and @("category".ToQuantity(Model.CategoriesCount)).</h4>
+                <h4>Has submitted 
+                    @("post".ToQuantity(Model.PostsCount)),
+                    @("comment".ToQuantity(Model.PostsCount)) and 
+                    @("category".ToQuantity(Model.CategoriesCount)).</h4>
                 @if (User.Identity.GetUserId() == Model.Id)
                 {
                     @Html.ActionLink("Manage account", "Index", "Manage", null,

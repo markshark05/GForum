@@ -13,6 +13,7 @@ namespace GForum.Data.Models
         {
             this.Posts = new HashSet<Post>();
             this.Categories = new HashSet<Category>();
+            this.Comments = new HashSet<Comment>();
         }
 
         [Index]
@@ -27,5 +28,7 @@ namespace GForum.Data.Models
         public virtual ICollection<Post> Posts { get; set; }
 
         public virtual ICollection<Category> Categories { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

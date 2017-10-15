@@ -56,6 +56,7 @@
     <Compile Include="Abstract\Entity.cs" />
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="Comment.cs" />
     <Compile Include="Contracts\IEntity.cs" />
     <Compile Include="Contracts\IEntityWithGuid.cs" />
     <Compile Include="Post.cs" />

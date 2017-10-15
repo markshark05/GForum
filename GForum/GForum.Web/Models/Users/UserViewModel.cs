@@ -16,6 +16,8 @@ namespace GForum.Web.Models.Users
 
         public int CategoriesCount { get; set; }
 
+        public int CommentsCount { get; set; }
+
         public DateTime CreatedOn { get; set; }
     }
 }

@@ -43,9 +43,11 @@
   <ItemGroup>
     <Compile Include="Abstract\Service.cs" />
     <Compile Include="CategoryService.cs" />
+    <Compile Include="CommentService.cs" />
     <Compile Include="Contracts\ICategoryService.cs" />
     <Compile Include="Contracts\IPostService.cs" />
     <Compile Include="Contracts\IService.cs" />
+    <Compile Include="Contracts\ICommentService.cs" />
     <Compile Include="Contracts\IVoteService.cs" />
     <Compile Include="PostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

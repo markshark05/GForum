@@ -13,6 +13,7 @@ namespace GForum.Data.Models
         public Post()
         {
             this.Votes = new HashSet<Vote>();
+            this.Comments = new HashSet<Comment>();
         }
 
         [Index]
@@ -25,6 +26,8 @@ namespace GForum.Data.Models
 
         public int VoteCount { get; set; }
 
+        public int CommentCount { get; set; }
+
         public DateTime? EditedOn { get; set; }
 
         public string AuthorId { get; set; }
@@ -34,5 +37,7 @@ namespace GForum.Data.Models
         public virtual Category Category { get; set; }
 
         public virtual ICollection<Vote> Votes { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }
