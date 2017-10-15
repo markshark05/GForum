@@ -35,11 +35,12 @@ namespace GForum.Services
             var comment = new Comment
             {
                 AuthorId = userId,
+                PostId = postId,
                 Content = content,
             };
 
-            post.Comments.Add(comment);
             post.CommentCount++;
+            this.repository.Add(comment);
             this.unitOfWork.Complete();
         }
     }
