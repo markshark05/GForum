@@ -1,17 +1,16 @@
 ﻿@using GridMvc.Html
 @using GForum.Web.Areas.Admin.Models
-@model AdminCategoriesViewModel
+@model AdminPostsViewModel
 
 <div class="card">
-    <h2>Manage categories</h2>
+    <h2>Manage posts</h2>
 
-    @Html.Partial("_AddCategoryPartial", Model.CategoryAdd)
-
-    @Html.Grid(Model.CategoriesQueriable).Columns(columns =>
+    @Html.Grid(Model.PostsQueriable).Columns(columns =>
     {
-        columns.Add(c => c.Title);
+        columns.Add(c => c.Title).RenderValueAs(x => x.Title.Truncate(20));
+        columns.Add(c => c.Content).RenderValueAs(x => x.Content.Truncate(20));
         columns.Add(c => c.Author.UserName).Titled("Author");
-        columns.Add(c => c.Posts.Count).Titled("Posts");
+        columns.Add(c => c.Category.Title).Titled("Category");
 
         columns.Add(c => c.CreatedOn).Titled("Created")
             .RenderValueAs(x => x.CreatedOn.Humanize(dateToCompareAgainst: DateTime.Now));
@@ -19,13 +18,10 @@
         columns.Add(c => c.DeletedOn).Titled("Deleted")
             .RenderValueAs(x => x.DeletedOn.Humanize(dateToCompareAgainst: DateTime.Now));
 
-        columns.Add().Sanitized(false).Encoded(false).SetWidth(40)
-            .RenderValueAs(x => !x.IsDeleted ? Html.Partial("_DeleteCategoryPartial", x.Id) : MvcHtmlString.Empty);
     }).WithPaging(10).Sortable(true).Selectable(false)
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/gridmvc")
-    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/Site/Admin/delete-controller.js")
 }

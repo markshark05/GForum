@@ -214,8 +214,10 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
     <Compile Include="Areas\Admin\Models\AddCategoryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\AdminCategoriesViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\AdminPostsViewModel.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\PostsAjaxController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
@@ -282,6 +284,7 @@
     <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\_AddCategoryPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\_DeleteCategoryPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Posts\Index.cshtml" />
     <None Include="Properties\PublishProfiles\gforum-mvc - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
@@ -298,6 +301,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site\Admin\delete-controller.js" />
     <Content Include="Scripts\Site\delete-controller.js" />
     <Content Include="Scripts\Site\edit-controller.js" />
     <Content Include="Scripts\Site\votes-controller.js" />
