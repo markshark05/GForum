@@ -99,10 +99,7 @@ namespace GForum.Services.Tests.Abstracts
         {
             // Arrange
             var entity = new Entitity_Fake { Id = Guid.NewGuid() };
-            var entities = new[] {
-                entity,
-                new Entitity_Fake { Id = Guid.NewGuid() }
-            }.AsQueryable();
+            var entities = new[] { entity }.AsQueryable();
 
             var repositoryMock = new Mock<IRepository<Entitity_Fake>>();
             repositoryMock.SetupGet(x => x.QueryAll).Returns(entities);
@@ -116,6 +113,67 @@ namespace GForum.Services.Tests.Abstracts
             // Assert
             repositoryMock.Verify(x => x.Remove(It.Is<Entitity_Fake>(y => y == entity)), Times.Once);
             unitOfWorkMock.Verify(x => x.Complete(), Times.Once);
+        }
+
+        [Test]
+        public void Delete_ShouldNotSaveChanges_WhenThereIsNothingToDelete()
+        {
+            // Arrange
+            var entity = new Entitity_Fake { Id = Guid.NewGuid() };
+            var entities = new Entitity_Fake[0].AsQueryable();
+
+            var repositoryMock = new Mock<IRepository<Entitity_Fake>>();
+            repositoryMock.SetupGet(x => x.QueryAll).Returns(entities);
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
+
+            var postService = new Service_Fake(unitOfWorkMock.Object, repositoryMock.Object);
+
+            // Act
+            postService.Delete(entity.Id);
+
+            // Assert
+            unitOfWorkMock.Verify(x => x.Complete(), Times.Never);
+        }
+
+        [Test]
+        public void Restore_ShouldCallRepositoryRestoreAndSaveChanges()
+        {
+            // Arrange
+            var entity = new Entitity_Fake { Id = Guid.NewGuid() };
+            var entities = new[] { entity }.AsQueryable();
+
+            var repositoryMock = new Mock<IRepository<Entitity_Fake>>();
+            repositoryMock.SetupGet(x => x.QueryAllWithDeletd).Returns(entities);
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
+
+            var postService = new Service_Fake(unitOfWorkMock.Object, repositoryMock.Object);
+
+            // Act
+            postService.Restore(entity.Id);
+
+            // Assert
+            repositoryMock.Verify(x => x.Restore(It.Is<Entitity_Fake>(y => y == entity)), Times.Once);
+            unitOfWorkMock.Verify(x => x.Complete(), Times.Once);
+        }
+
+        [Test]
+        public void Restore_ShouldNotSaveChanges_WhenThereIsNothingToDelete()
+        {
+            // Arrange
+            var entity = new Entitity_Fake { Id = Guid.NewGuid() };
+            var entities = new Entitity_Fake[0].AsQueryable();
+
+            var repositoryMock = new Mock<IRepository<Entitity_Fake>>();
+            repositoryMock.SetupGet(x => x.QueryAllWithDeletd).Returns(entities);
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
+
+            var postService = new Service_Fake(unitOfWorkMock.Object, repositoryMock.Object);
+
+            // Act
+            postService.Restore(entity.Id);
+
+            // Assert
+            unitOfWorkMock.Verify(x => x.Complete(), Times.Never);
         }
     }
 }

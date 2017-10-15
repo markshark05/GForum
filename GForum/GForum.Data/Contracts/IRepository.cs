@@ -11,5 +11,7 @@ namespace GForum.Data.Contracts
         void Add(TEntity entity);
 
         void Remove(TEntity entity);
+
+        void Restore(TEntity entity);
     }
 }

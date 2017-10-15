@@ -39,5 +39,11 @@ namespace GForum.Data
             entity.IsDeleted = true;
             entity.DeletedOn = DateTime.Now;
         }
+
+        public void Restore(TEntity entity)
+        {
+            entity.IsDeleted = false;
+            entity.DeletedOn = null;
+        }
     }
 }
