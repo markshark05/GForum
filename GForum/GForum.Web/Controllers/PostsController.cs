@@ -40,7 +40,7 @@ namespace GForum.Web.Controllers
         public ActionResult Post(Guid id)
         {
             var post = this.postService.GetById(id)
-                .Select(this.mapper.Map<PostViewModel>)
+                .Select(this.mapper.Map<PostDetailsViewModel>)
                 .FirstOrDefault();
 
             if (post == null)

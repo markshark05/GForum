@@ -39,5 +39,21 @@ namespace GForum.Services
 
             this.unitOfWork.Complete();
         }
+
+        public IQueryable<Post> GetRecent(int count)
+        {
+            return this.repository
+                .QueryAll
+                .OrderByDescending(x => x.CreatedOn)
+                .Take(count);
+        }
+
+        public IQueryable<Post> GetTopRated(int count)
+        {
+            return this.repository
+                .QueryAll
+                .OrderByDescending(x => x.VoteCount)
+                .Take(count);
+        }
     }
 }

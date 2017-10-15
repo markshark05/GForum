@@ -49,7 +49,7 @@ button.glyphicon {
 /*Forum*/
 .card {
     padding: 15px 20px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     background-color: white;
     border: 1px solid #dddddd;
     border-radius: 4px;
@@ -79,6 +79,11 @@ button.glyphicon {
         .card .content p {
             margin: 5px 0;
         }
+
+.card-home {
+   background-color: #eee;
+}
+
 
 .comment.form-control {
     min-height: 50px;

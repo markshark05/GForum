@@ -17,17 +17,7 @@
     <div class="col-xs-12">
         @foreach (var post in Model.Posts)
         {
-            <div class="card">
-                @Html.Partial("_VotesPartial", post)
-                <div style="margin-left:40px">
-                    <h4 class="title-one-line">
-                        @Html.ActionLink(post.Title, "Post", "Posts", new { id = post.Id }, null)
-                    </h4>
-                    <p class="text-muted">
-                        @Html.Partial("_SubmittedByPartial", post)
-                    </p>
-                </div>
-            </div>
+            @Html.Partial("../Posts/_PostListItemPartial", post)
         }
     </div>
 </div>

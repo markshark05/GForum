@@ -57,5 +57,35 @@ namespace GForum.Services.Tests
             Assert.AreEqual(post.Content, "newcontent");
             unitOfWorkMock.Verify(x => x.Complete(), Times.Once);
         }
+
+        [Test]
+        public void GetRecent_ShouldCallQueryAll()
+        {
+            // Arrange
+            var repositoryMock = new Mock<IRepository<Post>>();
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
+            var postService = new PostService(unitOfWorkMock.Object, repositoryMock.Object);
+
+            // Act
+            postService.GetRecent(5);
+
+            // Assert
+            repositoryMock.Verify(x => x.QueryAll, Times.Once);
+        }
+
+        [Test]
+        public void GetTopRated_ShouldCallQueryAll()
+        {
+            // Arrange
+            var repositoryMock = new Mock<IRepository<Post>>();
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
+            var postService = new PostService(unitOfWorkMock.Object, repositoryMock.Object);
+
+            // Act
+            postService.GetTopRated(5);
+
+            // Assert
+            repositoryMock.Verify(x => x.QueryAll, Times.Once);
+        }
     }
 }

@@ -1,0 +1,14 @@
+﻿@using GForum.Web.Models.Posts
+@model PostViewModel
+
+<div class="card">
+    @Html.Partial("_VotesPartial", Model)
+    <div style="margin-left:40px">
+        <h4 class="title-one-line">
+            @Html.ActionLink(Model.Title, "Post", "Posts", new { id = Model.Id }, null)
+        </h4>
+        <p class="text-muted">
+            @Html.Partial("_SubmittedByPartial", Model)
+        </p>
+    </div>
+</div>

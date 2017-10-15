@@ -1,8 +1,30 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@using GForum.Web.Models.Home
+@model HomeIndexViewModel
 
-<div class="jumbotron">
-    <h1>GForum</h1>
-    <p class="lead">Welcome to GForum!</p>
+<div class="card card-home">
+    <h1 class="text-center">GForum</h1>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h3 class="text-center">Recent posts</h3>
+            @foreach (var post in Model.RecentPosts)
+            {
+                @Html.Partial("../Posts/_PostListItemPartial", post)
+            }
+        </div>
+        <div class="col-sm-6">
+            <h3 class="text-center">Top rated posts</h3>
+            @foreach (var post in Model.TopRatedPosts)
+            {
+                @Html.Partial("../Posts/_PostListItemPartial", post)
+            }
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Site/votes-controller.js")
+}

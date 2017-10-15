@@ -245,11 +245,13 @@
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Comments\CommentAddViewModel.cs" />
     <Compile Include="Models\Comments\CommentViewModel.cs" />
+    <Compile Include="Models\Home\HomeIndexViewModel.cs" />
+    <Compile Include="Models\Posts\PostViewModel.cs" />
+    <Compile Include="Models\Posts\PostDetialsViewModel.cs" />
     <Compile Include="Models\Shared\AuthorViewModel.cs" />
     <Compile Include="Models\Categories\CategoryWithPostsViewModel.cs" />
     <Compile Include="Models\Categories\CategoryViewModel.cs" />
     <Compile Include="Models\Posts\PostSubmitViewModel.cs" />
-    <Compile Include="Models\Posts\PostViewModel.cs" />
     <Compile Include="Models\Shared\SubmittedByPartialViewModel.cs" />
     <Compile Include="Models\Manage\ChangeEmailViewModel.cs" />
     <Compile Include="Models\Manage\ChangePasswordViewModel.cs" />
@@ -335,12 +337,13 @@
     <Content Include="Views\Manage\ChangeEmail.cshtml" />
     <Content Include="Views\Posts\Post.cshtml" />
     <Content Include="Views\Posts\Submit.cshtml" />
-    <Content Include="Views\Shared\_MarkdownHelpPartial.cshtml" />
+    <Content Include="Views\Posts\_MarkdownHelpPartial.cshtml" />
     <Content Include="Views\Shared\_VotesPartial.cshtml" />
     <Content Include="Views\Shared\_SubmittedByPartial.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Comments\_CommentAddPartial.cshtml" />
+    <Content Include="Views\Posts\_PostListItemPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
