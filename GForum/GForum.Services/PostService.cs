@@ -53,6 +53,7 @@ namespace GForum.Services
             return this.repository
                 .QueryAll
                 .OrderByDescending(x => x.VoteCount)
+                .ThenByDescending(x => x.CreatedOn)
                 .Take(count);
         }
     }

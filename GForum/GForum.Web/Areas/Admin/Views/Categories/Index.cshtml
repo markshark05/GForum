@@ -16,8 +16,8 @@
             .Sanitized(false)
             .Encoded(false)
             .RenderValueAs(x => !x.IsDeleted ?
-                Html.ActionLink(x.Title, "Category", "Categories", new { area = "", id = x.Id }, null) :
-                MvcHtmlString.Create(x.Title));
+                Html.ActionLink(x.Title.Truncate(30), "Category", "Categories", new { area = "", id = x.Id }, null) :
+                MvcHtmlString.Create(x.Title.Truncate(30)));
 
         columns.Add(c => c.Author.UserName).Titled("Author");
         columns.Add(c => c.Posts.Count).Titled("Posts");

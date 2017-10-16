@@ -14,11 +14,11 @@
             .Sanitized(false)
             .Encoded(false)
             .RenderValueAs(x => !x.IsDeleted ?
-                Html.ActionLink(x.Title, "Post", "Posts", new { area = "", id = x.Id }, null) :
-                MvcHtmlString.Create(x.Title));
+                Html.ActionLink(x.Title.Truncate(30), "Post", "Posts", new { area = "", id = x.Id }, null) :
+                MvcHtmlString.Create(x.Title.Truncate(30)));
 
         columns.Add(c => c.Content)
-            .RenderValueAs(x => x.Content.Truncate(25));
+            .RenderValueAs(x => x.Content.Truncate(30));
 
         columns.Add(c => c.VoteCount)
             .Titled("Vote score");
