@@ -27,10 +27,10 @@ test_script:
       -output:".\coverage.xml"
   - ps: GForum\packages\Codecov.1.0.3\tools\codecov.exe -f ".\coverage.xml"
 
-deploy:
-  provider: WebDeploy
-  server: https://gforum-mvc.scm.azurewebsites.net:443/msdeploy.axd?site=gforum-mvc
-  website: gforum-mvc
-  username: $gforum-mvc
-  password:
-    secure: M69u+JBNrtCkgyZpo6/OFYdU9i95TinkyWObdqXZafDKra2AYfNd4ucvOXpgOlxHMOxcOulhDIKRKm1EFbAAEw==
+# deploy:
+#   provider: WebDeploy
+#   server: https://gforum-mvc.scm.azurewebsites.net:443/msdeploy.axd?site=gforum-mvc
+#   website: gforum-mvc
+#   username: $gforum-mvc
+#   password:
+#     secure: M69u+JBNrtCkgyZpo6/OFYdU9i95TinkyWObdqXZafDKra2AYfNd4ucvOXpgOlxHMOxcOulhDIKRKm1EFbAAEw==
