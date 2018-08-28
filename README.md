@@ -4,7 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/v14wp6qcds8qmjxb?svg=true)](https://ci.appveyor.com/project/markshark05/gforum)
 [![codecov](https://codecov.io/gh/markshark05/GForum/branch/master/graph/badge.svg)](https://codecov.io/gh/markshark05/GForum)
 
-### Live demo: [gforum-mvc.azurewebsites.net](http://gforum-mvc.azurewebsites.net)
+### ~Live demo: [gforum-mvc.azurewebsites.net](http://gforum-mvc.azurewebsites.net)~ (Trial expired)
 
 GForum is a forum built with ASP.NET MVC
 
